@@ -1,18 +1,27 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+
+import TicTacToe from "./views/tictactoe/TicTacToe";
+import Connect4 from "./views/connect4/Connect4";
+import Q20 from "./views/q20/Q20";
+import Leaderboards from "./views/leaderboards/Leaderboards";
 
 class App extends Component {
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+          Arcade
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <main>
+          <h1>Interim Game Hub</h1>
+          <div>
+            <TicTacToe/>
+            <Connect4/>
+            <Q20/>
+            <Leaderboards/>
+          </div>
+        </main>
       </div>
     );
   }
