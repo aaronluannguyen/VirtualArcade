@@ -1,8 +1,30 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import PlayerController from './controllers/common/PlayerController';
 
 class App extends Component {
+  constructor(props){
+    super(props);
+  
+    this.state={
+      playerController: undefined,
+    }
+
+  }
+
+  componentDidMount() {
+    
+    this.setState({playerController: new PlayerController()});
+
+  }
+
+  componentWillUnmount() {
+
+    this.playerController.unmount();
+  
+  }
+
   render() {
     return (
       <div className="App">
