@@ -1,5 +1,5 @@
 import GameController from "../common/GameController";
-import {ALL_GAMES, GAME_TYPE_Q20} from "../common/Games";
+import {ALL_GAMES, GAME_TYPE_Q20, ContClass} from "../../models/common/Games";
 
 export default class Q20Controller extends GameController{
     
@@ -12,4 +12,4 @@ export default class Q20Controller extends GameController{
 };
 
 if(ALL_GAMES != undefined)
-    ALL_GAMES[GAME_TYPE_Q20] = Q20Controller;
+    ALL_GAMES[GAME_TYPE_Q20.gameTypeId][ContClass] = Q20Controller;
