@@ -3,6 +3,14 @@ import {ALL_GAMES, ContClass} from "../../models/common/Games"
 import {GameInfo} from "../../models/common/GameInfo"
 
 export default class GameChooser extends React.Component{
+
+    /**
+     * Provides UI (View) for user to select game they wish to play, informs them when they are waiting for a match and will provide
+     * the specific game view when a match is found
+     * @class GameChooser
+     * @extends React.Component
+     * @param props React Properties
+     */
     constructor(props){
         super(props);
         
@@ -10,12 +18,17 @@ export default class GameChooser extends React.Component{
         };
     }
 
+    /**
+     * handle click event from UI, creates a new game (MVC) controller
+     * @function GameChooser.handleClick
+     * @param {*} evt 
+     * @param {GameController} gameControllerClass 
+     */
     handleClick(evt, gameControllerClass){
         evt.preventDefault();
         
         this.props.playerInfo.newGame(gameControllerClass);
         
-        console.log("handled click")
     }
 
     componentWillUpdate(){
@@ -30,7 +43,7 @@ export default class GameChooser extends React.Component{
         {
             return (<div>Loading...</div>);
         }
-        else if(this.props.playerInfo.isWaiting()){
+        else if(this.props.playerInfo.isWaitingForMatch()){
             return (<div>Waiting for another player...</div>);
         }
         else if(this.props.playerInfo.isPlayingGame()){
