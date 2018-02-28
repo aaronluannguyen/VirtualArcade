@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import PlayerController from './controllers/common/PlayerController';
 import GameChooser from './views/common/GameChooser'
+
+import TicTacToe from "./views/tictactoe/TicTacToe";
+import Connect4 from "./views/connect4/Connect4";
+import Q20 from "./views/q20/Q20";
+import Leaderboards from "./views/leaderboards/Leaderboards";
 
 class App extends Component {
   constructor(props){
@@ -35,11 +39,24 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
+<<<<<<< HEAD
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">{this.state.playerController ? <div>{this.state.playerController.getName() }</div> : <div>Not yet logged In</div>}</h1>
         </header>
         <main>
           <GameChooser playerInfo={this.state.playerController}/>
+=======
+          Arcade
+        </header>
+        <main>
+          <h1>Interim Game Hub</h1>
+          <div>
+            <TicTacToe/>
+            <Connect4/>
+            <Q20/>
+            <Leaderboards/>
+          </div>
+>>>>>>> master
         </main>
       </div>
     );

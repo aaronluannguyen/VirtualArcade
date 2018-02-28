@@ -51,6 +51,18 @@ export default class GameChooser extends React.Component{
             return (<div>{this.props.playerInfo.isCurrentPlayer()?"Your turn":"Their turn"}</div>);
         }
         
+/*
+ *<main>
+          <h1>Interim Game Hub</h1>
+          <div>
+            <TicTacToe/>
+            <Connect4/>
+            <Q20/>
+            <Leaderboards/>
+          </div> 
+ * 
+ */
+
         return ( 
                 <div>
                     {Object.values(ALL_GAMES).map((game)=><button key={game.gameTypeId} onClick={(evt)=>this.handleClick(evt, game[ContClass])}>{game.name}</button>)}
