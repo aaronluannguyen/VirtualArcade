@@ -39,24 +39,11 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-<<<<<<< HEAD
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">{this.state.playerController ? <div>{this.state.playerController.getName() }</div> : <div>Not yet logged In</div>}</h1>
         </header>
         <main>
           <GameChooser playerInfo={this.state.playerController}/>
-=======
-          Arcade
-        </header>
-        <main>
-          <h1>Interim Game Hub</h1>
-          <div>
-            <TicTacToe/>
-            <Connect4/>
-            <Q20/>
-            <Leaderboards/>
-          </div>
->>>>>>> master
         </main>
       </div>
     );
