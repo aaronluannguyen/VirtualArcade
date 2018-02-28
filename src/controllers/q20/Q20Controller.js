@@ -12,7 +12,7 @@ export default class Q20Controller extends GameController{
      */
     constructor(playerController, gameInProgress=undefined){
         
-        super(GAME_TYPE_Q20, playerController, gameInProgress);
+        super(GAME_TYPE_Q20.gameTypeId, playerController, gameInProgress);
 
     }
 
