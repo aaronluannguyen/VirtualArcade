@@ -1,6 +1,6 @@
 import {PlayerToken, DIRECTIONS} from './PlayerToken';
 
-export class Grid{
+export default class Grid{
     constructor(dim, connectionsToWin){
         
         this.dim = dim;
@@ -11,14 +11,24 @@ export class Grid{
 
         for(let i=0; i<dim; i++){
             let row = [];
-            grid.push(row);
+            this.grid.push(row);
             for(let j=0; j<dim; j++){
                 row.push(null)
             }
         }
+
     }
 
     placeToken(x,y, playerId){
+        
+        if(x==undefined || y==undefined || playerId == undefined ||
+         x < 0 || y < 0 ||
+        x > this.lastIndex || y > this.lastIndex){
+            console.error("bad call to placeToken");
+            return;
+        }
+
+        console.log("placetoken, grid", this.grid, x, y)
 
         let newToken = new PlayerToken(playerId);
         this.grid[x][y] = newToken;
@@ -95,7 +105,7 @@ export class Grid{
         }//close row (i) loop
     
         //check for a win
-        return checkForWin(newToken);
+        return this.checkForWin(newToken);
     }
 
     //this is called from placeToken, it shouldnt need to be explicitly called
@@ -119,13 +129,13 @@ export class Grid{
             [DIRECTIONS.BL, DIRECTIONS.UR], 
         ];
 
-        for(let curDirection = 0; curDirection < winDirections.length; i++){
+        for(let curDirection = 0; curDirection < winDirections.length; curDirection++){
             
             //reset the current connection count whenever starting a new direction
             let currentConnectionCount = 0;
 
             //start from the specified PlayerToken
-            currentToken = fromToken;
+            let currentToken = fromToken;
 
             //prep for iterating linked list style connections between tokens
             let nextToken = null;

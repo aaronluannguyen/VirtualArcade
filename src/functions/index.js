@@ -3,6 +3,12 @@
  * @namespace cloudfunctions
  */
 
+
+/**@private*/
+const ONE_PLAYER_GAME = 1;
+const TWO_PLAYER_GAME = 2;
+
+
 const functions = require('firebase-functions');
 
 // The Firebase Admin SDK to access the Firebase Realtime Database.
@@ -17,8 +23,13 @@ const GAME_TYPE_Q20 = "Q20";
 
 //types of GameControllers will be added to this object 
 const ALL_GAMES = {};
-ALL_GAMES[GAME_TYPE_C4]= undefined;
-ALL_GAMES[GAME_TYPE_Q20]= undefined;
+ALL_GAMES[GAME_TYPE_C4]= {
+    num_players: TWO_PLAYER_GAME
+};
+
+ALL_GAMES[GAME_TYPE_Q20]= {
+    num_players: ONE_PLAYER_GAME
+};
 
 /**
  * Copyright 2016 Google Inc. All Rights Reserved.
@@ -35,9 +46,6 @@ ALL_GAMES[GAME_TYPE_Q20]= undefined;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**@private*/
-const USERS_PER_GAME = 2;
-
 /**
  * Removes siblings of the node that element that triggered the function if there are more than USERS_PER_GAME.
  * Based on https://github.com/firebase/functions-samples/blob/master/limit-children/functions/index.js
@@ -50,6 +58,8 @@ const USERS_PER_GAME = 2;
 function onLobbyWrite(event, gameTypeId){
     const parentRef = event.data.ref.parent;
     
+    const USERS_PER_GAME = ALL_GAMES[gameTypeId];
+
     return parentRef.once('value').then((snapshot) => {
         
         /*console.log("checking if there are enough users in lobby")
