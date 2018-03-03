@@ -1,6 +1,6 @@
 //import PlayerToken from "../../models/common/Grid/PlayerToken";
 import Grid from "../../models/common/Grid/Grid";
-import GameInfo from "../../models/common/GameInfo/GameInfo";
+import GameInfo from "../../models/common/GameInfo";
 
 export class GridBoardGame {
     
@@ -13,10 +13,11 @@ export class GridBoardGame {
             //which game instance is being played by which player instance
             gameInfo: gameInfo,
         
-        }
+        }   
 
+        console.log("gridboardgame gameInfo", gameInfo)
         //game info actually sends moves between users and firebase
-        gameInfo.addCallback(handleOtherUserMove);
+        gameInfo.addCallback((data)=>this.handleOtherUserMove(data));
 
     }
 
@@ -27,18 +28,22 @@ export class GridBoardGame {
 
         if(this.controllerModelRef.grid.placeToken(x, y, this.gameInfo.playerId))
         {
-            this.gameInfo.updateInfo({winnerPlayerId: this.gameInfo.playerId})
+            this.controllerModelRef.gameInfo.updateInfo({winnerPlayerId: this.gameInfo.playerId})
         }
 
     }
 
     handleOtherUserMove(data){
 
-        if(this.controllerModelRef.grid.placeToken(x, y, data.playerId))
+        console.log("handleusermove", data);
+
+        if(this.controllerModelRef.grid.placeToken(data.x, data.y, data.playerId))
         {
-            this.gameInfo.updateInfo({winnerPlayerId: data.playerId})
+            this.controllerModelRef.gameInfo.updateInfo({winnerPlayerId: data.playerId})
         }
         
     }
+
+    //get
 
 }

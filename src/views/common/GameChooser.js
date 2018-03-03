@@ -47,8 +47,12 @@ export default class GameChooser extends React.Component{
             return (<div>Waiting for another player...</div>);
         }
         else if(this.props.playerInfo.isPlayingGame()){
-            //this.props.playerInfo.getGame().getView()
-            return (<div>{this.props.playerInfo.isCurrentPlayer()?"Your turn":"Their turn"}</div>);
+            return (<div>
+                        <div>{this.props.playerInfo.isCurrentPlayer()?"Your turn":"Their turn"}</div>
+                        <div>{this.props.playerInfo.getGame().getView()}</div>
+                    </div>
+                );
+            //return ();
         }
         
 /*

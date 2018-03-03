@@ -44,7 +44,7 @@ export class PlayerToken{
         }
     }
 
-    get getConnection(direction) {
+    getConnection(direction) {
         
         return this.connections[direction];
 
