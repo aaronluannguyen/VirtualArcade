@@ -1,5 +1,6 @@
 import GameMatcher from "../common/GameMatcher";
 import GameInfo from "../../models/common/GameInfo";
+import React from "react";
 
 export default class GameController{
     /**
@@ -16,6 +17,7 @@ export default class GameController{
             playerController: playerController,
             gameMatcher: gameInProgress ? undefined : new GameMatcher(gameTypeId, playerController.getPlayerId(), (data)=>this._startGame(data)),
             gameInfo: gameInProgress,
+            view: undefined,
         }
     }
 
@@ -37,4 +39,7 @@ export default class GameController{
         return this._data.gameInfo;
     }
 
+    getView(){
+        return <div>Abstract game view. You need to overload getView() in the game controller</div>;
+    }
 };
