@@ -16,7 +16,13 @@ export default class Connect4 extends React.Component{
     }
     
     render(){
-        return (<h1>Connect4 Placeholder View</h1>);
+        let rows = [];
+
+        return (
+            <div className="container" id="grid" ref="wrap">
+                <h1>Connect4 Placeholder View</h1>  
+            </div>
+        );
     }
 
 }
