@@ -39,7 +39,6 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <img src="logo.svg" className="App-logo" alt="logo" />
           <h1 className="App-title">{this.state.playerController ? <div>{this.state.playerController.getName() }</div> : <div>Not yet logged In</div>}</h1>
         </header>
         <main>

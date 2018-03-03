@@ -1,5 +1,8 @@
 import GameController from "../common/GameController";
 import {ALL_GAMES, GAME_TYPE_C4, ContClass} from "../../models/common/Games"
+import Connect4 from "../../views/connect4/Connect4";
+import React from "react";
+import { GridBoardGame } from "../common/GridBoardGame";
 
 export default class Connect4Controller extends GameController{
     /**
@@ -14,7 +17,18 @@ export default class Connect4Controller extends GameController{
         
         super(GAME_TYPE_C4.gameTypeId, playerController, gameInProgress);
 
+        //console.log(playerController.getGame());
+        if(gameInProgress)
+            this.gbg = new GridBoardGame(gameInProgress, 8, 4);
+
     }
+
+    getView(){
+        //console.log("getview");
+        return <Connect4 pC={this._data.playerController}/>;
+    }
+
+
 
 };
 

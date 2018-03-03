@@ -63,7 +63,7 @@ export default class PlayerController{
 
                         existingGameInfo.addCallback(()=>this.handleUpdate());
 
-                        this.data.games.push( new existingGame(this.data.playerId, existingGameInfo) );
+                        this.data.games.push( new existingGame(this, existingGameInfo) );
 
                         this.handleUpdate();
                     });
@@ -138,6 +138,7 @@ export default class PlayerController{
      * @description Get the current game the player should be playing
      */
     getGame(){
+        console.log("getGame", this.data.games[0])
         return this.data.games[0];
     }
 

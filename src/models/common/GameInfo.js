@@ -113,6 +113,7 @@ export default class GameInfo{
         console.log("adding game info model callback function");
         this.data.callbackFunctions.push(callbackFunction);
 
+        
     }
 
     /**
@@ -125,7 +126,7 @@ export default class GameInfo{
         this.data.gameRoomSnap = data;
         console.log("callback, gameroomsnap", data.val())
         //distribute the messages (per observer pattern)
-        this.data.callbackFunctions.forEach((callback)=> callback());
+        this.data.callbackFunctions.forEach((callback)=> callback(data.val()));
         
     }
 }
