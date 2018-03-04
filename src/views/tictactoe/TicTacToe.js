@@ -6,8 +6,8 @@ export default class TicTacToe extends React.Component{
         super(props);
 
         this.state = {
-            // board: new GridBoardGame(1, 3, 3)
-
+            pcontroller: this.props.pC,
+            gcontroller: this.props.pC.getGame()
         }
     }
 

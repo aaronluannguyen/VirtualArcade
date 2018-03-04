@@ -1,4 +1,5 @@
 import {ALL_GAMES, ContClass} from "../../models/common/Games";
+import {TicTacToeController} from "../tictactoe/TicTacToeController";
 import {Connect4Controller} from "../connect4/Connect4Controller";
 import {Q20Controller} from "../q20/Q20Controller";
 import GameInfo from "../../models/common/GameInfo";
