@@ -1,0 +1,12 @@
+* {
+    box-sizing: border-box;
+}
+
+#tttBoard {
+    display: flex;
+    flex-flow: wrap row;
+}
+
+#tttTile {
+    flex: 1 0 33%;
+}

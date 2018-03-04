@@ -2,6 +2,7 @@ import React from "react";
 import TicTacToeController from "../../controllers/tictactoe/TicTacToeController"
 import GridBoardGame from "../../controllers/common/GridBoardGame"
 import Tile from "./Tiles";
+import "./TicTacToe.css";
 
 export default class TicTacToe extends React.Component{
     constructor(props) {
@@ -24,14 +25,20 @@ export default class TicTacToe extends React.Component{
     render(){
         let rows=[];
 
-        for (let i =0; i < this.state.grid.length; i++) {
-            for (let j = 0; j < this.state.grid[i].length; j++) {
+        // for (let i =0; i < this.state.grid.length; i++) {
+        //     for (let j = 0; j < this.state.grid[i].length; j++) {
+        //         rows.push(<Tile xCoordinate={j} yCoordinate={i}/>)
+        //     }
+        // }
+
+        for (let i =0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
                 rows.push(<Tile xCoordinate={j} yCoordinate={i}/>)
             }
         }
 
         return (
-            <div>
+            <div id="tttBoard" className="container">
                 {rows}
             </div>
         );
