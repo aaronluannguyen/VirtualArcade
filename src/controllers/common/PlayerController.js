@@ -16,6 +16,7 @@ export default class PlayerController{
     */
     constructor(callbacks=[]){
         
+        //addUICallback
         this.data = {
                 playerId: undefined,
                 displayName: undefined,
@@ -27,8 +28,14 @@ export default class PlayerController{
             if(user) {
 
                 this.data.playerId = user.uid;
-                
-                if(user.displayName == undefined){
+                this.data.displayName = user.displayName;
+
+                if(user.displayName) {
+
+                    console.log("displayName already known", user.displayName);
+                    this.showUserInfo(user.displayName);
+                }
+                else if(user.displayName == undefined){
                     
                     fetch("https://us-central1-ken-info343-final.cloudfunctions.net/randomName").then((data)=>{
                         return data.json();
@@ -38,40 +45,61 @@ export default class PlayerController{
                         
                         console.log("sent new displayname: " + data.name);
 
-                        this.data.displayName = user.displayName;
-                        this.handleUpdate();
-                        
+                        this.showUserInfo(user.displayName);
                     });
                 }
-
-                this.data.displayName = user.displayName;
-                
-                this.handleUpdate();
 
                 //grave, backtick
                 this.users_gamesRef = firebase.database().ref(`/users/${user.uid}/game_rooms`);
         
-                this.valueListener = this.users_gamesRef.once("value", snapshot => {
+                //once returns nothing, on returns a listener reference that is used to "unlisten"
+                //this.valueListener = 
+                this.users_gamesRef.once("value", snapshot => {
                     
                     this.data.gamesSnap = snapshot;
                     
+                    let resuming = false;
+
                     snapshot.forEach(game_room => {
                         
+                        resuming = true;
+
                         let existingGame = ALL_GAMES[game_room.val().gameTypeId][ContClass];
 
                         let existingGameInfo = new GameInfo(game_room);
 
-                        existingGameInfo.addCallback(()=>this.handleUpdate());
+                        //if there's no winner then the game is in progress and should be resumed...
+                        if(existingGameInfo.getWinner() == undefined){
 
-                        this.data.games.push( new existingGame(this, existingGameInfo) );
+                            //update the view when data is received from firebase
+                            existingGameInfo.addDataCallback(()=>this.handleUIUpdate());
 
-                        this.handleUpdate();
+                            //create the in-progress game from the info stored in firebase
+                            this.data.games.push( new existingGame(this, existingGameInfo) );
+                        } else {
+                            //this doesnt need to be an active game, but "leaderboard" might want this info to show
+                            //this players game history...
+
+                        }
+
                     });
+
+                    if(resuming)
+                    {
+                        console.log("triggering UI update for resumed games")
+
+                        this.handleUIUpdate();
+                    }
                 });
               }
           });
 
         firebase.auth().signInAnonymously();
+    }
+
+    showUserInfo(displayName){
+        this.data.displayName = displayName;
+        this.handleUIUpdate();
     }
 
     /** 
@@ -99,24 +127,28 @@ export default class PlayerController{
      */
     unmount(){
         this.unlistenAuth();
-        this.users_gamesRef.off("value", this.valueListener);
+        //this.users_gamesRef.off("value", this.valueListener);
+        for(let i=0; i<this.data.games.length; i++){
+            this.data.games[i].unmount()
+        }
     }
 
     /**
      * @public
-     * @function PlayerController.addCallback
+     * @function PlayerController.addUICallback
      * @param {closure} callback 
      */
-    addCallback(callback){
+    addUICallback(callback){
         this.data.callbacks.push(callback);
     }
 
     /**
      * @public
-     * @function PlayerController.handleUpdate
-     * @description Propagates calls to update callbacks for all obsevers that have registered through addCallback
+     * @function PlayerController.handleUIUpdate
+     * @description Propagates calls to update UI callbacks for all obsevers that have registered through addUICallback
      */
-    handleUpdate(){
+    handleUIUpdate(){
+        console.log("handleUIUpdate", new Error().stack, )
         this.data.callbacks.forEach((callback)=> {callback()});
     }
 
@@ -128,7 +160,7 @@ export default class PlayerController{
     newGame(gameControllerClass){
         
         this.data.games.push(new gameControllerClass(this));
-        this.handleUpdate();
+        this.handleUIUpdate();
 
     }
 
@@ -138,7 +170,7 @@ export default class PlayerController{
      * @description Get the current game the player should be playing
      */
     getGame(){
-        console.log("getGame", this.data.games[0])
+        //console.log("getGame callstack", new Error().stack, "getGame", this.data.games[0])
         return this.data.games[0];
     }
 
@@ -171,9 +203,12 @@ export default class PlayerController{
     isWaitingForMatch(){
 
         console.log("figuring out waiting state",  this.isPlayingGame() )
-        if(this.isPlayingGame())
+        
+        /*if(this.isPlayingGame())
             console.log("gameinfo", this.getGame().getGameInfo())
+        */
 
+        //the user is "in game", but the game has not been started yet
         return this.isPlayingGame() && !this.getGame().getGameInfo();
     }
 
