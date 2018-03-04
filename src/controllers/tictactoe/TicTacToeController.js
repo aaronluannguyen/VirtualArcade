@@ -16,13 +16,22 @@ export default class TicTacToeController extends GameController {
     constructor(playerController, gameInProgress=undefined){
 
         super(GAME_TYPE_TTT.gameTypeId, playerController, gameInProgress);
-
-        //console.log(playerController.getGame());
-        if(gameInProgress)
-            this.gbg = new GridBoardGame(gameInProgress, 3, 3);
+        this.gameStatus = gameInProgress;
+        // console.log(playerController.getGame());
+        if(gameInProgress) {
+            this.gbg = new GridBoardGame(gameInProgress, 3, 3)
+        }
 
         if (this.gbg) {
-            this.grid = this.gbg.getGrid();
+            this.grid = this.gbg.controllerModelRef.grid.getGrid();
+        }
+    }
+
+    startGame() {
+        this.gbg = new GridBoardGame(this.gameStatus, 3, 3);
+
+        if (this.gbg) {
+            this.grid = this.gbg.controllerModelRef.grid.getGrid();
         }
     }
 
