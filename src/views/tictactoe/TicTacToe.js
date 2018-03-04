@@ -1,6 +1,7 @@
 import React from "react";
 import TicTacToeController from "../../controllers/tictactoe/TicTacToeController"
 import GridBoardGame from "../../controllers/common/GridBoardGame"
+import Tile from "./Tiles";
 
 export default class TicTacToe extends React.Component{
     constructor(props) {
@@ -18,9 +19,15 @@ export default class TicTacToe extends React.Component{
     }
 
     render(){
+        let rows=[];
+
+        for (let i =0; i < 9; i++) {
+            rows.push(<Tile>button</Tile>)
+        }
+
         return (
             <div>
-                TTT Placeholder
+                {rows}
             </div>
         );
     }

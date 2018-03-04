@@ -22,7 +22,7 @@ export default class TicTacToeController extends GameController {
             this.gbg = new GridBoardGame(gameInProgress, 3, 3);
 
         if (this.gbg) {
-            this.grid =
+            this.grid = this.gbg.getGrid();
         }
     }
 
