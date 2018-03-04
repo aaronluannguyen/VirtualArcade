@@ -50,6 +50,11 @@ export class GridBoardGame {
 
         console.log("handleusermove", data);
 
+        if(!data.actions){
+            console.error("no actions to perform");
+            return;
+        }
+
         if(this.controllerModelRef.grid.placeToken(data.actions.move.selection.x, data.actions.move.selection.y, data.actions.move.playerId))
         {
             this.controllerModelRef.gameInfo.updateInfo({winnerPlayerId: data.actions.move.playerId})
