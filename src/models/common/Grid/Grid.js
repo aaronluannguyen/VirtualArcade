@@ -19,6 +19,10 @@ export default class Grid{
 
     }
 
+    getGrid() {
+        return this.grid;
+    }
+
     placeToken(x,y, playerId){
         
         if(x==undefined || y==undefined || playerId == undefined ||
