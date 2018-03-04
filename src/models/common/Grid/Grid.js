@@ -158,7 +158,9 @@ export default class Grid{
             do{
 
                 currentConnectionCount++;
-                nextToken = nextToken.getConnection(winDirections[curDirection][TOWARDS_END]);
+                nextToken = currentToken.getConnection(winDirections[curDirection][TOWARDS_END]);
+                if(nextToken)
+                    currentToken = nextToken;
 
             } while(nextToken);
 

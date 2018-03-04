@@ -5,6 +5,10 @@ import Tile from "../../views/connect4/Tile"
 export default class Row extends React.Component{
     constructor(props){
         super(props);
+        this.state = {
+            gcontroller: this.props.gcontroller,
+            ycoord: this.props.row
+        }
     }
 
     componentWillMount(){
@@ -15,11 +19,11 @@ export default class Row extends React.Component{
     render() {
         let columns = []
         for (let i = 0; i < 8; i++) {
-            columns.push(<Tile tile={this.props.row[i]}/>)
+            columns.push(<Tile tile={this.props.row[i]} ycoord={this.state.ycoord} xcoord={i} gcontroller={this.state.gcontroller}/>)
         }
 
         return (        
-            <div className="row"> 
+            <div className="row mx-3"> 
                 {columns}
             </div>
         );

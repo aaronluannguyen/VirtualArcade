@@ -25,14 +25,16 @@ export default class Connect4 extends React.Component{
         } else {
             console.log("GRID IS NOT THERE!")
         }
-        for (let i = 0; i < 8; i++) {
-            rows.push(<Row row={this.state.grid[i]}/>)
+        for (let i = 0; i < this.state.grid.length; i++) {
+            rows.push(<Row row={this.state.grid[i]} gcontroller={this.state.gcontroller} row={i}/>)
         }
 
         return (
             <div className="container" id="grid" ref="wrap">
                 <h1>Connect4 Placeholder View</h1>  
-                {rows}
+                <div className="container"> 
+                    {rows}
+                </div>
             </div>
         );
     }

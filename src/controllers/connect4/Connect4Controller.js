@@ -20,7 +20,7 @@ export default class Connect4Controller extends GameController{
         //console.log(playerController.getGame());
         if(gameInProgress) {
             console.log("gameInProgress")
-            this.gbg = new GridBoardGame(gameInProgress, 8, 4);
+            this.gbg = new GridBoardGame(playerController, gameInProgress, 8, 4);
         } 
         if(this.gbg) {
             this.grid = this.gbg.controllerModelRef.grid.getGrid();
