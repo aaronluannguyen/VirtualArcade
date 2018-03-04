@@ -43,6 +43,7 @@ class App extends Component {
         </header>
         <main>
           <GameChooser playerInfo={this.state.playerController}/>
+          <TicTacToe/>
         </main>
       </div>
     );

@@ -15,7 +15,7 @@ export class GridBoardGame {
         
         }   
 
-        console.log("gridboardgame gameInfo", gameInfo)
+        console.log("gridboardgame gameInfo", gameInfo);
         //game info actually sends moves between users and firebase
         gameInfo.addCallback((data)=>this.handleOtherUserMove(data));
 
