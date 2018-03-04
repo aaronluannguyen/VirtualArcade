@@ -1,4 +1,5 @@
 import {ALL_GAMES, ContClass} from "../../models/common/Games";
+import {TicTacToeController} from "../tictactoe/TicTacToeController";
 import {Connect4Controller} from "../connect4/Connect4Controller";
 import {Q20Controller} from "../q20/Q20Controller";
 import GameInfo from "../../models/common/GameInfo";
@@ -51,23 +52,23 @@ export default class PlayerController{
                 //grave, backtick
                 this.users_gamesRef = firebase.database().ref(`/users/${user.uid}/game_rooms`);
         
-                this.valueListener = this.users_gamesRef.once("value", snapshot => {
-                    
-                    this.data.gamesSnap = snapshot;
-                    
-                    snapshot.forEach(game_room => {
-                        
-                        let existingGame = ALL_GAMES[game_room.val().gameTypeId][ContClass];
-
-                        let existingGameInfo = new GameInfo(game_room);
-
-                        existingGameInfo.addCallback(()=>this.handleUpdate());
-
-                        this.data.games.push( new existingGame(this, existingGameInfo) );
-
-                        this.handleUpdate();
-                    });
-                });
+                // this.valueListener = this.users_gamesRef.once("value", snapshot => {
+                //
+                //     this.data.gamesSnap = snapshot;
+                //
+                //     snapshot.forEach(game_room => {
+                //
+                //         let existingGame = ALL_GAMES[game_room.val().gameTypeId][ContClass];
+                //
+                //         let existingGameInfo = new GameInfo(game_room);
+                //
+                //         existingGameInfo.addCallback(()=>this.handleUpdate());
+                //
+                //         this.data.games.push( new existingGame(this, existingGameInfo) );
+                //
+                //         this.handleUpdate();
+                //     });
+                // });
               }
           });
 

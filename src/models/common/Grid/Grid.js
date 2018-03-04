@@ -32,7 +32,7 @@ export default class Grid{
             return;
         }
 
-        console.log("placetoken, grid", this.grid, x, y)
+        console.log("placetoken, grid", this.grid, x, y);
 
         let newToken = new PlayerToken(playerId);
         this.grid[x][y] = newToken;

@@ -1,3 +1,4 @@
+import React from "react";
 //import PlayerToken from "../../models/common/Grid/PlayerToken";
 import Grid from "../../models/common/Grid/Grid";
 import GameInfo from "../../models/common/GameInfo";
@@ -16,7 +17,7 @@ export class GridBoardGame {
         
         }   
 
-        console.log("gridboardgame gameInfo", gameInfo)
+        console.log("gridboardgame gameInfo", gameInfo);
         //game info actually sends moves between users and firebase
         gameInfo.addCallback((data)=>this.handleOtherUserMove(data));
 
