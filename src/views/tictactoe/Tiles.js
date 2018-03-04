@@ -8,11 +8,9 @@ export default class Tile extends React.Component{
 
     render() {
         return (
-            <div id="tttTile">
-                <button className="btn btn-primary">
-                    {this.props.xCoordinate} {this.props.yCoordinate}
-                </button>
-            </div>
+            <button id="tttTile" className="btn btn-primary">
+               x: {this.props.xCoordinate} y: {this.props.yCoordinate}
+            </button>
         );
     }
 }
