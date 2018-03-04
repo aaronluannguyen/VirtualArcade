@@ -12,24 +12,26 @@ export default class GameInfo{
          * @private
          */
         this.data = {
+            staleSnap: true,
             gameSnap: gameSnap,
             gameRoomSnap: undefined,
             gameOver: false,
             winnerPlayerId: undefined,
-            callbackFunctions: []
+            callbackFunctions: [],
+            localInfo: undefined,
         }
 
         console.log("gameinfo, gamesnap", gameSnap);
         
         //begin watching the actual game room
         this.data.roomRef = firebase.database().ref(`/game/${gameSnap.val().gameTypeId}/${gameSnap.val().roomKey}`);
-        this._dataValueListener = this.data.roomRef.once("value", ()=> this._dataCallback);
+        this.data.roomRef.once("value", (data)=> this._handleDataCallback(data));
 
         console.log("roomref", this.data.roomRef)
         
         //initialize data from firebase based on snapshot
         //once doesn't need to "unlisten", and nothing is returned
-        this.data.roomRef.once("value").then(snapshot=>{this._handleDataCallback(snapshot)});
+        this._dataValueListener = this.data.roomRef.on("value", snapshot => this._handleDataCallback(snapshot) );
 
     }
 
@@ -45,8 +47,11 @@ export default class GameInfo{
 
         //console.log("gameroomsnap", this.data.gameRoomSnap)
 
-        if(this.data.gameRoomSnap)
+        if(this.data.gameRoomSnap && !this.data.staleSnap)
             return this.data.gameRoomSnap.val();
+        else{
+            return this.data.localInfo;
+        }
 
     }
 
@@ -74,15 +79,25 @@ export default class GameInfo{
     updateInfo(state){
         //send info patch to firebase
 
+        this.data.staleSnap = true;
+
         let gameState = this._getGameState();
+        console.log("checking game state exists");
 
         if(gameState){
-            state.currentPlayer = (gameState.currentPlayer+1) % gameState.numPlayers;
+            let nextPlayer = (gameState.currentPlayer+1) % gameState.numPlayers;
+            console.log("updating currentPlayer to ", nextPlayer );
+            
+            state.currentPlayer = nextPlayer;
+            this.data.localInfo.currentPlayer = nextPlayer;
 
-            this.data.roomRef.push(state);
+            this.data.roomRef.update(state);
+
         } else { 
             console.error("no game state!");
         }
+
+
 
     }
 
@@ -139,7 +154,9 @@ export default class GameInfo{
      */
     _handleDataCallback(data)
     {
+        this.data.staleSnap = false;
         this.data.gameRoomSnap = data;
+        this.data.localInfo = data.val();
         console.log("callback, gameroomsnap", data.val())
         //distribute the messages (per observer pattern)
         this.data.callbackFunctions.forEach((callback)=> callback(data.val()));

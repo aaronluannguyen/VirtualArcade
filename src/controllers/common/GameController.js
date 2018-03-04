@@ -47,4 +47,12 @@ export default class GameController{
         this._data.gameMatcher.unmount();
         this._data.gameInfo.unmount();
     }
+
+    handleUIUpdate(){
+        this._data.playerController.handleUIUpdate();
+    }
+
+    getPlayerId(){
+        return this._data.playerController.getPlayerId();
+    }
 };

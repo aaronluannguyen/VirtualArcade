@@ -27,14 +27,16 @@ export class GridBoardGame {
         //this move also needs to be sent to Firebase which will in turn be sent to the other player
  
         this.controllerModelRef.gameInfo.updateInfo({
-            move:{
-                playerId: this.controllerModelRef.pcontroller.getPlayerId(),
-                selection:{
-                    x: x,
-                    y: y,
+            actions:{
+                move:{
+                    playerId: this.controllerModelRef.pcontroller.getPlayerId(),
+                    selection:{
+                        x: x,
+                        y: y,
+                    }
                 }
             }
-        })
+        });
 
         if(this.controllerModelRef.grid.placeToken(x, y, this.controllerModelRef.pcontroller.getPlayerId()))
         {
@@ -48,9 +50,9 @@ export class GridBoardGame {
 
         console.log("handleusermove", data);
 
-        if(this.controllerModelRef.grid.placeToken(data.x, data.y, data.playerId))
+        if(this.controllerModelRef.grid.placeToken(data.actions.move.selection.x, data.actions.move.selection.y, data.actions.move.playerId))
         {
-            this.controllerModelRef.gameInfo.updateInfo({winnerPlayerId: data.playerId})
+            this.controllerModelRef.gameInfo.updateInfo({winnerPlayerId: data.actions.move.playerId})
         }
         
     }

@@ -1,5 +1,5 @@
 import React from "react";
-import Row from "../../views/connect4/Row"
+import Row from "./Row"
 
 export default class Connect4 extends React.Component{
     constructor(props){
@@ -25,6 +25,7 @@ export default class Connect4 extends React.Component{
         } else {
             console.log("GRID IS NOT THERE!")
         }
+        
         for (let i = 0; i < this.state.grid.length; i++) {
             rows.push(<Row row={this.state.grid[i]} gcontroller={this.state.gcontroller} row={i}/>)
         }

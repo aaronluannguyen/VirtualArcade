@@ -19,6 +19,8 @@ export default class Tile extends React.Component{
         this.setState({clicked: true});
         console.log("clicked " + this.props.xcoord + ", " + this.props.ycoord)
         this.state.gcontroller.gbg.handleClick(this.props.xcoord, this.props.ycoord)
+
+        this.state.gcontroller.handleUIUpdate();
     }
 
     render() {
@@ -26,7 +28,7 @@ export default class Tile extends React.Component{
             <div className="col"> 
                 {
                     this.state.clicked === false ?
-                    <button className="btn-sm" onClick={()=> this.action()}>
+                    <button className="btn-sm" onClick={this.state.gcontroller.getGameInfo().getCurrentPlayerId() == this.state.gcontroller.getPlayerId() ? () => this.action() : () => {}}>
                         {this.props.tile}
                         Not Clicked!
                     </button> :

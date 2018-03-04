@@ -92,10 +92,11 @@ function onLobbyWrite(event, gameTypeId){
             let games = admin.database().ref("/game/"+gameTypeId);
         
             let newRoom = {
-                numPlayers: num_players,
+                numPlayers: USERS_PER_GAME,
                 gameTypeId: gameTypeId,
                 players:    [],
                 currentPlayer: Math.floor(Math.random()*USERS_PER_GAME),
+                actions: [],
             }
 
             for(let i=0; i<users.length; i++){
@@ -105,7 +106,7 @@ function onLobbyWrite(event, gameTypeId){
             console.log("creating new game room");
             //create new game room by adding the two users
             let newRoomRef = games.push(newRoom);
-            newRoomRef.push("actions");
+            //newRoomRef.push("actions");
             
             //add room under each users current games
             for(let i=0; i<users.length; i++){
