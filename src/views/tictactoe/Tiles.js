@@ -13,7 +13,9 @@ export default class Tile extends React.Component{
     render() {
         return (
             <div className="">
-                <button className="btn btn-primary" />
+                <button className="btn btn-primary">
+                    {this.props.xCoordinate} {this.props.yCoordinate}
+                </button>
             </div>
         );
     }

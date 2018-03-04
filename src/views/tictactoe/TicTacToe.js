@@ -16,13 +16,18 @@ export default class TicTacToe extends React.Component{
 
     componentDidMount() {
         console.log("Tic Tac Toe Mounted");
+        if (this.state.grid) {
+            console.log("GRID IS MOUNTED")
+        }
     }
 
     render(){
         let rows=[];
 
-        for (let i =0; i < 9; i++) {
-            rows.push(<Tile>button</Tile>)
+        for (let i =0; i < this.state.grid.length; i++) {
+            for (let j = 0; j < this.state.grid[i].length; j++) {
+                rows.push(<Tile xCoordinate={j} yCoordinate={i}/>)
+            }
         }
 
         return (
