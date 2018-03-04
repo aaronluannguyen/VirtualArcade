@@ -1,6 +1,8 @@
 import React from "react";
+import Connect4 from "../../views/connect4/Connect4";
+import Tile from "../../views/connect4/Tile"
 
-export default class Tile extends React.Component{
+export default class Row extends React.Component{
     constructor(props){
         super(props);
     }
@@ -12,9 +14,14 @@ export default class Tile extends React.Component{
 
     render() {
         let columns = []
-        
-        <div className=""> 
-            <button className="btn-sm" />
-        </div>
+        for (let i = 0; i < 8; i++) {
+            columns.push(<Tile tile={this.props.row[i]}/>)
+        }
+
+        return (        
+            <div className="row"> 
+                {columns}
+            </div>
+        );
     }
 }

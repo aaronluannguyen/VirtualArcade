@@ -18,17 +18,20 @@ export default class Connect4Controller extends GameController{
         super(GAME_TYPE_C4.gameTypeId, playerController, gameInProgress);
 
         //console.log(playerController.getGame());
-        if(gameInProgress)
+        if(gameInProgress) {
+            console.log("gameInProgress")
             this.gbg = new GridBoardGame(gameInProgress, 8, 4);
+        } 
+        if(this.gbg) {
+            this.grid = this.gbg.controllerModelRef.grid.getGrid();
+        }
 
     }
 
     getView(){
         //console.log("getview");
-        return <Connect4 pC={this._data.playerController}/>;
+        return <Connect4 pC={this._data.playerController} grid={this.grid}/>;
     }
-
-
 
 };
 

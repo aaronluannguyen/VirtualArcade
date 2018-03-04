@@ -1,4 +1,5 @@
 import React from "react";
+import Row from "../../views/connect4/Row"
 
 export default class Connect4 extends React.Component{
     constructor(props){
@@ -7,6 +8,7 @@ export default class Connect4 extends React.Component{
         this.state = {
             pcontroller: this.props.pC,
             gcontroller: this.props.pC.getGame(),
+            grid: this.props.grid
         }
     }
 
@@ -17,10 +19,20 @@ export default class Connect4 extends React.Component{
     
     render(){
         let rows = [];
+        if (this.state.grid) {
+            console.log("GRID IS MOUNTED!");
+            console.log(this.state.grid)
+        } else {
+            console.log("GRID IS NOT THERE!")
+        }
+        for (let i = 0; i < 8; i++) {
+            rows.push(<Row row={this.state.grid[i]}/>)
+        }
 
         return (
             <div className="container" id="grid" ref="wrap">
                 <h1>Connect4 Placeholder View</h1>  
+                {rows}
             </div>
         );
     }

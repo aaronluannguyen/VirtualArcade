@@ -11,8 +11,10 @@ export default class Tile extends React.Component{
     }
 
     render() {
-        <div className=""> 
-            <button className="btn-sm" />
-        </div>
+        return (
+            <div className=""> 
+                <button className="btn-sm" />
+            </div>
+        );
     }
 }
