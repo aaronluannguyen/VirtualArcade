@@ -19,16 +19,14 @@ export default class TicTacToeController extends GameController {
 
         //console.log(playerController.getGame());
         if(gameInProgress)
-            this.gbg = new GridBoardGame(gameInProgress, 9, 3);
-
+            this.gbg = new GridBoardGame(gameInProgress, 3, 3);
     }
 
     getView(){
         //console.log("getview");
         return (
             <div>
-                <TicTacToe pC={this._data.playerController}/>
-                Hi
+                <TicTacToe pC={this._data.playerController} gbg={this.gbg}/>
             </div>
         );
     }

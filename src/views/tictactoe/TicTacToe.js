@@ -7,8 +7,8 @@ export default class TicTacToe extends React.Component{
         super(props);
 
         this.state = {
-            pcontroller: this.props.pC,
-            gcontroller: this.props.pC.getGame()
+            // pcontroller: this.props.pC,
+            // gcontroller: this.props.pC.getGame()
         }
     }
 
@@ -19,7 +19,7 @@ export default class TicTacToe extends React.Component{
     render(){
         return (
             <div>
-                {TicTacToeController.getView()}
+                {this.props.gbg}
             </div>
         );
     }
