@@ -23,13 +23,18 @@ export default class GameInfo{
         
         //begin watching the actual game room
         this.data.roomRef = firebase.database().ref(`/game/${gameSnap.val().gameTypeId}/${gameSnap.val().roomKey}`);
-        this.data.roomRef.on("value", ()=> this._dataCallback);
+        this._dataValueListener = this.data.roomRef.once("value", ()=> this._dataCallback);
 
         console.log("roomref", this.data.roomRef)
         
         //initialize data from firebase based on snapshot
-        this.data.roomRef.once("value").then(snapshot=>{this._dataCallback(snapshot)});
+        //once doesn't need to "unlisten", and nothing is returned
+        this.data.roomRef.once("value").then(snapshot=>{this._handleDataCallback(snapshot)});
 
+    }
+
+    unmount(){
+        this.data.roomRef.off("value", this._dataValueListener);
     }
 
     /**
@@ -48,7 +53,7 @@ export default class GameInfo{
     /**
      * @function GameInfo.updateInfo
      * @param {Object} state Object with key(s)
-     *      {
+     *      {   actions:{
      *          move:{
      *                  playerId:playerId,
      *                  selection:{
@@ -57,6 +62,8 @@ export default class GameInfo{
      *                  index: selection_index
      *                  }
      *              }
+     *          }
+     *          currentPlayer: otherPlayerIndex (e.g. 0 or 1 in 2 player )
      *          winner: playerId
      *      }
      * x, y are intended for games where it makes more sense to represent 2d
@@ -66,7 +73,16 @@ export default class GameInfo{
      */
     updateInfo(state){
         //send info patch to firebase
-        this.data.roomRef.push(state);
+
+        let gameState = this._getGameState();
+
+        if(gameState){
+            state.currentPlayer = (gameState.currentPlayer+1) % gameState.numPlayers;
+
+            this.data.roomRef.push(state);
+        } else { 
+            console.error("no game state!");
+        }
 
     }
 
@@ -105,10 +121,10 @@ export default class GameInfo{
 
 
     /**
-     * @function GameInfo.addCallback
+     * @function GameInfo.addDataCallback
      * @param {closure} callbackFunction Should be an argument-less closure ()=>{}
      */
-    addCallback(callbackFunction){
+    addDataCallback(callbackFunction){
         
         console.log("adding game info model callback function");
         this.data.callbackFunctions.push(callbackFunction);
@@ -121,7 +137,7 @@ export default class GameInfo{
      * @function GameInfo._dataCallback
      * @private
      */
-    _dataCallback(data)
+    _handleDataCallback(data)
     {
         this.data.gameRoomSnap = data;
         console.log("callback, gameroomsnap", data.val())

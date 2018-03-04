@@ -29,11 +29,14 @@ export default class GameChooser extends React.Component{
         
         this.props.playerInfo.newGame(gameControllerClass);
         
+        //this.props.playerInfo.addUICallback(()=>{this.forceUpdate()});
     }
 
+
+
     componentWillUpdate(){
-        if(this.props.playerInfo)
-            this.props.playerInfo.addCallback(()=>{this.forceUpdate()});
+    //    if(this.props.playerInfo)
+            
 
     }
 
@@ -42,31 +45,20 @@ export default class GameChooser extends React.Component{
         if(!this.props.playerInfo)
         {
             return (<div>Loading...</div>);
-        }
-        else if(this.props.playerInfo.isWaitingForMatch()){
+
+        } else if(this.props.playerInfo.isWaitingForMatch()){
+            
             return (<div>Waiting for another player...</div>);
-        }
-        else if(this.props.playerInfo.isPlayingGame()){
+        
+        } else if(this.props.playerInfo.isPlayingGame()){
+            
             return (<div>
                         <div>{this.props.playerInfo.isCurrentPlayer()?"Your turn":"Their turn"}</div>
                         <div>{this.props.playerInfo.getGame().getView()}</div>
                     </div>
                 );
-            //return ();
         }
         
-/*
- *<main>
-          <h1>Interim Game Hub</h1>
-          <div>
-            <TicTacToe/>
-            <Connect4/>
-            <Q20/>
-            <Leaderboards/>
-          </div> 
- * 
- */
-
         return ( 
                 <div>
                     {Object.values(ALL_GAMES).map((game)=><button key={game.gameTypeId} onClick={(evt)=>this.handleClick(evt, game[ContClass])}>{game.name}</button>)}

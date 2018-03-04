@@ -92,6 +92,7 @@ function onLobbyWrite(event, gameTypeId){
             let games = admin.database().ref("/game/"+gameTypeId);
         
             let newRoom = {
+                numPlayers: num_players,
                 gameTypeId: gameTypeId,
                 players:    [],
                 currentPlayer: Math.floor(Math.random()*USERS_PER_GAME),
@@ -855,7 +856,7 @@ var animal=[
     'Sandpiper',
     'Sapsucker',
     'Seal',
-    'Sea Lion',
+    'SeaLion',
     'Shad',
     'Shark',
     'Sheep',
