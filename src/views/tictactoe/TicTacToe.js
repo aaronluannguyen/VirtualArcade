@@ -1,4 +1,5 @@
 import React from "react";
+import TicTacToeController from "../../controllers/tictactoe/TicTacToeController"
 import GridBoardGame from "../../controllers/common/GridBoardGame"
 
 export default class TicTacToe extends React.Component{
@@ -18,7 +19,7 @@ export default class TicTacToe extends React.Component{
     render(){
         return (
             <div>
-                <h1>TicTacToe Placeholder</h1>
+                {TicTacToeController.getView()}
             </div>
         );
     }
