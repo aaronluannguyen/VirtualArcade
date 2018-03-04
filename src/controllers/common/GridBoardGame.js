@@ -1,3 +1,4 @@
+import React from "react";
 //import PlayerToken from "../../models/common/Grid/PlayerToken";
 import Grid from "../../models/common/Grid/Grid";
 import GameInfo from "../../models/common/GameInfo";

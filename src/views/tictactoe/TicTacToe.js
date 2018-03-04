@@ -2,8 +2,13 @@ import React from "react";
 import GridBoardGame from "../../controllers/common/GridBoardGame"
 
 export default class TicTacToe extends React.Component{
-    constructor(props){
+    constructor(props) {
         super(props);
+
+        this.state = {
+            // board: new GridBoardGame(1, 3, 3)
+
+        }
     }
 
     componentDidMount() {
@@ -12,8 +17,9 @@ export default class TicTacToe extends React.Component{
 
     render(){
         return (
-            <h1>TicTacToe Placeholder</h1>
-
+            <div>
+                <h1>TicTacToe Placeholder</h1>
+            </div>
         );
     }
 }
