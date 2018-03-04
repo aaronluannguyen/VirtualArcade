@@ -855,7 +855,7 @@ var animal=[
     'Sandpiper',
     'Sapsucker',
     'Seal',
-    'Sea Lion',
+    'SeaLion',
     'Shad',
     'Shark',
     'Sheep',
