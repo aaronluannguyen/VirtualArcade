@@ -6,6 +6,7 @@ export default class Q20 extends React.Component{
         this.state = {
             api_url: 'https://vision.googleapis.com/v1/images:annotate?key=AIzaSyBrTO7yPXtCN0iWkxeDKJGdc1ELDWOxs1M',
             questions: {},
+            working: false,
             webDetectionData: undefined,
             playing: false,
             // gameEnd: false,
@@ -36,6 +37,7 @@ export default class Q20 extends React.Component{
             ]
         }
         req = JSON.stringify(req);
+        this.setState({working: true});
         fetch(this.state.api_url, {
             body: req,
             method: 'POST'
@@ -51,7 +53,8 @@ export default class Q20 extends React.Component{
                     labelDetectionData:data.responses[0].labelAnnotations
                 }
         }))
-        .catch(err => this.setState({error: err.message}));
+        .catch(err => this.setState({error: err.message}))
+        .then(() => this.setState({working: false}));
     }
 
     componentWillReceiveProps() {
@@ -111,7 +114,7 @@ export default class Q20 extends React.Component{
         } else {
             result = "lost";
             this.props.pC.getGame().getGameInfo().updateInfo({
-                winnerPlayerId: 0
+                winnerPlayerId: undefined
             });            
             this.props.pC.handleUIUpdate();
         }
@@ -142,7 +145,14 @@ export default class Q20 extends React.Component{
                         undefined
                 }
                 {
-                    this.state.playing ? 
+                    this.state.working ?
+                        <div className="progress">
+                            <div style={{width:'100%'}} className="progress-bar progress-bar-striped progress-bar-animated"></div>
+                        </div> :
+                        ""
+                }
+                {
+                    this.state.playing && !this.state.working ? 
                         <div className="container">
                             {
                                 this.state.finalGuess ?
@@ -179,7 +189,7 @@ export default class Q20 extends React.Component{
                         ""
                 } */}
                 {
-                    !this.state.playing && !this.state.gameEnd ?
+                    !this.state.playing && !this.state.gameEnd && !this.state.working ?
                     <div className="container picture">
                         <img className="img-fluid" onClick={() => this.handleStartGame()}
                             src="https://storage.googleapis.com/info343/pickle_rick.jpg" alt="pickle rick"/>
