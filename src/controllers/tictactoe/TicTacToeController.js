@@ -19,7 +19,7 @@ export default class TicTacToeController extends GameController {
         this.gameStatus = gameInProgress;
         // console.log(playerController.getGame());
         if(gameInProgress) {
-            this.gbg = new GridBoardGame(gameInProgress, 3, 3)
+            this.gbg = new GridBoardGame(playerController, gameInProgress, 3, 3)
         }
 
         if (this.gbg) {

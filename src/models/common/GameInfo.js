@@ -130,7 +130,12 @@ export default class GameInfo{
      * @returns {string} playerId of winner
      */
     getWinner(){
-        return this._getGameState().winnerPlayerId;
+        let winner = undefined;
+        
+        if(this.isInitialized())
+            winner = this._getGameState().winnerPlayerId;
+
+        return winner;
     }
 
 
