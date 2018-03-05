@@ -154,6 +154,9 @@ export default class GameInfo{
      */
     _handleDataCallback(data)
     {
+        if(!data || !data.val())
+            return;
+
         this.data.staleSnap = false;
         this.data.gameRoomSnap = data;
         this.data.localInfo = data.val();

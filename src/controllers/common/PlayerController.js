@@ -148,7 +148,7 @@ export default class PlayerController{
      * @description Propagates calls to update UI callbacks for all obsevers that have registered through addUICallback
      */
     handleUIUpdate(){
-        console.log("handleUIUpdate", new Error().stack, )
+        //console.log("handleUIUpdate", new Error().stack, )
         this.data.callbacks.forEach((callback)=> {callback()});
     }
 

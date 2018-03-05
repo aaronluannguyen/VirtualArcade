@@ -29,6 +29,11 @@ export default class GameController{
     _startGame(data){
         this._data.gameInfo = new GameInfo(data);
         this._data.gameInfo.addDataCallback(()=>this._data.playerController.handleUIUpdate());
+
+        if(this.startGame){
+            console.log("this controller has it's own start game");
+            this.startGame(this._data.gameInfo);
+        }
     }
 
     /**
