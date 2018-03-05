@@ -9,7 +9,6 @@ export default class Q20 extends React.Component{
             working: false,
             webDetectionData: undefined,
             playing: false,
-            // gameEnd: false,
             finalGuess: undefined
         }
     }
@@ -23,14 +22,13 @@ export default class Q20 extends React.Component{
         return response.json();
     }
 
-    handleStartGame(evt) {
-        this.setState({img:evt.target.src});
+    handleStartGame(url) {
         let req = {
             "requests":[
                     {
                     "image": {
                         "source": {
-                            "imageUri": evt.target.src
+                            "imageUri": url
                         }
                     },
                     "features":[
@@ -53,7 +51,6 @@ export default class Q20 extends React.Component{
             method: 'POST'
         })
         .then(response => this.handleResponse(response))
-        // .then(data => console.log(data.responses[0]));
         .then(data => this.setState({
             webDetectionData:data.responses[0].webDetection,
             questions: 
@@ -65,6 +62,7 @@ export default class Q20 extends React.Component{
         }))
         .catch(err => this.setState({error: err.message}))
         .then(() => this.setState({working: false, playing: true}))
+        .then(() => console.log(this.state))
         .then(() => this.handleAskQuestion());
     }
 
@@ -76,10 +74,6 @@ export default class Q20 extends React.Component{
             let index = this.state.questions.questionNum;
             let description = data[index].description;
             let currentQuestion = "Does your image have to do anything with " + description + "?";
-            // console.log(data);
-            // console.log(data.length);
-            // console.log(index);
-            // console.log(currentQuestion);
             index++;
             this.setState({
                 questions:
@@ -113,21 +107,7 @@ export default class Q20 extends React.Component{
             });            
             this.props.pC.handleUIUpdate();
         }
-        // this.setState({
-        //     playing: false,
-        //     gameEnd: true,
-        //     gameOutcome: result
-        // })
     }
-
-    // handleNewGame() {
-    //     this.setState({
-    //         playing: false,
-    //         questions: {},
-    //         gameEnd: false,
-    //         finalGuess: undefined
-    //     });
-    // }
 
     render(){
         return (
@@ -171,23 +151,17 @@ export default class Q20 extends React.Component{
                         </div> :
                         ""
                 }
-                {/* {
-                    this.state.gameEnd ?
-                        <div className="container">
-                            <div>You {this.state.gameOutcome}!</div>
-                            <h4>Play again?</h4>
-                            <div className="btn-group">
-                                <div className="btn btn-success" onClick={() => this.handleNewGame()}>Yes</div>
-                                <div className="btn btn-danger">No</div>
-                            </div>
-                        </div> :
-                        ""
-                } */}
                 {
                     !this.state.playing && !this.state.gameEnd && !this.state.working ?
-                    <div className="container picture">
-                        <img className="img-fluid" onClick={(evt) => this.handleStartGame(evt)}
-                            src="https://storage.googleapis.com/info343/pickle_rick.jpg" alt="pickle rick"/>
+                    <div className="container images">
+                        <div>
+                            <img className="img-fluid" onClick={(evt) => this.handleStartGame(evt.target.src)}
+                                src="https://storage.googleapis.com/info343/pickle_rick.jpg" alt="pickle rick"/>
+                        </div>
+                        <div>
+                            <img className="img-fluid" onClick={(evt) => this.handleStartGame(evt.target.src)}
+                                src="https://storage.googleapis.com/info343/larry.jpg"/>
+                        </div>
                     </div> :
                     ""
                 }
