@@ -10,7 +10,7 @@ export default class Tile extends React.Component{
 
     action() {
         this.setState({clicker: this.props.gcontroller.getGameInfo().getCurrentPlayerId()});
-        this.props.gcontroller.gbg.handleClick(this.props.xCoordinate, this.props.yCoordinate);
+        this.props.gcontroller.gbg.handleClick(this.props.yCoordinate, this.props.xCoordinate);
         this.props.pcontroller.handleUIUpdate();
     }
 

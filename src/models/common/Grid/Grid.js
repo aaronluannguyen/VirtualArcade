@@ -35,12 +35,12 @@ export default class Grid{
         console.log("placetoken, grid", this.grid, x, y);
 
         //check if token was already placed... don't do extra/excessive work
-        if(this.grid[x][y]!=null){
+        if(this.grid[y][x]!=null){
             return false;
         }
 
         let newToken = new PlayerToken(playerId);
-        this.grid[x][y] = newToken;
+        this.grid[y][x] = newToken;
 
         //define kernel bounds
 
@@ -70,7 +70,7 @@ export default class Grid{
             for(let i=x_1; i<x_2; i++){
                 
                 //get the neighboring token
-                let neighboringToken = this.grid[i][j];
+                let neighboringToken = this.grid[j][i];
                 
                 //skip any null cells in grid
                 //skip connecting a token to itself
