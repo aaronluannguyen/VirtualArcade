@@ -11,12 +11,15 @@
 
 #tttTileContainer {
     flex: 1 0 30%;
+    max-width: 30%;
     height: 15vh;
     margin: 5px;
     display: flex;
 }
 
 #tttTile {
-    flex: 1 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+    overflow: hidden;
     background-color: grey;
 }

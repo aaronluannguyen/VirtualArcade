@@ -26,15 +26,9 @@ export default class TicTacToe extends React.Component{
     render(){
         let rows=[];
 
-        // for (let i =0; i < this.state.grid.length; i++) {
-        //     for (let j = 0; j < this.state.grid[i].length; j++) {
-        //         rows.push(<Tile xCoordinate={j} yCoordinate={i}/>)
-        //     }
-        // }
-
-        for (let i =0; i < 3; i++) {
-            for (let j = 0; j < 3; j++) {
-                rows.push(<Tile xCoordinate={j} yCoordinate={i}/>)
+        for (let i =0; i < this.state.grid.length; i++) {
+            for (let j = 0; j < this.state.grid[i].length; j++) {
+                rows.push(<Tile xCoordinate={i} yCoordinate={j} gcontroller={this.state.gcontroller} pcontroller={this.state.pcontroller}/>)
             }
         }
 

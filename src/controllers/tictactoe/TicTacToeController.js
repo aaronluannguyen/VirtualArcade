@@ -39,7 +39,7 @@ export default class TicTacToeController extends GameController {
         //console.log("getview");
         return (
             <div>
-                <TicTacToe pC={this._data.playerController} grid={this.grid}/>
+                <TicTacToe pC={this._data.playerController} grid={this.grid} />
             </div>
         );
     }

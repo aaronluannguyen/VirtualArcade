@@ -49,7 +49,9 @@ export class GridBoardGame {
     handleOtherUserMove(data){
 
         console.log("handleusermove", data);
-
+        if (!data) {
+            return;
+        }
         if(!data.actions){
             console.error("no actions to perform");
             return;
