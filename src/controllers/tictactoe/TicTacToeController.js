@@ -27,8 +27,8 @@ export default class TicTacToeController extends GameController {
         }
     }
 
-    startGame() {
-        this.gbg = new GridBoardGame(this.gameStatus, 3, 3);
+    startGame(data) {
+        this.gbg = new GridBoardGame(this._data.playerController, data, 3, 3);
 
         if (this.gbg) {
             this.grid = this.gbg.controllerModelRef.grid.getGrid();

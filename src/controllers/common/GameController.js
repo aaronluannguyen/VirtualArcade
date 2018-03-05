@@ -32,7 +32,7 @@ export default class GameController{
         
         if(this.startGame){
             console.log("this controller has it's own start game");
-            this.startGame(data);
+            this.startGame(this._data.gameInfo);
         }
     }
 

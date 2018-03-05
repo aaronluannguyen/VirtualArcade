@@ -24,7 +24,7 @@ export default class GameMatcher{
             
             let value = snapshot.val();
 
-            if(value){
+            if(value && !value.winnerPlayerId){
                 
                 //value = value[Object.keys(value)[0]];
                 console.log("game room value updated, gamematcher, ", value, gameTypeId, value.gameTypeId);
