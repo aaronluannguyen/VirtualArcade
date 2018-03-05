@@ -39,7 +39,8 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title">{this.state.playerController ? <div>{this.state.playerController.getName() }</div> : <div>Not yet logged In</div>}</h1>
+          <h1>The Virtual Arcade House</h1>
+          <h1 className="App-title">{this.state.playerController ? <div>Welcome {this.state.playerController.getName() }!</div> : <div>Not yet logged In</div>}</h1>
         </header>
         <main>
           <GameChooser playerInfo={this.state.playerController}/>
