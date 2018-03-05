@@ -139,6 +139,8 @@ export default class GameInfo{
         if(this.isInitialized())
             winner = this._getGameState().winnerPlayerId;
 
+        console.log("winner", winner);
+
         return winner;
     }
 
