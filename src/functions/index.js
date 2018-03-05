@@ -20,6 +20,7 @@ admin.initializeApp(functions.config().firebase);
 
 const GAME_TYPE_C4 = "C4";
 const GAME_TYPE_Q20 = "Q20";
+const GAME_TYPE_TTT = "TTT";
 
 //types of GameControllers will be added to this object 
 const ALL_GAMES = {};
@@ -29,6 +30,10 @@ ALL_GAMES[GAME_TYPE_C4]= {
 
 ALL_GAMES[GAME_TYPE_Q20]= {
     num_players: ONE_PLAYER_GAME
+};
+
+ALL_GAMES[GAME_TYPE_TTT] = {
+    num_players: TWO_PLAYER_GAME
 };
 
 /**
