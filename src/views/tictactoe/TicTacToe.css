@@ -9,8 +9,13 @@
     justify-content: center;
 }
 
-#tttTile {
+#tttTileContainer {
     flex: 1 0 30%;
     height: 15vh;
     margin: 5px;
+    display: flex;
+}
+
+#tttTile {
+    flex: 1 0 100%;
 }
