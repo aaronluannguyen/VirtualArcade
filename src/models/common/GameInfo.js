@@ -133,6 +133,7 @@ export default class GameInfo{
     getWinner(){
         
         console.log("checking for winner");
+        console.log(new Error().stack);
         
         let winner = undefined;
         

@@ -174,6 +174,7 @@ export default class PlayerController{
         for(let i=0; i<this.data.games.length; i++){
 
             if(!this.data.games[i].getGameInfo() || this.data.games[i].getGameInfo().getWinner()==undefined){
+                console.log(this.data.games[i].getGameInfo())
                 return this.data.games[i];
             }
         }

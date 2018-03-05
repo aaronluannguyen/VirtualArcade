@@ -35,8 +35,16 @@ export default class Tile extends React.Component{
     }
 
     action() {
-        console.log("clicked " + this.props.xcoord + ", " + this.props.ycoord);
-        this.state.gcontroller.gbg.handleClick(this.props.xcoord, this.props.ycoord);
+        let lastRow = 7;
+        for (let i = 7; i >= 0; i--) {
+            console.log(this.props.grid[this.props.col][i])
+            if (!this.props.grid[this.props.col][i]) {
+                lastRow = i;
+                break;
+            }
+        }
+        console.log("clicked row " + lastRow + ", col " + this.props.col);
+        this.state.gcontroller.gbg.handleClick(lastRow, this.props.col);
         this.state.gcontroller.handleUIUpdate();
     }
 
@@ -52,8 +60,7 @@ export default class Tile extends React.Component{
 
         if (this.props.tile) {
             id = this.props.tile.getplayerId();
-            console.log(id);
-            console.log(this.state.currentplayerId);
+
 
         }
         
