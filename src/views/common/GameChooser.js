@@ -1,6 +1,7 @@
 import React from "react";
 import {ALL_GAMES, ContClass} from "../../models/common/Games"
 import {GameInfo} from "../../models/common/GameInfo"
+import GameCard from "./GameCard";
 
 export default class GameChooser extends React.Component{
 
@@ -68,9 +69,14 @@ export default class GameChooser extends React.Component{
  */
 
         return ( 
-                <div>
-                    {Object.values(ALL_GAMES).map((game)=><button key={game.gameTypeId} onClick={(evt)=>this.handleClick(evt, game[ContClass])}>{game.name}</button>)}
-                </div>
+                    <div>
+                        <div>
+                            {Object.values(ALL_GAMES).map((game)=><button key={game.gameTypeId} onClick={(evt)=>this.handleClick(evt, game[ContClass])}>{game.name}</button>)}
+                        </div>
+                        <button>
+                            {Object.values(ALL_GAMES).map((game)=><GameCard key={game.gameTypeId} gameName={game.name} onClick={(evt)=>this.handleClick(evt, game[ContClass])}>{game.name}</GameCard>)}
+                        </button>
+                    </div>
                 );
         
     }
