@@ -59,6 +59,7 @@ export class GridBoardGame {
         {
             this.controllerModelRef.gameInfo.updateInfo({winnerPlayerId: data.actions.move.playerId})
         }
+        
         this.controllerModelRef.pcontroller.handleUIUpdate();
     }
 

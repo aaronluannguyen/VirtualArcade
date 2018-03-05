@@ -16,7 +16,6 @@ export default class GameInfo{
             gameSnap: gameSnap,
             gameRoomSnap: undefined,
             gameOver: false,
-            winnerPlayerId: undefined,
             callbackFunctions: [],
             localInfo: undefined,
         }
@@ -69,7 +68,7 @@ export default class GameInfo{
      *              }
      *          }
      *          currentPlayer: otherPlayerIndex (e.g. 0 or 1 in 2 player )
-     *          winner: playerId
+     *          winnerPlayerId: playerId
      *      }
      * x, y are intended for games where it makes more sense to represent 2d
      * index is intended for 1d
@@ -90,6 +89,7 @@ export default class GameInfo{
             
             state.currentPlayer = nextPlayer;
             this.data.localInfo.currentPlayer = nextPlayer;
+            this.data.localInfo.winnerPlayerId = state.winnerPlayerId;
 
             this.data.roomRef.update(state);
 
@@ -131,7 +131,22 @@ export default class GameInfo{
      * @returns {string} playerId of winner
      */
     getWinner(){
+        
+        console.log("checking for winner");
+        
+        let winner = undefined;
+        
+        if(this.isInitialized()){
 
+            winner = this._getGameState().winnerPlayerId;
+
+            console.log("winner is ", winner);
+
+        }else{
+            console.log("game info not initialized");
+        }
+
+        return winner;
     }
 
 
