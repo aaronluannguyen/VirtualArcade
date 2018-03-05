@@ -59,8 +59,10 @@ export default class Grid{
         if( y_2 > this.lastIndex )
             y_2 = this.lastIndex;
 
-        for(let i=x_1; i<x_2; i++){
-            for(let j=y_1; j<y_2; j++){
+        console.log("direction kernel bounds p_1", x_1, y_1, "p2", x_2, y_2);
+
+        for(let i=y_1; i<y_2; i++){
+            for(let j=x_1; j<x_2; j++){
                 
                 //get the neighboring token
                 let neighboringToken = this.grid[i][j];
@@ -70,6 +72,7 @@ export default class Grid{
                 if( !neighboringToken || neighboringToken == newToken )
                     continue;
 
+                //kernel is 3x3, so each row (given by i) is 3, each col inc the index by one
                 let direction = i*3+j;
 
                 switch(direction){
@@ -101,7 +104,7 @@ export default class Grid{
                         neighboringToken.addConnection(DIRECTIONS.BR, newToken);
                         break;
                     default:
-                        console.error("Bad direction calculation in Grid");
+                        console.error("Bad direction calculation in Grid at i,j", i, j);
                         break;
                 }
 
