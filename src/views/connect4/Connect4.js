@@ -16,9 +16,14 @@ export default class Connect4 extends React.Component{
         console.log("componentwillmount");
 
     }
+
+    // componentWillReceiveProps(nextProps) {
+    //     this.setState({grid: nextProps.grid});
+    //     console.log(nextProps.grid);
+    // }
     
     render(){
-        let rows = [];
+        let columns = [];
         if (this.state.grid) {
             console.log("GRID IS MOUNTED!");
             console.log(this.state.grid)
@@ -27,14 +32,16 @@ export default class Connect4 extends React.Component{
         }
         
         for (let i = 0; i < this.state.grid.length; i++) {
-            rows.push(<Row row={this.state.grid[i]} gcontroller={this.state.gcontroller} row={i}/>)
+            columns.push(<Row col={this.state.grid[i]} gcontroller={this.state.gcontroller} index={i} pcontroller={this.state.pcontroller}/>)
         }
 
         return (
             <div className="container" id="grid" ref="wrap">
                 <h1>Connect4 Placeholder View</h1>  
                 <div className="container"> 
-                    {rows}
+                    <div className="row justify-content-center">
+                        {columns}
+                    </div>
                 </div>
             </div>
         );

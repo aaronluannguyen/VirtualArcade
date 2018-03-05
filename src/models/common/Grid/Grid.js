@@ -158,7 +158,7 @@ export default class Grid{
             } while(nextToken);
 
             //once at that bound, move in the opposite direction, counting tokens
-            do{
+            do {
 
                 currentConnectionCount++;
                 nextToken = currentToken.getConnection(winDirections[curDirection][TOWARDS_END]);

@@ -30,6 +30,10 @@ export class PlayerToken{
         };
     }
 
+    getplayerId() {
+        return this.playerId;
+    }
+
     addConnection(direction, token) {
         
         //only connect tokens belonging to the same player
