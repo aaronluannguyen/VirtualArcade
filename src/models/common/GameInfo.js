@@ -12,24 +12,30 @@ export default class GameInfo{
          * @private
          */
         this.data = {
+            staleSnap: true,
             gameSnap: gameSnap,
             gameRoomSnap: undefined,
             gameOver: false,
-            winnerPlayerId: undefined,
-            callbackFunctions: []
+            callbackFunctions: [],
+            localInfo: undefined,
         }
 
         console.log("gameinfo, gamesnap", gameSnap);
         
         //begin watching the actual game room
         this.data.roomRef = firebase.database().ref(`/game/${gameSnap.val().gameTypeId}/${gameSnap.val().roomKey}`);
-        this.data.roomRef.on("value", ()=> this._dataCallback);
+        this.data.roomRef.once("value", (data)=> this._handleDataCallback(data));
 
         console.log("roomref", this.data.roomRef)
         
         //initialize data from firebase based on snapshot
-        this.data.roomRef.once("value").then(snapshot=>{this._dataCallback(snapshot)});
+        //once doesn't need to "unlisten", and nothing is returned
+        this._dataValueListener = this.data.roomRef.on("value", snapshot => this._handleDataCallback(snapshot) );
 
+    }
+
+    unmount(){
+        this.data.roomRef.off("value", this._dataValueListener);
     }
 
     /**
@@ -40,15 +46,18 @@ export default class GameInfo{
 
         //console.log("gameroomsnap", this.data.gameRoomSnap)
 
-        if(this.data.gameRoomSnap)
+        if(this.data.gameRoomSnap && !this.data.staleSnap)
             return this.data.gameRoomSnap.val();
+        else{
+            return this.data.localInfo;
+        }
 
     }
 
     /**
      * @function GameInfo.updateInfo
      * @param {Object} state Object with key(s)
-     *      {
+     *      {   actions:{
      *          move:{
      *                  playerId:playerId,
      *                  selection:{
@@ -57,6 +66,8 @@ export default class GameInfo{
      *                  index: selection_index
      *                  }
      *              }
+     *          }
+     *          currentPlayer: otherPlayerIndex (e.g. 0 or 1 in 2 player )
      *          winner: playerId
      *      }
      * x, y are intended for games where it makes more sense to represent 2d
@@ -66,7 +77,26 @@ export default class GameInfo{
      */
     updateInfo(state){
         //send info patch to firebase
-        this.data.roomRef.push(state);
+
+        this.data.staleSnap = true;
+
+        let gameState = this._getGameState();
+        console.log("checking game state exists");
+
+        if(gameState){
+            let nextPlayer = (gameState.currentPlayer+1) % gameState.numPlayers;
+            console.log("updating currentPlayer to ", nextPlayer );
+            
+            state.currentPlayer = nextPlayer;
+            this.data.localInfo.currentPlayer = nextPlayer;
+
+            this.data.roomRef.update(state);
+
+        } else { 
+            console.error("no game state!");
+        }
+
+
 
     }
 
@@ -100,15 +130,15 @@ export default class GameInfo{
      * @returns {string} playerId of winner
      */
     getWinner(){
-
+        return this._getGameState().winnerPlayerId;
     }
 
 
     /**
-     * @function GameInfo.addCallback
+     * @function GameInfo.addDataCallback
      * @param {closure} callbackFunction Should be an argument-less closure ()=>{}
      */
-    addCallback(callbackFunction){
+    addDataCallback(callbackFunction){
         
         console.log("adding game info model callback function");
         this.data.callbackFunctions.push(callbackFunction);
@@ -121,9 +151,11 @@ export default class GameInfo{
      * @function GameInfo._dataCallback
      * @private
      */
-    _dataCallback(data)
+    _handleDataCallback(data)
     {
+        this.data.staleSnap = false;
         this.data.gameRoomSnap = data;
+        this.data.localInfo = data.val();
         console.log("callback, gameroomsnap", data.val())
         //distribute the messages (per observer pattern)
         this.data.callbackFunctions.forEach((callback)=> callback(data.val()));
