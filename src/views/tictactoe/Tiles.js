@@ -7,12 +7,12 @@ export default class Tile extends React.Component{
 
         this.state = {
             clicked: false,
-            gcontroller: this.props.gcontroller
         }
     }
 
     action() {
         this.setState({clicked: true});
+        this.setState({clicker: this.props.gcontroller.getGameInfo().getCurrentPlayerId()});
         this.props.gcontroller.gbg.handleClick(this.props.xCoordinate, this.props.yCoordinate);
     }
 
@@ -22,7 +22,7 @@ export default class Tile extends React.Component{
                 {
                     this.state.clicked ?
                         <button id="tttTile" className="btn btn-primary" disabled>
-                            CLICKED by {this.props.gcontroller.getGameInfo().getCurrentPlayerId()}
+                            CLICKED by {this.state.clicker}
                             x: {this.props.xCoordinate} y: {this.props.yCoordinate}
                         </button>
                         :
