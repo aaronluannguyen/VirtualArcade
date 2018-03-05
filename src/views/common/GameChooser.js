@@ -66,7 +66,7 @@ export default class GameChooser extends React.Component{
                             {Object.values(ALL_GAMES).map((game)=><button key={game.gameTypeId} onClick={(evt)=>this.handleClick(evt, game[ContClass])}>{game.name}</button>)}
                         </div>
                         <div>
-                            {Object.values(ALL_GAMES).map((game)=><button onClick={(evt)=>this.handleClick(evt, game[ContClass])}><GameCard key={game.gameTypeId} gameName={game.name} gameImg={game.imgSrc}/></button>)}
+                            {Object.values(ALL_GAMES).map((game)=><button onClick={(evt)=>this.handleClick(evt, game[ContClass])}><GameCard key={game.gameTypeId} gameName={game.name}/></button>)}
                         </div>
                     </div>
                 );
