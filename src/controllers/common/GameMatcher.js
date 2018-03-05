@@ -17,7 +17,9 @@ export default class GameMatcher{
 
         console.log("setting up game match");
 
-        this._valueListener = firebase.database().ref(`/users/${playerId}/game_rooms`).on("child_added", snapshot => {
+        this._users_game_rooms_ref = firebase.database().ref(`/users/${playerId}/game_rooms`);
+
+        this._valueListener = this._users_game_rooms_ref.on("child_added", snapshot => {
 
             
             let value = snapshot.val();
@@ -39,5 +41,9 @@ export default class GameMatcher{
         //players, move them to a new room, and add the room under the player's /game_rooms, which will start the game
         //if there is only one player, the lambda will be called with the snapshot when the second player enters the room
         firebase.database().ref(`/lobby/${gameTypeId}`).push({playerId: playerId});
+    }
+
+    unmount(){
+        this._users_game_rooms_ref.off("value", this._valueListener);
     }
 }
