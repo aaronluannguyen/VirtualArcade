@@ -131,13 +131,6 @@ export default class GameInfo{
      * @returns {string} playerId of winner
      */
     getWinner(){
-<<<<<<< HEAD
-        let winner = undefined;
-        
-        if(this.isInitialized())
-            winner = this._getGameState().winnerPlayerId;
-=======
-        
         console.log("checking for winner");
         
         let winner = undefined;
@@ -151,7 +144,6 @@ export default class GameInfo{
         }else{
             console.log("game info not initialized");
         }
->>>>>>> origin/win_detection_fix
 
         return winner;
     }
