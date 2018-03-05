@@ -89,6 +89,10 @@ export default class GameInfo{
             
             state.currentPlayer = nextPlayer;
             this.data.localInfo.currentPlayer = nextPlayer;
+<<<<<<< HEAD
+=======
+            this.data.localInfo.winnerPlayerId = state.winnerPlayerId;
+>>>>>>> origin/win_detection_fix
 
             this.data.roomRef.update(state);
 
@@ -130,10 +134,27 @@ export default class GameInfo{
      * @returns {string} playerId of winner
      */
     getWinner(){
+<<<<<<< HEAD
         let winner = undefined;
         
         if(this.isInitialized())
             winner = this._getGameState().winnerPlayerId;
+=======
+        
+        console.log("checking for winner");
+        
+        let winner = undefined;
+        
+        if(this.isInitialized()){
+
+            winner = this._getGameState().winnerPlayerId;
+
+            console.log("winner is ", winner);
+
+        }else{
+            console.log("game info not initialized");
+        }
+>>>>>>> origin/win_detection_fix
 
         return winner;
     }

@@ -172,7 +172,13 @@ export default class PlayerController{
      */
     getGame(){
         //console.log("getGame callstack", new Error().stack, "getGame", this.data.games[0])
-        return this.data.games[0];
+        for(let i=0; i<this.data.games.length; i++){
+
+            if(!this.data.games[i].getGameInfo() || this.data.games[i].getGameInfo().getWinner()==undefined){
+                return this.data.games[i];
+            }
+        }
+        
     }
 
     /**
