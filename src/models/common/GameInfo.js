@@ -68,7 +68,7 @@ export default class GameInfo{
      *              }
      *          }
      *          currentPlayer: otherPlayerIndex (e.g. 0 or 1 in 2 player )
-     *          winner: playerId
+     *          winnerPlayerId: playerId
      *      }
      * x, y are intended for games where it makes more sense to represent 2d
      * index is intended for 1d
