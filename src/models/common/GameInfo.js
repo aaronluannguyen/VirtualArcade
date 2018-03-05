@@ -89,10 +89,7 @@ export default class GameInfo{
             
             state.currentPlayer = nextPlayer;
             this.data.localInfo.currentPlayer = nextPlayer;
-<<<<<<< HEAD
-=======
             this.data.localInfo.winnerPlayerId = state.winnerPlayerId;
->>>>>>> origin/win_detection_fix
 
             this.data.roomRef.update(state);
 
