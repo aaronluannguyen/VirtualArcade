@@ -185,8 +185,8 @@ export default class PlayerController{
         //console.log("getGame callstack", new Error().stack, "getGame", this.data.games[0])
         for(let i=0; i<this.data.games.length; i++){
 
-            console.log("checking for current game");
-            console.log("getgame", this.data.games[i]);
+            //console.log("checking for current game");
+            //console.log("getgame", this.data.games[i]);
             if(!this.data.games[i].getGameInfo() || this.data.games[i].getGameInfo().getWinner()==undefined){
                 
                 return this.data.games[i];
@@ -217,7 +217,7 @@ export default class PlayerController{
     isPlayingGame(){
         let gameInfo = this.getGame();
 
-        console.log("isplayinggame ", gameInfo != undefined)
+        //console.log("isplayinggame ", gameInfo != undefined)
         return gameInfo != undefined; //&& gameInfo.getGameInfo();
     }
 
@@ -228,7 +228,7 @@ export default class PlayerController{
      */
     isWaitingForMatch(){
 
-        console.log("figuring out waiting state",  this.isPlayingGame() )
+        //console.log("figuring out waiting state",  this.isPlayingGame() )
         
         /*if(this.isPlayingGame())
             console.log("gameinfo", this.getGame().getGameInfo())

@@ -20,23 +20,28 @@ export default class GameInfo{
             localInfo: undefined,
         }
 
-        console.log("gameinfo, gamesnap", gameSnap, loadCallback);
+        console.log("gameinfo, gamesnap", gameSnap);
+        //console.log("loadcallback", loadCallback);
         
         //begin watching the actual game room
         this.data.roomRef = firebase.database().ref(`/game/${gameSnap.val().gameTypeId}/${gameSnap.val().roomKey}`);
         this.data.roomRef.once("value", (data) => {
             this._handleDataCallback(data); 
            
-            console.log("loadcallback value", loadCallback);
+            //console.log("loadcallback value", loadCallback);
 
             loadCallback();
+
+            if(!data.val().winnerPlayerId){
+                
+                //initialize data from firebase based on snapshot
+                //once doesn't need to "unlisten", and nothing is returned
+                this._dataValueListener = this.data.roomRef.on("value", snapshot => this._handleDataCallback(snapshot) );
+            }
         });
 
         console.log("roomref", this.data.roomRef)
         
-        //initialize data from firebase based on snapshot
-        //once doesn't need to "unlisten", and nothing is returned
-        this._dataValueListener = this.data.roomRef.on("value", snapshot => this._handleDataCallback(snapshot) );
 
     }
 
@@ -158,7 +163,7 @@ export default class GameInfo{
      */
     getWinner(){
         
-        console.log("checking for winner");
+        //console.log("checking for winner");
         
         let winner = undefined;
         
@@ -166,7 +171,7 @@ export default class GameInfo{
 
             winner = this._getGameState().winnerPlayerId;
 
-            console.log("winner is ", winner);
+            //console.log("winner is ", winner);
 
         }else{
             console.log("game info not initialized");
@@ -186,7 +191,7 @@ export default class GameInfo{
         this.data.callbackFunctions.push(callbackFunction);
 
         //also update this specific function with the newest data
-        callbackFunction(this._getGameState());
+        //callbackFunction(this._getGameState());
 
     }
 
