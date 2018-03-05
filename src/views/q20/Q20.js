@@ -13,14 +13,24 @@ export default class Q20 extends React.Component{
             finalGuess: undefined
         }
     }
+
+    componentWillReceiveProps() {
+        this.props.pC.getGame().getGameInfo().addDataCallback(() => {this.forceUpdate()});
+    }
     
-    componentWillMount() {
+    handleResponse(response) {
+        console.log("getting cloud vision response");
+        return response.json();
+    }
+
+    handleStartGame(evt) {
+        this.setState({img:evt.target.src});
         let req = {
             "requests":[
                     {
                     "image": {
                         "source": {
-                            "imageUri": "gs://info343/pickle_rick.jpg"
+                            "imageUri": evt.target.src
                         }
                     },
                     "features":[
@@ -54,23 +64,8 @@ export default class Q20 extends React.Component{
                 }
         }))
         .catch(err => this.setState({error: err.message}))
-        .then(() => this.setState({working: false}));
-    }
-
-    componentWillReceiveProps() {
-        this.props.pC.getGame().getGameInfo().addDataCallback(() => {this.forceUpdate()});
-    }
-    
-    handleResponse(response) {
-        console.log("getting cloud vision response");
-        return response.json();
-    }
-
-    handleStartGame() {
-        this.setState({
-            playing: true,
-        });
-        this.handleAskQuestion();
+        .then(() => this.setState({working: false, playing: true}))
+        .then(() => this.handleAskQuestion());
     }
 
     handleAskQuestion() {
@@ -191,7 +186,7 @@ export default class Q20 extends React.Component{
                 {
                     !this.state.playing && !this.state.gameEnd && !this.state.working ?
                     <div className="container picture">
-                        <img className="img-fluid" onClick={() => this.handleStartGame()}
+                        <img className="img-fluid" onClick={(evt) => this.handleStartGame(evt)}
                             src="https://storage.googleapis.com/info343/pickle_rick.jpg" alt="pickle rick"/>
                     </div> :
                     ""
