@@ -90,6 +90,10 @@ export default class GameInfo{
             state.currentPlayer = nextPlayer;
             this.data.localInfo.currentPlayer = nextPlayer;
 
+            if(state.winnerPlayerId) {
+                this.data.localInfo.winnerPlayerId = state.winnerPlayerId;
+            }
+
             this.data.roomRef.update(state);
 
         } else { 

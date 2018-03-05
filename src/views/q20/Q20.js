@@ -8,6 +8,7 @@ export default class Q20 extends React.Component{
             questions: {},
             webDetectionData: undefined,
             playing: false,
+            // gameEnd: false,
             finalGuess: undefined
         }
     }
@@ -52,6 +53,10 @@ export default class Q20 extends React.Component{
         }))
         .catch(err => this.setState({error: err.message}));
     }
+
+    componentWillReceiveProps() {
+        this.props.pC.getGame().getGameInfo().addDataCallback(() => {this.forceUpdate()});
+    }
     
     handleResponse(response) {
         console.log("getting cloud vision response");
@@ -59,7 +64,9 @@ export default class Q20 extends React.Component{
     }
 
     handleStartGame() {
-        this.setState({playing: true});
+        this.setState({
+            playing: true,
+        });
         this.handleAskQuestion();
     }
 
@@ -93,13 +100,36 @@ export default class Q20 extends React.Component{
         this.setState({finalGuess:guess});
     }
 
-    handleWin() {
-        console.log("you won against google");
+    handleGameEnd(gameWon) {
+        let result = undefined;
+        if (gameWon) {
+            result = "won";
+            this.props.pC.getGame().getGameInfo().updateInfo({
+                winnerPlayerId: this.props.pC.getPlayerId()
+            });
+            this.forceUpdate();
+        } else {
+            result = "lost";
+            this.props.pC.getGame().getGameInfo().updateInfo({
+                winnerPlayerId: 0
+            });
+            this.forceUpdate();
+        }
+        // this.setState({
+        //     playing: false,
+        //     gameEnd: true,
+        //     gameOutcome: result
+        // })
     }
 
-    handleLose() {
-        console.log("you lost against google");
-    }
+    // handleNewGame() {
+    //     this.setState({
+    //         playing: false,
+    //         questions: {},
+    //         gameEnd: false,
+    //         finalGuess: undefined
+    //     });
+    // }
 
     render(){
         return (
@@ -119,25 +149,42 @@ export default class Q20 extends React.Component{
                                 <div className="container">
                                     <div>Is your image {this.state.finalGuess}?</div>
                                     <div className="btn-group">
-                                        <div className="btn btn-danger" onClick={() => this.handleWin()}>No</div>
-                                        <div className="btn btn-success" onClick={() => this.handleLose()}>Yes</div>
+                                        <div className="btn btn-success" onClick={(evt) => this.handleGameEnd(true)}>No</div>
+                                        <div className="btn btn-danger" onClick={(evt) => this.handleGameEnd(false)}>Yes</div>
                                     </div>
                                 </div> :
                                 <div className="container">
                                     <div className="container question">{this.state.questions.questionString}</div>
                                     <div className="container yes_no">
                                         <div className="btn-group" onClick={() => this.handleAskQuestion()}>
-                                            <div className="btn btn-success">Yes</div>
-                                            <div className="btn btn-danger">No</div>
+                                            <div className="btn btn-success" value="yes">Yes</div>
+                                            <div className="btn btn-danger" value="no">No</div>
                                         </div>
                                     </div>
                                 </div>
                             }
                         </div> :
-                        <div className="container picture">
-                            <img className="img-fluid" onClick={() => this.handleStartGame()}
-                                src="https://storage.googleapis.com/info343/pickle_rick.jpg" alt="pickle rick"/>
-                        </div>
+                        ""
+                }
+                {/* {
+                    this.state.gameEnd ?
+                        <div className="container">
+                            <div>You {this.state.gameOutcome}!</div>
+                            <h4>Play again?</h4>
+                            <div className="btn-group">
+                                <div className="btn btn-success" onClick={() => this.handleNewGame()}>Yes</div>
+                                <div className="btn btn-danger">No</div>
+                            </div>
+                        </div> :
+                        ""
+                } */}
+                {
+                    !this.state.playing && !this.state.gameEnd ?
+                    <div className="container picture">
+                        <img className="img-fluid" onClick={() => this.handleStartGame()}
+                            src="https://storage.googleapis.com/info343/pickle_rick.jpg" alt="pickle rick"/>
+                    </div> :
+                    ""
                 }
             </div>
         );

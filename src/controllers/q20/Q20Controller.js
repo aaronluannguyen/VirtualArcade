@@ -19,9 +19,7 @@ export default class Q20Controller extends GameController{
     }
 
     getView() {
-        return (
-            <Q20/>
-        );
+        return <Q20 pC={this._data.playerController}/>;
     }
 };
 
