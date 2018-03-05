@@ -1,15 +1,15 @@
 import React from "react";
 
 let baseStyles = {
-    color: "#0000ff"
+    backgroundColor: "#0000ff"
 };
 
 let otherStyles = {
-    color: "ffff00"
+    backgroundColor: "ffff00"
 };
 
 let emptyStyles = {
-    color: "#fff"
+    backgroundColor: "#fff"
 };
 
 export default class Tile extends React.Component{
@@ -17,7 +17,6 @@ export default class Tile extends React.Component{
         super(props);
 
         this.state = {
-            clicked: false,
             gcontroller: this.props.gcontroller,
             currentplayerId: this.props.pcontroller.getPlayerId()
         }
@@ -36,32 +35,44 @@ export default class Tile extends React.Component{
     }
 
     action() {
-        this.setState({clicked: true});
         console.log("clicked " + this.props.xcoord + ", " + this.props.ycoord);
         this.state.gcontroller.gbg.handleClick(this.props.xcoord, this.props.ycoord);
         this.state.gcontroller.handleUIUpdate();
     }
 
     render() {
-        let styles = emptyStyles;
+        // let styles = emptyStyles;
+        // if (this.props.tile) {
+        //     // this.setState({tileId: this.props.tile.getplayerId()})
+        //     console.log(this.props.tile.getplayerId());
+        //     styles = this.props.tile.getplayerId() === this.state.currentplayerId ? baseStyles : otherStyles;
+        // }
+        
+        let id = null;
+
         if (this.props.tile) {
-            // this.setState({tileId: this.props.tile.getplayerId()})
-            console.log(this.props.tile.getplayerId());
-            styles = this.props.tile.getplayerId() === this.state.currentplayerId ? baseStyles : otherStyles;
+            id = this.props.tile.getplayerId();
+            console.log(id);
+            console.log(this.state.currentplayerId);
+
         }
         
         return (
             <div className="col"> 
                 {
                     !this.props.tile ?
-                    <button style={styles} className="btn-sm" onClick={this.state.gcontroller.getGameInfo().getCurrentPlayerId() == this.state.gcontroller.getPlayerId() ? () => this.action() : () => {}}>
+                    <button className="btn-sm" onClick={this.state.gcontroller.getGameInfo().getCurrentPlayerId() == this.state.gcontroller.getPlayerId() ? () => this.action() : () => {}}>
                         {this.props.tile}
-                        No
-                    </button> :
-                    <button style={styles} className="btn-sm" disabled>
-                        Yes
-                    </button>                  
-                }
+                        
+                    </button> : 
+                    <div>
+                        {
+                            id == this.state.currentplayerId ? 
+                            <button className="btn-sm btn-primary" disabled/> :
+                            <button className="btn-sm btn-warning" disabled/>
+                        }
+                    </div>
+                }   
             </div>
         );
     }
