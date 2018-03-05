@@ -7,7 +7,7 @@ export default class Tile extends React.Component{
 
         this.state = {
             clicked: false,
-            gcontroller: this.props.gcontroller
+            gcontroller: this.props.gcontroller,
         }
     }
 

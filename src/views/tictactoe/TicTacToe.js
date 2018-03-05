@@ -11,7 +11,8 @@ export default class TicTacToe extends React.Component{
         this.state = {
             pcontroller: this.props.pC,
             gcontroller: this.props.pC.getGame(),
-            grid: this.props.grid
+            grid: this.props.grid,
+            turn: true
         }
     }
 
@@ -38,8 +39,11 @@ export default class TicTacToe extends React.Component{
         }
 
         return (
-            <div id="tttBoard" className="container">
-                {rows}
+            <div>
+                <h1>Welcome to Tic Tac Toe!</h1>
+                <div id="tttBoard" className="container">
+                    {rows}
+                </div>
             </div>
         );
     }
