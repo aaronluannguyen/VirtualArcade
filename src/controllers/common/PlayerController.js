@@ -35,6 +35,9 @@ export default class PlayerController{
 
                     console.log("displayName already known", user.displayName);
                     this.showUserInfo(user.displayName);
+
+                    //this is to patch existing users....
+                    firebase.database().ref(`/users/${user.uid}`).update({displayName: user.displayName});
                 }
                 else if(user.displayName == undefined){
                     
@@ -44,6 +47,8 @@ export default class PlayerController{
                     
                         firebase.auth().currentUser.updateProfile({displayName: data.name}).catch(err=>console.error(err));
                         
+                        firebase.database().ref(`/users/${user.uid}`).update({displayName: user.displayName});
+
                         console.log("sent new displayname: " + data.name);
 
                         this.showUserInfo(user.displayName);
@@ -67,8 +72,9 @@ export default class PlayerController{
 
                         let existingGame = ALL_GAMES[game_room.val().gameTypeId][ContClass];
 
-                        let existingGameInfo = new GameInfo(game_room);
-
+                        let existingGameInfo = new GameInfo(game_room, ()=>{
+                        
+                        console.log("loadcallback checking winner, existingGameInfo.getWinner()", existingGameInfo.getWinner())
                         //if there's no winner then the game is in progress and should be resumed...
                         if(existingGameInfo.getWinner() == undefined){
 
@@ -77,20 +83,26 @@ export default class PlayerController{
 
                             //create the in-progress game from the info stored in firebase
                             this.data.games.push( new existingGame(this, existingGameInfo) );
+                            
+                            this.handleUIUpdate();
                         } else {
                             //this doesnt need to be an active game, but "leaderboard" might want this info to show
                             //this players game history...
 
+                        }});
+/*
+                        
+                        if(resuming)
+                        {
+                            console.log("triggering UI update for resumed games")
+    
+                            this.handleUIUpdate();
                         }
+  */                      
 
                     });
 
-                    if(resuming)
-                    {
-                        console.log("triggering UI update for resumed games")
-
-                        this.handleUIUpdate();
-                    }
+                    
                 });
               }
           });
@@ -149,7 +161,7 @@ export default class PlayerController{
      * @description Propagates calls to update UI callbacks for all obsevers that have registered through addUICallback
      */
     handleUIUpdate(){
-        console.log("handleUIUpdate", new Error().stack, )
+        //console.log("handleUIUpdate", new Error().stack, )
         this.data.callbacks.forEach((callback)=> {callback()});
     }
 
@@ -174,10 +186,16 @@ export default class PlayerController{
         //console.log("getGame callstack", new Error().stack, "getGame", this.data.games[0])
         for(let i=0; i<this.data.games.length; i++){
 
+            //console.log("checking for current game");
+            //console.log("getgame", this.data.games[i]);
             if(!this.data.games[i].getGameInfo() || this.data.games[i].getGameInfo().getWinner()==undefined){
+                
                 return this.data.games[i];
             }
+            
         }
+
+
         
     }
 
@@ -199,7 +217,9 @@ export default class PlayerController{
      */
     isPlayingGame(){
         let gameInfo = this.getGame();
-        return gameInfo != undefined;
+
+        //console.log("isplayinggame ", gameInfo != undefined)
+        return gameInfo != undefined; //&& gameInfo.getGameInfo();
     }
 
     /**
@@ -209,7 +229,7 @@ export default class PlayerController{
      */
     isWaitingForMatch(){
 
-        console.log("figuring out waiting state",  this.isPlayingGame() )
+        //console.log("figuring out waiting state",  this.isPlayingGame() )
         
         /*if(this.isPlayingGame())
             console.log("gameinfo", this.getGame().getGameInfo())

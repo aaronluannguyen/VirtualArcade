@@ -6,7 +6,7 @@ export default class GameInfo{
      * @class GameInfo
      * @param {firebase.database.DataSnapshot} gameSnap Child DataSnapShot of /users/{user_id}/game_rooms (i.e. {gameTypeId: id, roomKey: ref_key})
      */
-    constructor(gameSnap){
+    constructor(gameSnap, loadCallback =  ()=>{}){
     
         /**
          * @private
@@ -21,16 +21,27 @@ export default class GameInfo{
         }
 
         console.log("gameinfo, gamesnap", gameSnap);
+        //console.log("loadcallback", loadCallback);
         
         //begin watching the actual game room
         this.data.roomRef = firebase.database().ref(`/game/${gameSnap.val().gameTypeId}/${gameSnap.val().roomKey}`);
-        this.data.roomRef.once("value", (data)=> this._handleDataCallback(data));
+        this.data.roomRef.once("value", (data) => {
+            this._handleDataCallback(data); 
+           
+            //console.log("loadcallback value", loadCallback);
+
+            loadCallback();
+
+            if(!data.val().winnerPlayerId){
+                
+                //initialize data from firebase based on snapshot
+                //once doesn't need to "unlisten", and nothing is returned
+                this._dataValueListener = this.data.roomRef.on("value", snapshot => this._handleDataCallback(snapshot) );
+            }
+        });
 
         console.log("roomref", this.data.roomRef)
         
-        //initialize data from firebase based on snapshot
-        //once doesn't need to "unlisten", and nothing is returned
-        this._dataValueListener = this.data.roomRef.on("value", snapshot => this._handleDataCallback(snapshot) );
 
     }
 
@@ -97,8 +108,6 @@ export default class GameInfo{
             console.error("no game state!");
         }
 
-
-
     }
 
     /**
@@ -125,13 +134,36 @@ export default class GameInfo{
 
     }
 
+    getPlayers(){
+
+        if(this.isInitialized()){
+            let gameInfo = this._getGameState();
+
+            return gameInfo.players;
+        }
+    }
+
+    getName(playerId){
+        
+        if(this.isInitialized()){
+            let gameInfo = this._getGameState();
+
+            let player = gameInfo.players.filter((player)=> player.playerId == playerId);
+
+            if(player)
+                return player.opponentName;
+        }
+
+    }
+
     /**
      * return winner based on server decision, should match local calculation if no bugs or cheating
      * @function GameInfo.getWinner
      * @returns {string} playerId of winner
      */
     getWinner(){
-        console.log("checking for winner");
+
+        //console.log("checking for winner");
         
         let winner = undefined;
         
@@ -139,7 +171,7 @@ export default class GameInfo{
 
             winner = this._getGameState().winnerPlayerId;
 
-            console.log("winner is ", winner);
+            //console.log("winner is ", winner);
 
         }else{
             console.log("game info not initialized");
@@ -158,7 +190,9 @@ export default class GameInfo{
         console.log("adding game info model callback function");
         this.data.callbackFunctions.push(callbackFunction);
 
-        
+        //also update this specific function with the newest data
+        //callbackFunction(this._getGameState());
+
     }
 
     /**
@@ -168,6 +202,9 @@ export default class GameInfo{
      */
     _handleDataCallback(data)
     {
+        if(!data || !data.val())
+            return;
+
         this.data.staleSnap = false;
         this.data.gameRoomSnap = data;
         this.data.localInfo = data.val();

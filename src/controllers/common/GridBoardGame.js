@@ -41,7 +41,6 @@ export class GridBoardGame {
         if(this.controllerModelRef.grid.placeToken(x, y, this.controllerModelRef.pcontroller.getPlayerId()))
         {
             this.controllerModelRef.gameInfo.updateInfo({winnerPlayerId: this.controllerModelRef.pcontroller.getPlayerId()})
-       
         }
 
     }
@@ -49,11 +48,10 @@ export class GridBoardGame {
     handleOtherUserMove(data){
 
         console.log("handleusermove", data);
-        if (!data) {
-            return;
-        }
-        if(!data.actions){
+
+        if(!data || !data.actions){
             console.error("no actions to perform");
+            this.controllerModelRef.pcontroller.handleUIUpdate();
             return;
         }
 

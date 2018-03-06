@@ -43,6 +43,8 @@ export default class GameChooser extends React.Component{
 
     render(){
 
+        //console.log("gamechooser instance, ", this);
+
         if(!this.props.playerInfo)
         {
             return (<div>Loading...</div>);
