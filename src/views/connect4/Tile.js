@@ -68,15 +68,15 @@ export default class Tile extends React.Component{
             <div className="col"> 
                 {
                     !this.props.tile ?
-                    <button className="btn-sm" onClick={this.state.gcontroller.getGameInfo().getCurrentPlayerId() == this.state.gcontroller.getPlayerId() ? () => this.action() : () => {}}>
+                    <button className="btn-sm rounded-circle" id="button" onClick={this.state.gcontroller.getGameInfo().getCurrentPlayerId() == this.state.gcontroller.getPlayerId() ? () => this.action() : () => {}}>
                         {this.props.tile}
                         
                     </button> : 
                     <div>
                         {
                             id == this.state.currentplayerId ? 
-                            <button className="btn-sm btn-primary" disabled/> :
-                            <button className="btn-sm btn-warning" disabled/>
+                            <button className="btn-sm btn-primary" id="button" disabled/> :
+                            <button className="btn-sm btn-warning" id="button" disabled/>
                         }
                     </div>
                 }   
