@@ -16,6 +16,11 @@ export default class Connect4 extends React.Component{
         console.log("componentwillmount");
 
     }
+    componentWillUnmount(){
+        
+        console.log("connect4 view component will unmount", this.pcontroller);
+        this.state.pcontroller.unmount();
+    }
 
     // componentWillReceiveProps(nextProps) {
     //     this.setState({grid: nextProps.grid});
