@@ -32,7 +32,7 @@ export default class Row extends React.Component{
             rows.push(<Tile grid={this.state.grid} tile={this.props.row[i]} col={this.state.index} row={i} gcontroller={this.state.gcontroller} pcontroller={this.state.pcontroller}/>)
         }
         return (        
-            <div className="mx-3"> 
+            <div className="mx-1"> 
                 {rows}
             </div>
         );
