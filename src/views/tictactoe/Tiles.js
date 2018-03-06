@@ -34,11 +34,11 @@ export default class Tile extends React.Component{
                         :
                         this.props.gcontroller.getGameInfo().getCurrentPlayerId() === this.props.pcontroller.data.playerId ?
                             <button id="tttTile" className="btn btn-primary" onClick={() => this.action()}>
-                                y: {this.state.y} x: {this.state.x}
+
                             </button>
                             :
                             <button id="tttTile" className="btn btn-primary" disabled>
-                                y: {this.state.y} x: {this.state.x}
+
                             </button>
                 }
             </div>
