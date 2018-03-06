@@ -38,8 +38,12 @@ class App extends Component {
     
     return (
       <div className="App">
+        <div className="jumbotron">
+          <div id="title-background">
+              <h1>The Virtual Arcade</h1>
+          </div>
+        </div>
         <header className="App-header">
-          <h1>The Virtual Arcade House</h1>
           <h1 className="App-title">{this.state.playerController ? <div>Welcome {this.state.playerController.getName() }!</div> : <div>Not yet logged In</div>}</h1>
         </header>
         <main>
