@@ -22,4 +22,9 @@
     max-width: 100%;
     overflow: hidden;
     background-color: grey;
+    padding: 0px;
+}
+
+#marker {
+    width: 75%;
 }
