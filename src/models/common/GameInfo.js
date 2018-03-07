@@ -89,6 +89,10 @@ export default class GameInfo{
             
             state.currentPlayer = nextPlayer;
             this.data.localInfo.currentPlayer = nextPlayer;
+<<<<<<< HEAD
+=======
+            this.data.localInfo.winnerPlayerId = state.winnerPlayerId;
+>>>>>>> connect-4-john
 
             this.data.roomRef.update(state);
 
@@ -130,11 +134,29 @@ export default class GameInfo{
      * @returns {string} playerId of winner
      */
     getWinner(){
+<<<<<<< HEAD
         let winner = undefined;
         
         if(this.isInitialized())
             winner = this._getGameState().winnerPlayerId;
 
+=======
+        
+        console.log("checking for winner");
+        
+        let winner = undefined;
+        
+        if(this.isInitialized()){
+
+            winner = this._getGameState().winnerPlayerId;
+
+            console.log("winner is ", winner);
+
+        }else{
+            console.log("game info not initialized");
+        }
+
+>>>>>>> connect-4-john
         return winner;
     }
 
@@ -158,6 +180,12 @@ export default class GameInfo{
      */
     _handleDataCallback(data)
     {
+<<<<<<< HEAD
+=======
+        if(!data || !data.val())
+            return;
+
+>>>>>>> connect-4-john
         this.data.staleSnap = false;
         this.data.gameRoomSnap = data;
         this.data.localInfo = data.val();

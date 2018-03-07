@@ -1,12 +1,12 @@
 export const DIRECTIONS = {
-        UL: "ul",
-        U: "u",
-        UR: "ur",
-        L: "l",
-        R: "r",
-        BL: "bl",
-        B: "b",
-        BR: "br",
+        ul: "ul",
+        u: "u",
+        ur: "ur",
+        l: "l",
+        r: "r",
+        bl: "bl",
+        b: "b",
+        br: "br",
     }
 
 export class PlayerToken{
@@ -28,6 +28,10 @@ export class PlayerToken{
             b:  null,
             br: null,
         };
+    }
+
+    getplayerId() {
+        return this.playerId;
     }
 
     addConnection(direction, token) {

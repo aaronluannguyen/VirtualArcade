@@ -29,6 +29,11 @@ export default class GameController{
     _startGame(data){
         this._data.gameInfo = new GameInfo(data);
         this._data.gameInfo.addDataCallback(()=>this._data.playerController.handleUIUpdate());
+
+        if(this.startGame){
+            console.log("this controller has it's own start game");
+            this.startGame(this._data.gameInfo);
+        }
     }
 
     /**
@@ -44,7 +49,18 @@ export default class GameController{
     }
 
     unmount(){
-        this._data.gameMatcher.unmount();
+        if(this._data.gameMatcher){
+            this._data.gameMatcher.unmount();
+        }
+        
         this._data.gameInfo.unmount();
+    }
+
+    handleUIUpdate(){
+        this._data.playerController.handleUIUpdate();
+    }
+
+    getPlayerId(){
+        return this._data.playerController.getPlayerId();
     }
 };

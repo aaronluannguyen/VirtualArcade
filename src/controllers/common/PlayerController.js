@@ -149,7 +149,7 @@ export default class PlayerController{
      * @description Propagates calls to update UI callbacks for all obsevers that have registered through addUICallback
      */
     handleUIUpdate(){
-        console.log("handleUIUpdate", new Error().stack, )
+        //console.log("handleUIUpdate", new Error().stack, )
         this.data.callbacks.forEach((callback)=> {callback()});
     }
 
@@ -172,7 +172,13 @@ export default class PlayerController{
      */
     getGame(){
         //console.log("getGame callstack", new Error().stack, "getGame", this.data.games[0])
-        return this.data.games[0];
+        for(let i=0; i<this.data.games.length; i++){
+
+            if(!this.data.games[i].getGameInfo() || this.data.games[i].getGameInfo().getWinner()==undefined){
+                return this.data.games[i];
+            }
+        }
+        
     }
 
     /**

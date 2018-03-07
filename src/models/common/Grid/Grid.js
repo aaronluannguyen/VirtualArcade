@@ -34,6 +34,11 @@ export default class Grid{
 
         console.log("placetoken, grid", this.grid, x, y);
 
+        //check if token was already placed... don't do extra/excessive work
+        if(this.grid[x][y]!=null){
+            return false;
+        }
+
         let newToken = new PlayerToken(playerId);
         this.grid[x][y] = newToken;
 
@@ -44,23 +49,25 @@ export default class Grid{
         if( x_1 < 0 )
             x_1 = 0;
 
-        let x_2 = x+1;
+        let x_2 = x+2;
         //clip right to right bound of grid
-        if( x_2 > this.lastIndex )
-            x_2 = this.lastIndex;
+        if( x_2 > this.dim )
+            x_2 = this.dim;
 
         let y_1 = y-1;
         //clip top to top bound of grid
         if( y_1 < 0 )
             y_1 = 0;
 
-        let y_2 = y+1;
+        let y_2 = y+2;
         //clip bottom to bottom bound of grid
-        if( y_2 > this.lastIndex )
-            y_2 = this.lastIndex;
+        if( y_2 > this.dim )
+            y_2 = this.dim;
 
-        for(let i=x_1; i<x_2; i++){
-            for(let j=y_1; j<y_2; j++){
+        console.log("direction kernel bounds p_1", x_1, y_1, "p2", x_2, y_2);
+
+        for(let j=y_1; j<y_2; j++){
+            for(let i=x_1; i<x_2; i++){
                 
                 //get the neighboring token
                 let neighboringToken = this.grid[i][j];
@@ -70,38 +77,47 @@ export default class Grid{
                 if( !neighboringToken || neighboringToken == newToken )
                     continue;
 
-                let direction = i*3+j;
+                //kernel is 3x3, so each row (given by i) is 3, each col inc the index by one
+                let direction = (j-y_1)*3+(i-x_1);
 
                 switch(direction){
                     case 0:
-                        neighboringToken.addConnection(DIRECTIONS.UL, newToken);
+                        neighboringToken.addConnection(DIRECTIONS.ul, newToken);
+                        newToken.addConnection(DIRECTIONS.br, neighboringToken);
                         break;
                     case 1:
-                        neighboringToken.addConnection(DIRECTIONS.U, newToken);
+                        neighboringToken.addConnection(DIRECTIONS.u, newToken);
+                        newToken.addConnection(DIRECTIONS.b, neighboringToken);
                         break; 
                     case 2:
-                        neighboringToken.addConnection(DIRECTIONS.UR, newToken);
+                        neighboringToken.addConnection(DIRECTIONS.ur, newToken);
+                        newToken.addConnection(DIRECTIONS.bl, neighboringToken);
                         break;    
                     case 3:
-                        neighboringToken.addConnection(DIRECTIONS.L, newToken);
+                        neighboringToken.addConnection(DIRECTIONS.l, newToken);
+                        newToken.addConnection(DIRECTIONS.r, neighboringToken);
                         break;
                     case 4:
                         console.error("Cannot connect a token to itself");
                         break; 
                     case 5:
-                        neighboringToken.addConnection(DIRECTIONS.R, newToken);
+                        neighboringToken.addConnection(DIRECTIONS.r, newToken);
+                        newToken.addConnection(DIRECTIONS.l, neighboringToken);
                         break;
                     case 6:
-                        neighboringToken.addConnection(DIRECTIONS.BL, newToken);
+                        neighboringToken.addConnection(DIRECTIONS.bl, newToken);
+                        newToken.addConnection(DIRECTIONS.ur, neighboringToken);
                         break;
                     case 7:
-                        neighboringToken.addConnection(DIRECTIONS.B, newToken);
+                        neighboringToken.addConnection(DIRECTIONS.b, newToken);
+                        newToken.addConnection(DIRECTIONS.u, neighboringToken);
                         break; 
                     case 8:
-                        neighboringToken.addConnection(DIRECTIONS.BR, newToken);
+                        neighboringToken.addConnection(DIRECTIONS.br, newToken);
+                        newToken.addConnection(DIRECTIONS.ul, neighboringToken);
                         break;
                     default:
-                        console.error("Bad direction calculation in Grid");
+                        console.error("Bad direction calculation in Grid at i,j", i-x_1, j-y_1);
                         break;
                 }
 
@@ -116,21 +132,21 @@ export default class Grid{
     checkForWin(fromToken){
         
         const TOWARDS_BEGINNING = 0;
-        const TOWARDS_END = 0;
+        const TOWARDS_END = 1;
 
         //potentially a win in one of four directions
         const winDirections = [
             //from top to bottom ( like | )
-            [DIRECTIONS.U, DIRECTIONS.B],
+            [DIRECTIONS.u, DIRECTIONS.b],
             
             //from upper left to bottom right (like \ )
-            [DIRECTIONS.UL, DIRECTIONS.BR],
+            [DIRECTIONS.ul, DIRECTIONS.br],
 
             //from left to right (like - )
-            [DIRECTIONS.L, DIRECTIONS.R],
+            [DIRECTIONS.l, DIRECTIONS.r],
 
             //from bottom left to upper right (like / )
-            [DIRECTIONS.BL, DIRECTIONS.UR], 
+            [DIRECTIONS.bl, DIRECTIONS.ur], 
         ];
 
         for(let curDirection = 0; curDirection < winDirections.length; curDirection++){
@@ -155,7 +171,7 @@ export default class Grid{
             } while(nextToken);
 
             //once at that bound, move in the opposite direction, counting tokens
-            do{
+            do {
 
                 currentConnectionCount++;
                 nextToken = currentToken.getConnection(winDirections[curDirection][TOWARDS_END]);
