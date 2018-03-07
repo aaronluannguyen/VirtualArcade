@@ -43,7 +43,7 @@ export default class Connect4 extends React.Component{
         return (
             <div className="container-fluid p-3 bg-warning" id="grid" ref="wrap">
                 <div className="container bg-dark" id="c4headerContainer">
-                    <h1 className="" id="c4header">CONNECT FOUR</h1>  
+                    <h4 className="" id="c4header">CONNECT FOUR</h4>  
                 </div>
                 <div className="container-fluid"> 
                     <div className="row justify-content-center">
