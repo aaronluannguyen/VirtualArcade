@@ -8,31 +8,19 @@ export default class TicTacToe extends React.Component{
                     this.props.currentPlayer === this.props.me ?
                         <div id="both-player-cards" className="row container">
                             <div id="player-turn-card" className="card text-white bg-success mb-3 col-5">
-                                <div className="card-header">You</div>
-                                <div className="card-body">
-                                    <h6 className="card-title">Your Turn!</h6>
-                                </div>
+                                <div id="player-name" className="card-body">You</div>
                             </div>
                             <div id="player-turn-card" className="card text-white bg-danger mb-3 col-5">
-                                <div className="card-header">{this.props.opponent} (Opponent)</div>
-                                <div className="card-body">
-                                    <h6 className="card-title">Not their turn.</h6>
-                                </div>
+                                <div id="player-name" className="card-body">{this.props.opponent}</div>
                             </div>
                         </div>
                         :
                         <div id="both-player-cards" className="row container">
                             <div id="player-turn-card" className="card text-white bg-danger mb-3 col-5">
-                                <div className="card-header">You</div>
-                                <div className="card-body">
-                                    <h6 className="card-title">Not your turn.</h6>
-                                </div>
+                                <div id="player-name" className="card-body">You</div>
                             </div>
                             <div id="player-turn-card" className="card text-white bg-success mb-3 col-5">
-                                <div className="card-header">{this.props.opponent} (Opponent)</div>
-                                <div className="card-body">
-                                    <h6 className="card-title">Their Turn!</h6>
-                                </div>
+                                <div id="player-name"className="card-body">{this.props.opponent}</div>
                             </div>
                         </div>
                 }

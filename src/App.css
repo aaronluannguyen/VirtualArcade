@@ -46,7 +46,10 @@
 }
 
 #player-turn-card {
-    margin: 5px;
+  max-height: 30px;
+  margin: 5px;
+  justify-content: center;
+  align-items: center;
 }
 
 #both-player-cards {
