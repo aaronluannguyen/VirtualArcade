@@ -132,6 +132,8 @@ export default class GameInfo{
         if(this.isInitialized()){
             let gameInfo = this._getGameState();
 
+
+
             return gameInfo.players[gameInfo.currentPlayer].playerId;
         }
 
@@ -154,7 +156,7 @@ export default class GameInfo{
             let player = gameInfo.players.filter((player)=> player.playerId == playerId);
 
             if(player)
-                return player.displayName;
+                return player[0].displayName;
         }
 
     }
