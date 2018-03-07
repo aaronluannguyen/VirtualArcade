@@ -14,7 +14,7 @@ export default class Tile extends React.Component{
 
     action() {
         this.setState({marker: !this.state.marker});
-        this.props.gcontroller.gbg.handleClick(this.state.y, this.state.x);
+        this.props.gcontroller.gbg.handleClick(this.state.x, this.state.y);
         this.props.pcontroller.handleUIUpdate();
     }
 
@@ -22,7 +22,7 @@ export default class Tile extends React.Component{
         return (
             <div id="tttTileContainer">
                 {
-                    this.props.grid[this.state.x][this.state.y] !== null ?
+                    this.props.grid[this.state.y][this.state.x] !== null ?
                         this.state.marker ?
                             <button id="tttTile" className="btn btn-primary" disabled>
                                 <img id="marker" src={require(`./x.png`)} alt="X"/>
