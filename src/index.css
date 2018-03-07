@@ -5,8 +5,41 @@ body {
 }
 
 #button {
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   border-radius: 15px;
   border:0;
+}
+
+#grid {
+  background-color: #33658a;
+}
+
+#c4header {
+  font-family: 'Lato', sans-serif;
+  font-style: italic;
+  font-weight: 500; 
+  color: #ffffff;
+  font-size: 36px;
+}
+
+#c4headerContainer {
+  max-width: 23em;
+}
+
+.btn-other {
+  background-color: #ff3300;
+}
+
+.btn-empty {
+  background-color: #fff;
+}
+
+@media (min-width: 768px) {
+  #button {
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    border:0;
+  }
 }
