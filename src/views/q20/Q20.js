@@ -103,7 +103,7 @@ export default class Q20 extends React.Component{
         } else {
             result = "lost";
             this.props.pC.getGame().getGameInfo().updateInfo({
-                winnerPlayerId: undefined
+                winnerPlayerId: "Google"
             });            
             this.props.pC.handleUIUpdate();
         }
