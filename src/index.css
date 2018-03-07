@@ -5,8 +5,8 @@ body {
 }
 
 #button {
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
   border-radius: 15px;
   border:0;
 }
@@ -33,6 +33,15 @@ body {
 
 .btn-empty {
   background-color: #fff;
+}
+
+@media (min-width: 768px) {
+  #button {
+    width: 25px;
+    height: 25px;
+    border-radius: 15px;
+    border:0;
+  }
 }
 
 @media (min-width: 768px) {
