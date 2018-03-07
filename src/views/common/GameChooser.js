@@ -43,21 +43,23 @@ export default class GameChooser extends React.Component{
 
     render(){
 
+        let playerInfo = this.props.playerInfo;
         //console.log("gamechooser instance, ", this);
 
-        if(!this.props.playerInfo)
+        if(!playerInfo)
         {
             return (<div>Loading...</div>);
 
-        } else if(this.props.playerInfo.isWaitingForMatch()){
+        } else if(playerInfo.isWaitingForMatch()){
             
             return (<div>Waiting for another player...</div>);
         
-        } else if(this.props.playerInfo.isPlayingGame()){
-            
+        } else if(playerInfo.isPlayingGame()){
+            let gameInfo = playerInfo.getGame().getGameInfo();
+        
             return (<div>
-                        <div>{this.props.playerInfo.isCurrentPlayer()?"Your turn":"Their turn"}</div>
-                        <div>{this.props.playerInfo.getGame().getView()}</div>
+                        <div>{gameInfo.getName(gameInfo.getCurrentPlayerId()) + "'s turn"}</div>
+                        <div>{playerInfo.getGame().getView()}</div>
                     </div>
                 );
         }
