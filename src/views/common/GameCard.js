@@ -7,7 +7,7 @@ export default class TicTacToe extends React.Component{
                 <div>
                     <img className="card-img-top" id="game-image" src={require(`${this.props.imgSrc}`)} />
                     <div className="card-body">
-                        <h5>{this.props.gameName}</h5>
+                        <h2>{this.props.gameName}</h2>
                         <p className="card-text">{this.props.description}</p>
                     </div>
                 </div>
