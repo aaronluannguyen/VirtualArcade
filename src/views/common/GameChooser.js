@@ -58,7 +58,7 @@ export default class GameChooser extends React.Component{
             let gameInfo = playerInfo.getGame().getGameInfo();
         
             return (<div>
-                        <div className="mb-3">{gameInfo.getName(gameInfo.getCurrentPlayerId()) + "'s turn"}</div>
+                        <div className="mb-4">{gameInfo.getName(gameInfo.getCurrentPlayerId()) + "'s turn"}</div>
                         <div>{playerInfo.getGame().getView()}</div>
                     </div>
                 );
