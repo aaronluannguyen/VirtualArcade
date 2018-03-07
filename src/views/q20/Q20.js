@@ -110,6 +110,29 @@ export default class Q20 extends React.Component{
     }
 
     render(){
+        let images = [
+            {
+                title: "pickle rick",
+                url: "https://storage.googleapis.com/info343/pickle_rick.jpg"
+            },
+            {
+                title: "larry",
+                url: "https://storage.googleapis.com/info343/larry.jpg"
+            },
+            {
+                title: "bitches_brew",
+                url: "https://storage.googleapis.com/info343/bitches_brew.jpg"
+            }
+        ]
+
+        let img_elements = images.map((img) => {
+            return (
+                <div className="col-3">
+                    <img className="img-fluid" onClick={(evt) => this.handleStartGame(evt.target.src)}
+                        src={img.url} alt={img.title}/>
+                </div>
+            );
+        });
         return (
             <div className="container">
                 {
@@ -154,13 +177,9 @@ export default class Q20 extends React.Component{
                 {
                     !this.state.playing && !this.state.gameEnd && !this.state.working ?
                     <div className="container images">
-                        <div>
-                            <img className="img-fluid" onClick={(evt) => this.handleStartGame(evt.target.src)}
-                                src="https://storage.googleapis.com/info343/pickle_rick.jpg" alt="pickle rick"/>
-                        </div>
-                        <div>
-                            <img className="img-fluid" onClick={(evt) => this.handleStartGame(evt.target.src)}
-                                src="https://storage.googleapis.com/info343/larry.jpg"/>
+                        <h4>Choose your image</h4>
+                        <div className="row">
+                            {img_elements}
                         </div>
                     </div> :
                     ""
