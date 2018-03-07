@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import PlayerController from './controllers/common/PlayerController';
 import GameChooser from './views/common/GameChooser'
+import PlayerCard from "./views/common/PlayerCard";
 
 import TicTacToe from "./views/tictactoe/TicTacToe";
 import Connect4 from "./views/connect4/Connect4";
@@ -45,9 +46,15 @@ class App extends Component {
               <h1>The Virtual Arcade</h1>
           </div>
         </div>
-        <header className="App-header">
-          <h1 className="App-title">{this.state.playerController && this.state.playerController.getName() ? <div>Welcome {this.state.playerController.getName() }!</div> : <div>Not yet logged In</div>}</h1>
-        </header>
+        <div>
+          {
+              this.state.playerController ?
+                  <PlayerCard player={this.state.playerController.getName()}/>
+                  :
+                  <PlayerCard player="Not Logged In Yet"/>
+          }
+        </div>
+        <h2><div>{this.state.playerController && this.state.playerController.wonLastGame()? "You won the last game!":"Good game! Keep trying!"}</div></h2>
         <main>
           <GameChooser playerInfo={this.state.playerController}/>
         </main>
