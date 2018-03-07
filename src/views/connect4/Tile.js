@@ -35,8 +35,16 @@ export default class Tile extends React.Component{
     }
 
     action() {
-        console.log("clicked " + this.props.xcoord + ", " + this.props.ycoord);
-        this.state.gcontroller.gbg.handleClick(this.props.xcoord, this.props.ycoord);
+        let lastRow = 7;
+        for (let i = 7; i >= 0; i--) {
+            console.log(this.props.grid[this.props.col][i])
+            if (!this.props.grid[this.props.col][i]) {
+                lastRow = i;
+                break;
+            }
+        }
+        console.log("clicked row " + lastRow + ", col " + this.props.col);
+        this.state.gcontroller.gbg.handleClick(lastRow, this.props.col);
         this.state.gcontroller.handleUIUpdate();
     }
 
@@ -52,8 +60,7 @@ export default class Tile extends React.Component{
 
         if (this.props.tile) {
             id = this.props.tile.getplayerId();
-            console.log(id);
-            console.log(this.state.currentplayerId);
+
 
         }
         
@@ -61,15 +68,15 @@ export default class Tile extends React.Component{
             <div className="col"> 
                 {
                     !this.props.tile ?
-                    <button className="btn-sm" onClick={this.state.gcontroller.getGameInfo().getCurrentPlayerId() == this.state.gcontroller.getPlayerId() ? () => this.action() : () => {}}>
+                    <button className="btn-sm rounded-circle" id="button" onClick={this.state.gcontroller.getGameInfo().getCurrentPlayerId() == this.state.gcontroller.getPlayerId() ? () => this.action() : () => {}}>
                         {this.props.tile}
                         
                     </button> : 
                     <div>
                         {
                             id == this.state.currentplayerId ? 
-                            <button className="btn-sm btn-primary" disabled/> :
-                            <button className="btn-sm btn-warning" disabled/>
+                            <button className="btn-sm btn-primary" id="button" disabled/> :
+                            <button className="btn-sm btn-warning" id="button" disabled/>
                         }
                     </div>
                 }   

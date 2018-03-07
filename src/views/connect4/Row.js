@@ -7,8 +7,9 @@ export default class Row extends React.Component{
         super(props);
         this.state = {
             gcontroller: this.props.gcontroller,
-            ycoord: this.props.index,
-            pcontroller: this.props.pcontroller
+            index: this.props.index,
+            pcontroller: this.props.pcontroller,
+            grid: this.props.grid
         }
     }
 
@@ -19,18 +20,19 @@ export default class Row extends React.Component{
 
     render() {
         let rows = []
-        let lastY = 7;
+        // let lastY = 7;
+        // for (let i = 0; i < 8; i++) {
+        //     if (this.props.col[i]){
+        //         lastY = i;
+        //         break;
+        //     }
+        // }
+
         for (let i = 0; i < 8; i++) {
-            if(this.props.col[i]){
-                lastY--;
-            }
-        }
-        // console.log("checking col props", this.props.col)
-        for (let i = 0; i < 8; i++) {
-            rows.push(<Tile tile={this.props.col[i]} ycoord={lastY} xcoord={this.state.ycoord} gcontroller={this.state.gcontroller} pcontroller={this.state.pcontroller}/>)
+            rows.push(<Tile grid={this.state.grid} tile={this.props.row[i]} col={this.state.index} row={i} gcontroller={this.state.gcontroller} pcontroller={this.state.pcontroller}/>)
         }
         return (        
-            <div className="mx-3"> 
+            <div className="mx-1 my-1"> 
                 {rows}
             </div>
         );

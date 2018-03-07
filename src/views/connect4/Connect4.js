@@ -28,7 +28,7 @@ export default class Connect4 extends React.Component{
     // }
     
     render(){
-        let columns = [];
+        let rows = [];
         if (this.state.grid) {
             console.log("GRID IS MOUNTED!");
             console.log(this.state.grid)
@@ -37,15 +37,15 @@ export default class Connect4 extends React.Component{
         }
         
         for (let i = 0; i < this.state.grid.length; i++) {
-            columns.push(<Row col={this.state.grid[i]} gcontroller={this.state.gcontroller} index={i} pcontroller={this.state.pcontroller}/>)
+            rows.push(<Row grid={this.state.grid} row={this.state.grid[i]} gcontroller={this.state.gcontroller} index={i} pcontroller={this.state.pcontroller}/>)
         }
 
         return (
             <div className="container" id="grid" ref="wrap">
                 <h1>Connect4 Placeholder View</h1>  
-                <div className="container"> 
+                <div className="container-fluid"> 
                     <div className="row justify-content-center">
-                        {columns}
+                        {rows}
                     </div>
                 </div>
             </div>
