@@ -4,16 +4,22 @@ export const ContClass = "ControllerClass";
 export const GAME_TYPE_TTT = {
     gameTypeId: "TTT",
     name: "Tic-Tac-Toe",
+    imgSrc: "./tictactoe.png",
+    description: "TTT description"
 };
 
 export const GAME_TYPE_C4 = {
     gameTypeId: "C4",
-    name: "Connect 4"
+    name: "Connect 4",
+    imgSrc: "./connect4.png",
+    description: "Connect 4 Description"
 };
 
 export const GAME_TYPE_Q20 = {
     gameTypeId: "Q20",
-    name: "20 Questions"
+    name: "20 Questions",
+    imgSrc: "./Q20.png",
+    description: "Q20 Description"
 };
 
 //types of GameControllers will be added to this object 
