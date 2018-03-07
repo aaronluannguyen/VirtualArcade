@@ -6,7 +6,7 @@ export default class TicTacToe extends React.Component{
             <div className="card" id="game-card">
                 {
                     this.props.gameName === "Tic-Tac-Toe" ?
-                        <div>
+                        <div className="container">
                             <img className="card-img-top" id="game-image" src={require(`./tictactoe.png`)} alt="Card image cap" />
                             <div className="card-body">
                                 <h5>{this.props.gameName}</h5>
@@ -15,7 +15,7 @@ export default class TicTacToe extends React.Component{
                         </div>
                         :
                         this.props.gameName === "Connect 4" ?
-                            <div>
+                            <div className="container">
                                 <img className="card-img-top" id="game-image" src={require(`./connect4.png`)} alt="Card image cap" />
                                 <div className="card-body">
                                     <h5 className="card-title">{this.props.gameName}</h5>
@@ -23,7 +23,7 @@ export default class TicTacToe extends React.Component{
                                 </div>
                             </div>
                             :
-                            <div>
+                            <div className="container">
                                 <img className="card-img-top" id="game-image" src={require(`./Q20.png`)} alt="Card image cap" />
                                 <div className="card-body">
                                     <h5 className="card-title">{this.props.gameName}</h5>
