@@ -93,15 +93,12 @@ export default class Q20 extends React.Component{
     }
 
     handleGameEnd(gameWon) {
-        let result = undefined;
         if (gameWon) {
-            result = "won";
             this.props.pC.getGame().getGameInfo().updateInfo({
                 winnerPlayerId: this.props.pC.getPlayerId()
             });
             this.props.pC.handleUIUpdate();
         } else {
-            result = "lost";
             this.props.pC.getGame().getGameInfo().updateInfo({
                 winnerPlayerId: undefined
             });            
@@ -122,13 +119,17 @@ export default class Q20 extends React.Component{
             {
                 title: "bitches_brew",
                 url: "https://storage.googleapis.com/info343/bitches_brew.jpg"
+            },
+            {
+                title: "ewf",
+                url: "https://storage.googleapis.com/info343/ewf.jpg"
             }
         ]
 
         let img_elements = images.map((img) => {
             return (
                 <div className="col-3">
-                    <img className="img-fluid" onClick={(evt) => this.handleStartGame(evt.target.src)}
+                    <img className="img-fluid rounded" onClick={(evt) => this.handleStartGame(evt.target.src)}
                         src={img.url} alt={img.title}/>
                 </div>
             );
