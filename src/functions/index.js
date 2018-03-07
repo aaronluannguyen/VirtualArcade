@@ -85,8 +85,10 @@ function onLobbyWrite(event, gameTypeId){
             
                     //console.log("iterating ", child)
                     
+                    //console.log(child.val());
+
                     if(users.length < USERS_PER_GAME){
-                        users.push( child.val().playerId );
+                        users.push( child.val() );
             
                         //remove from lobby
                         updates[child.key] = null;
@@ -105,6 +107,7 @@ function onLobbyWrite(event, gameTypeId){
             }
 
             for(let i=0; i<users.length; i++){
+                console.log("adding user ", users[i]);
                 newRoom.players.push(users[i]);
             }
 
@@ -117,7 +120,7 @@ function onLobbyWrite(event, gameTypeId){
             for(let i=0; i<users.length; i++){
                 
                 //console.log("creating new referenes to room under users")
-                let user_games = admin.database().ref("/users/"+users[i]+"/game_rooms/");
+                let user_games = admin.database().ref("/users/"+users[i].playerId+"/game_rooms/");
                 user_games.push({roomKey: newRoomRef.key, gameTypeId: gameTypeId});
             
             }
@@ -825,7 +828,6 @@ var animal=[
     'Lark',
     'Lemur',
     'Lion',
-    'Loon',
     'Mackerel',
     'Magpie',
     'Mallard',
@@ -880,7 +882,6 @@ var animal=[
     'Starling',
     'Stoat',
     'Stonecat',
-    'Sucker',
     'Swampfish',
     'Sweeper',
     'Swift',
