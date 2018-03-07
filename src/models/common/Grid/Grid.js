@@ -72,47 +72,49 @@ export default class Grid{
                 //get the neighboring token
                 let neighboringToken = this.grid[j][i];
                 
+                console.log("neighboring token, newtoken", neighboringToken == newToken, neighboringToken, newToken);
+
                 //skip any null cells in grid
                 //skip connecting a token to itself
                 if( !neighboringToken || neighboringToken == newToken )
                     continue;
 
                 //kernel is 3x3, so each row (given by i) is 3, each col inc the index by one
-                let direction = (j-y_1)*3+(i-x_1);
+                let direction = (y-j)*3+(x-i);
 
                 switch(direction){
-                    case 0:
+                    case -4:
                         neighboringToken.addConnection(DIRECTIONS.ul, newToken);
                         newToken.addConnection(DIRECTIONS.br, neighboringToken);
                         break;
-                    case 1:
+                    case -3:
                         neighboringToken.addConnection(DIRECTIONS.u, newToken);
                         newToken.addConnection(DIRECTIONS.b, neighboringToken);
                         break; 
-                    case 2:
+                    case -2:
                         neighboringToken.addConnection(DIRECTIONS.ur, newToken);
                         newToken.addConnection(DIRECTIONS.bl, neighboringToken);
                         break;    
-                    case 3:
+                    case -1:
                         neighboringToken.addConnection(DIRECTIONS.l, newToken);
                         newToken.addConnection(DIRECTIONS.r, neighboringToken);
                         break;
-                    case 4:
+                    case 0:
                         console.error("Cannot connect a token to itself");
                         break; 
-                    case 5:
+                    case 1:
                         neighboringToken.addConnection(DIRECTIONS.r, newToken);
                         newToken.addConnection(DIRECTIONS.l, neighboringToken);
                         break;
-                    case 6:
+                    case 2:
                         neighboringToken.addConnection(DIRECTIONS.bl, newToken);
                         newToken.addConnection(DIRECTIONS.ur, neighboringToken);
                         break;
-                    case 7:
+                    case 3:
                         neighboringToken.addConnection(DIRECTIONS.b, newToken);
                         newToken.addConnection(DIRECTIONS.u, neighboringToken);
                         break; 
-                    case 8:
+                    case 4:
                         neighboringToken.addConnection(DIRECTIONS.br, newToken);
                         newToken.addConnection(DIRECTIONS.ul, neighboringToken);
                         break;
