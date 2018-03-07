@@ -37,8 +37,10 @@ export class PlayerToken{
     addConnection(direction, token) {
         
         //only connect tokens belonging to the same player
-        if(token.playerId != this.playerId)
+        if(token.playerId != this.playerId){
+            console.log("not connecting tokens from opponent");
             return;
+        }
 
         //if the specified direction, is a valid direction
         if(Object.keys(DIRECTIONS).includes(direction)) {
