@@ -2,6 +2,7 @@
   "name": "group-aaronluannguyen",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://ken-info343-final.firebaseapp.com",
   "dependencies": {
     "fetch": "^1.1.0",
     "firebase": "^4.10.0",

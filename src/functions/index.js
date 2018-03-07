@@ -67,15 +67,15 @@ function onLobbyWrite(event, gameTypeId){
 
     return parentRef.once('value').then((snapshot) => {
         
-        console.log("checking if there are enough users in lobby")
+        /*console.log("checking if there are enough users in lobby")
 
         console.log(snapshot.numChildren());
-        console.log(snapshot.val());
+        console.log(snapshot.val());*/
         
 
         if (snapshot.numChildren() >= USERS_PER_GAME) {
             
-            console.log("enough users in lobby");
+            //console.log("enough users in lobby");
 
             let childCount = 0;
             const updates = {};
@@ -83,7 +83,7 @@ function onLobbyWrite(event, gameTypeId){
       
             snapshot.forEach((child) => {
             
-                    console.log("iterating ", child)
+                    //console.log("iterating ", child)
                     
                     if(users.length < USERS_PER_GAME){
                         users.push( child.val().playerId );
@@ -108,7 +108,7 @@ function onLobbyWrite(event, gameTypeId){
                 newRoom.players.push(users[i]);
             }
 
-            console.log("creating new game room");
+            //console.log("creating new game room");
             //create new game room by adding the two users
             let newRoomRef = games.push(newRoom);
             //newRoomRef.push("actions");
@@ -116,18 +116,18 @@ function onLobbyWrite(event, gameTypeId){
             //add room under each users current games
             for(let i=0; i<users.length; i++){
                 
-                console.log("creating new referenes to room under users")
+                //console.log("creating new referenes to room under users")
                 let user_games = admin.database().ref("/users/"+users[i]+"/game_rooms/");
                 user_games.push({roomKey: newRoomRef.key, gameTypeId: gameTypeId});
             
             }
 
-            console.log("returning parent ref to update with removed children")
+            //console.log("returning parent ref to update with removed children")
             // Update the parent. This effectively removes the extra children.
             return parentRef.update(updates);
         }
 
-        console.log("not enough users in lobby");
+        //console.log("not enough users in lobby");
         return false;
     });
 
