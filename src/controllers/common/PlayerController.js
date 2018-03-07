@@ -200,6 +200,14 @@ export default class PlayerController{
         
     }
 
+    wonLastGame(){
+        if(this.data.games.length){
+            let lastGameInfo = this.data.games[this.data.games.length-1].getGameInfo();
+            if(lastGameInfo)
+                return lastGameInfo.getWinner() == this.getPlayerId();
+        }
+    }
+
     /**
      * @public
      * @function PlayerController.isCurrentPlayer

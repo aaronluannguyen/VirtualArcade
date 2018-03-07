@@ -155,7 +155,7 @@ export default class GameInfo{
 
             let player = gameInfo.players.filter((player)=> player.playerId == playerId);
 
-            if(player)
+            if(player.length)
                 return player[0].displayName;
         }
 

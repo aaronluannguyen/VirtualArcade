@@ -47,6 +47,7 @@ class App extends Component {
         </div>
         <header className="App-header">
           <h1 className="App-title">{this.state.playerController && this.state.playerController.getName() ? <div>Welcome {this.state.playerController.getName() }!</div> : <div>Not yet logged In</div>}</h1>
+          <h2><div>{this.state.playerController && this.state.playerController.wonLastGame()? "You won the last game!":"Good game! Keep trying!"}</div></h2>
         </header>
         <main>
           <GameChooser playerInfo={this.state.playerController}/>

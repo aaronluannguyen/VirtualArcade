@@ -107,7 +107,7 @@ function onLobbyWrite(event, gameTypeId){
             }
 
             for(let i=0; i<users.length; i++){
-                console.log("adding user ", users[i]);
+                //console.log("adding user ", users[i]);
                 newRoom.players.push(users[i]);
             }
 
