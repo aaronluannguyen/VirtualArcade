@@ -54,7 +54,7 @@ class App extends Component {
                   <PlayerCard player="Not Logged In Yet"/>
           }
         </div>
-        <h2><div>{this.state.playerController && this.state.playerController.wonLastGame()? "You won the last game!":"Good game! Keep trying!"}</div></h2>
+        <h2><div className="mt-3">{this.state.playerController && this.state.playerController.wonLastGame()? "You won the last game!":"Good game! Keep trying!"}</div></h2>
         <main>
           <GameChooser playerInfo={this.state.playerController}/>
         </main>
