@@ -41,6 +41,10 @@
     max-height: 60vh;
 }
 
+#contain-cards-game {
+  padding: 5px;
+}
+
 #player-turn-card {
     margin: 5px;
 }

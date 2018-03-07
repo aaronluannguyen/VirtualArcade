@@ -8,7 +8,7 @@ export default class TicTacToe extends React.Component{
                     this.props.currentPlayer === this.props.me ?
                         <div id="both-player-cards" className="row container">
                             <div id="player-turn-card" className="card text-white bg-success mb-3 col-5">
-                                <div className="card-header">{this.props.me}</div>
+                                <div className="card-header">You</div>
                                 <div className="card-body">
                                     <h6 className="card-title">Your Turn!</h6>
                                 </div>
@@ -23,7 +23,7 @@ export default class TicTacToe extends React.Component{
                         :
                         <div id="both-player-cards" className="row container">
                             <div id="player-turn-card" className="card text-white bg-danger mb-3 col-5">
-                                <div className="card-header">{this.props.me}</div>
+                                <div className="card-header">You</div>
                                 <div className="card-body">
                                     <h6 className="card-title">Not your turn.</h6>
                                 </div>
