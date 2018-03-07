@@ -21,9 +21,9 @@ class App extends Component {
 
   componentDidMount() {
     
-    let pC = new PlayerController([()=>{this.forceUpdate()}]);
+    //let pC = ;
     
-    this.setState({playerController: pC});
+    this.setState({playerController: new PlayerController([()=>{this.forceUpdate()}])});
 
 
   }
@@ -37,6 +37,8 @@ class App extends Component {
 
   render() {
     
+    console.log("username", this.state.playerController ? this.state.playerController.getName() : "player not init'd");
+
     return (
       <div className="App">
         <div className="jumbotron">
