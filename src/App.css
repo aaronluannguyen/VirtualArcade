@@ -58,3 +58,15 @@
   max-width: 300px;
   max-height: 300px;
 }
+
+#player-picture {
+  width: 100px;
+  height: 100px;
+  border-radius: 100px;
+}
+
+#player-card {
+  padding: 10px 10px;
+  justify-content: center;
+  align-items: center;
+}
