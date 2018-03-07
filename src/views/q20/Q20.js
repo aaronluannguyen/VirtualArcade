@@ -117,8 +117,8 @@ export default class Q20 extends React.Component{
                 url: "https://storage.googleapis.com/info343/larry.jpg"
             },
             {
-                title: "bitches_brew",
-                url: "https://storage.googleapis.com/info343/bitches_brew.jpg"
+                title: "great_wave",
+                url: "https://storage.googleapis.com/info343/great_wave.jpg"
             },
             {
                 title: "ewf",
@@ -177,7 +177,7 @@ export default class Q20 extends React.Component{
                 }
                 {
                     !this.state.playing && !this.state.gameEnd && !this.state.working ?
-                    <div className="container images bg-secondary pb-4">
+                    <div className="container images bg-light pb-4">
                         <h4>Choose your image</h4>
                         <div className="row">
                             {img_elements}
