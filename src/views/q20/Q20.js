@@ -100,7 +100,7 @@ export default class Q20 extends React.Component{
             this.props.pC.handleUIUpdate();
         } else {
             this.props.pC.getGame().getGameInfo().updateInfo({
-                winnerPlayerId: undefined
+                winnerPlayerId: "Google"
             });            
             this.props.pC.handleUIUpdate();
         }

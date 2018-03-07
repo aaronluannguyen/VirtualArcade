@@ -28,7 +28,13 @@ export default class Connect4Controller extends GameController{
 
     }
 
-    getView(){
+    startGame(data){
+        console.log("connect4 startgame");
+        this.gbg = new GridBoardGame(this._data.playerController, data, 8, 4);
+        this.grid = this.gbg.controllerModelRef.grid.getGrid();
+    }
+
+    getView(){  
         //console.log("getview");
         return <Connect4 pC={this._data.playerController} grid={this.grid}/>;
     }
