@@ -35,7 +35,7 @@ body {
   background-color: #fff;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 360px) {
   #button {
     width: 25px;
     height: 25px;
