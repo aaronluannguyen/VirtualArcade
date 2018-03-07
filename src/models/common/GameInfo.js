@@ -111,8 +111,6 @@ export default class GameInfo{
             console.error("no game state!");
         }
 
-
-
     }
 
     /**
@@ -206,7 +204,6 @@ export default class GameInfo{
      */
     _handleDataCallback(data)
     {
-        
         if(!data || !data.val())
             return;
 

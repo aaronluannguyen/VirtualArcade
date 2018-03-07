@@ -3,7 +3,7 @@ export const ContClass = "ControllerClass";
 
 export const GAME_TYPE_TTT = {
     gameTypeId: "TTT",
-    name: "Tic-Tac-Toe"
+    name: "Tic-Tac-Toe",
 };
 
 export const GAME_TYPE_C4 = {

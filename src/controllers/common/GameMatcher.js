@@ -27,7 +27,7 @@ export default class GameMatcher{
             console.log(value.winnerPlayerId);
 
             if(value && value.winnerPlayerId==undefined){
-                
+
                 //value = value[Object.keys(value)[0]];
                 console.log("game room value updated, gamematcher, ", value, gameTypeId, value.gameTypeId);
                 
