@@ -177,7 +177,7 @@ export default class Q20 extends React.Component{
                 }
                 {
                     !this.state.playing && !this.state.gameEnd && !this.state.working ?
-                    <div className="container images">
+                    <div className="container images bg-secondary pb-4">
                         <h4>Choose your image</h4>
                         <div className="row">
                             {img_elements}
