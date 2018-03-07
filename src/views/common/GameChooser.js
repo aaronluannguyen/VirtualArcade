@@ -62,9 +62,8 @@ export default class GameChooser extends React.Component{
         
         } else if(playerInfo.isPlayingGame()){
             let gameInfo = playerInfo.getGame().getGameInfo();
-        
+
             return (<div className="container">
-                        <div>{gameInfo.getName(gameInfo.getCurrentPlayerId()) + "'s turn"}</div>
                         <PlayerTurnCard currentPlayer={gameInfo.getName(gameInfo.getCurrentPlayerId())} me={playerInfo.getName()} opponent={gameInfo.getOpponentName()} />
                         <div>{playerInfo.getGame().getView()}</div>
                     </div>

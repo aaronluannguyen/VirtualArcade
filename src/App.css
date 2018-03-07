@@ -23,6 +23,7 @@
   align-items: center;
   justify-content: center;
   margin: 0px;
+  border-radius: 0px;
 }
 
 #title-background {
@@ -31,7 +32,7 @@
 }
 
 #title-background h1 {
-  font-size: 4rem;
+  font-size: 3rem;
   padding: 10px;
 }
 
@@ -62,9 +63,26 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 0px;
+  height: 100%;
+  width: 100%;
 }
 
 #game-image {
   max-width: 300px;
   max-height: 300px;
+}
+
+#player-picture {
+  width: 100px;
+  height: 100px;
+  border-radius: 100px;
+}
+
+#player-card {
+  color: white;
+  padding: 10px 10px;
+  justify-content: center;
+  align-items: center;
+  background-color: #222222;
 }
