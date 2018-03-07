@@ -1,6 +1,7 @@
 import React from "react";
 import {ALL_GAMES, ContClass} from "../../models/common/Games"
 import {GameInfo} from "../../models/common/GameInfo"
+import GameCard from "./GameCard";
 
 export default class GameChooser extends React.Component{
 
@@ -42,28 +43,30 @@ export default class GameChooser extends React.Component{
 
     render(){
 
+        let playerInfo = this.props.playerInfo;
         //console.log("gamechooser instance, ", this);
 
-        if(!this.props.playerInfo)
+        if(!playerInfo)
         {
             return (<div>Loading...</div>);
 
-        } else if(this.props.playerInfo.isWaitingForMatch()){
+        } else if(playerInfo.isWaitingForMatch()){
             
             return (<div>Waiting for another player...</div>);
         
-        } else if(this.props.playerInfo.isPlayingGame()){
-            
+        } else if(playerInfo.isPlayingGame()){
+            let gameInfo = playerInfo.getGame().getGameInfo();
+        
             return (<div>
-                        <div>{this.props.playerInfo.isCurrentPlayer()?"Your turn":"Their turn"}</div>
-                        <div>{this.props.playerInfo.getGame().getView()}</div>
+                        <div>{gameInfo.getName(gameInfo.getCurrentPlayerId()) + "'s turn"}</div>
+                        <div>{playerInfo.getGame().getView()}</div>
                     </div>
                 );
         }
         
-        return ( 
-                <div>
-                    {Object.values(ALL_GAMES).map((game)=><button key={game.gameTypeId} onClick={(evt)=>this.handleClick(evt, game[ContClass])}>{game.name}</button>)}
+        return (
+                <div id="games-container" className="row">
+                    {Object.values(ALL_GAMES).map((game)=><button id="game-button" className="col-12 col-lg-4" onClick={(evt)=>this.handleClick(evt, game[ContClass])}><GameCard key={game.gameTypeId} gameName={game.name}/></button>)}
                 </div>
                 );
         

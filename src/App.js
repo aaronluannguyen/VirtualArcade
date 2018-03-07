@@ -20,9 +20,9 @@ class App extends Component {
 
   componentDidMount() {
     
-    let pC = new PlayerController([()=>{this.forceUpdate()}]);
+    //let pC = ;
     
-    this.setState({playerController: pC});
+    this.setState({playerController: new PlayerController([()=>{this.forceUpdate()}])});
 
 
   }
@@ -36,11 +36,17 @@ class App extends Component {
 
   render() {
     
+    console.log("username", this.state.playerController ? this.state.playerController.getName() : "player not init'd");
+
     return (
       <div className="App">
+        <div className="jumbotron">
+          <div id="title-background">
+              <h1>The Virtual Arcade</h1>
+          </div>
+        </div>
         <header className="App-header">
-          
-          <h1 className="App-title">{this.state.playerController ? <div>{this.state.playerController.getName() }</div> : <div>Not yet logged In</div>}</h1>
+          <h1 className="App-title">{this.state.playerController && this.state.playerController.getName() ? <div>Welcome {this.state.playerController.getName() }!</div> : <div>Not yet logged In</div>}</h1>
         </header>
         <main>
           <GameChooser playerInfo={this.state.playerController}/>

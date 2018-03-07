@@ -1,5 +1,5 @@
 //import PlayerToken from "../../models/common/Grid/PlayerToken";
-import Grid from "../../models/common/Grid/Grid";
+import Grid, { TIE_CONDITION } from "../../models/common/Grid/Grid";
 import GameInfo from "../../models/common/GameInfo";
 
 export class GridBoardGame {
@@ -38,9 +38,21 @@ export class GridBoardGame {
             }
         });
 
-        if(this.controllerModelRef.grid.placeToken(x, y, this.controllerModelRef.pcontroller.getPlayerId()))
+        let winner = false;
+
+        if((winner = this.controllerModelRef.grid.placeToken(x, y, this.controllerModelRef.pcontroller.getPlayerId())) != false) 
         {
-            this.controllerModelRef.gameInfo.updateInfo({winnerPlayerId: this.controllerModelRef.pcontroller.getPlayerId()})
+            console.log("winner or tie");
+
+            if(winner != TIE_CONDITION){
+                winner = this.controllerModelRef.pcontroller.getPlayerId();
+                console.log("winner", winner);
+            }
+            else {
+                console.log("tie", winner);
+            }
+
+            this.controllerModelRef.gameInfo.updateInfo({winnerPlayerId: winner})
         }
 
     }
@@ -55,9 +67,22 @@ export class GridBoardGame {
             return;
         }
 
-        if(this.controllerModelRef.grid.placeToken(data.actions.move.selection.x, data.actions.move.selection.y, data.actions.move.playerId))
+        let winner = false;
+
+        if((winner = this.controllerModelRef.grid.placeToken(data.actions.move.selection.x, data.actions.move.selection.y, data.actions.move.playerId)) != false)
         {
-            this.controllerModelRef.gameInfo.updateInfo({winnerPlayerId: data.actions.move.playerId})
+            
+            console.log("winner or tie");
+
+            if(winner != TIE_CONDITION){
+                winner = data.actions.move.playerId;
+                console.log("winner", winner);
+            }
+            else {
+                console.log("tie", winner);
+            }
+            
+            this.controllerModelRef.gameInfo.updateInfo({winnerPlayerId: winner})
         }
         
         this.controllerModelRef.pcontroller.handleUIUpdate();

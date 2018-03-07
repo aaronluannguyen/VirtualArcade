@@ -1,4 +1,5 @@
 import {ALL_GAMES, ContClass} from "../../models/common/Games";
+import {TicTacToeController} from "../tictactoe/TicTacToeController";
 import {Connect4Controller} from "../connect4/Connect4Controller";
 import {Q20Controller} from "../q20/Q20Controller";
 import GameInfo from "../../models/common/GameInfo";
@@ -46,11 +47,11 @@ export default class PlayerController{
                     
                         firebase.auth().currentUser.updateProfile({displayName: data.name}).catch(err=>console.error(err));
                         
-                        firebase.database().ref(`/users/${user.uid}`).update({displayName: user.displayName});
+                        firebase.database().ref(`/users/${user.uid}`).update({displayName: data.name});
 
                         console.log("sent new displayname: " + data.name);
 
-                        this.showUserInfo(user.displayName);
+                        this.showUserInfo(data.name);
                     });
                 }
 
@@ -110,6 +111,7 @@ export default class PlayerController{
     }
 
     showUserInfo(displayName){
+        //console.log("setting displayname and initiating ui update", displayName);
         this.data.displayName = displayName;
         this.handleUIUpdate();
     }

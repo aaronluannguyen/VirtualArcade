@@ -100,7 +100,10 @@ export default class GameInfo{
             
             state.currentPlayer = nextPlayer;
             this.data.localInfo.currentPlayer = nextPlayer;
-            this.data.localInfo.winnerPlayerId = state.winnerPlayerId;
+            
+            if(state.winnerPlayerId) {
+                this.data.localInfo.winnerPlayerId = state.winnerPlayerId;
+            }
 
             this.data.roomRef.update(state);
 
@@ -129,7 +132,9 @@ export default class GameInfo{
         if(this.isInitialized()){
             let gameInfo = this._getGameState();
 
-            return gameInfo.players[gameInfo.currentPlayer];
+
+
+            return gameInfo.players[gameInfo.currentPlayer].playerId;
         }
 
     }
@@ -151,9 +156,30 @@ export default class GameInfo{
             let player = gameInfo.players.filter((player)=> player.playerId == playerId);
 
             if(player)
-                return player.opponentName;
+                return player[0].displayName;
         }
 
+    }
+
+    getOpponentName(playerId){
+
+        let allPlayers = this.getPlayers();
+
+        if(!allPlayers)
+            return;
+
+        //let names = [];
+
+        for(let i=0; i<allPlayers.length; i++){
+
+            if(allPlayers[i].playerId!= playerId){
+                //names.push(allPlayers[i].displayName);
+                return allPlayers[i].displayName;
+            }
+
+        }
+
+        //return names;
     }
 
     /**
@@ -162,11 +188,10 @@ export default class GameInfo{
      * @returns {string} playerId of winner
      */
     getWinner(){
-        
-        //console.log("checking for winner");
-        
         let winner = undefined;
         
+        //console.log("checking for winner");
+                
         if(this.isInitialized()){
 
             winner = this._getGameState().winnerPlayerId;

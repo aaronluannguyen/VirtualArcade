@@ -1,5 +1,7 @@
 import {PlayerToken, DIRECTIONS} from './PlayerToken';
 
+export const TIE_CONDITION = "Tie";
+
 export default class Grid{
     constructor(dim, connectionsToWin){
         
@@ -32,7 +34,7 @@ export default class Grid{
             return;
         }
 
-        console.log("placetoken, grid", this.grid, x, y)
+        console.log("placetoken, grid", this.grid, x, y);
 
         //check if token was already placed... don't do extra/excessive work
         if(this.grid[y][x]!=null){
@@ -72,47 +74,49 @@ export default class Grid{
                 //get the neighboring token
                 let neighboringToken = this.grid[j][i];
                 
+                console.log("neighboring token, newtoken", neighboringToken == newToken, neighboringToken, newToken);
+
                 //skip any null cells in grid
                 //skip connecting a token to itself
                 if( !neighboringToken || neighboringToken == newToken )
                     continue;
 
                 //kernel is 3x3, so each row (given by i) is 3, each col inc the index by one
-                let direction = (j-y_1)*3+(i-x_1);
+                let direction = (y-j)*3+(x-i);
 
                 switch(direction){
-                    case 0:
+                    case -4:
                         neighboringToken.addConnection(DIRECTIONS.ul, newToken);
                         newToken.addConnection(DIRECTIONS.br, neighboringToken);
                         break;
-                    case 1:
+                    case -3:
                         neighboringToken.addConnection(DIRECTIONS.u, newToken);
                         newToken.addConnection(DIRECTIONS.b, neighboringToken);
                         break; 
-                    case 2:
+                    case -2:
                         neighboringToken.addConnection(DIRECTIONS.ur, newToken);
                         newToken.addConnection(DIRECTIONS.bl, neighboringToken);
                         break;    
-                    case 3:
+                    case -1:
                         neighboringToken.addConnection(DIRECTIONS.l, newToken);
                         newToken.addConnection(DIRECTIONS.r, neighboringToken);
                         break;
-                    case 4:
+                    case 0:
                         console.error("Cannot connect a token to itself");
                         break; 
-                    case 5:
+                    case 1:
                         neighboringToken.addConnection(DIRECTIONS.r, newToken);
                         newToken.addConnection(DIRECTIONS.l, neighboringToken);
                         break;
-                    case 6:
+                    case 2:
                         neighboringToken.addConnection(DIRECTIONS.bl, newToken);
                         newToken.addConnection(DIRECTIONS.ur, neighboringToken);
                         break;
-                    case 7:
+                    case 3:
                         neighboringToken.addConnection(DIRECTIONS.b, newToken);
                         newToken.addConnection(DIRECTIONS.u, neighboringToken);
                         break; 
-                    case 8:
+                    case 4:
                         neighboringToken.addConnection(DIRECTIONS.br, newToken);
                         newToken.addConnection(DIRECTIONS.ul, neighboringToken);
                         break;
@@ -124,6 +128,22 @@ export default class Grid{
             }//close col (j) loop
         }//close row (i) loop
     
+        //check for tie
+        let no_more_moves = true;
+
+        for(let i=0; i<this.dim; i++){
+            for(let j=0; j<this.dim; j++){
+                
+                //if every grid has a token, there are no more moves, declare a tie
+                no_more_moves = no_more_moves & (this.grid[i][j]!=null);
+                console.log("no_more_moves", no_more_moves, this.grid[i][j]);
+            }
+        }
+
+        if(no_more_moves){
+            return TIE_CONDITION;
+        }
+
         //check for a win
         return this.checkForWin(newToken);
     }

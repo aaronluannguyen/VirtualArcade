@@ -1,4 +1,6 @@
 import GameController from "../common/GameController";
+import Q20 from "../../views/q20/Q20";
+import React from "react";
 import {ALL_GAMES, GAME_TYPE_Q20, ContClass} from "../../models/common/Games";
 
 export default class Q20Controller extends GameController{
@@ -16,6 +18,9 @@ export default class Q20Controller extends GameController{
 
     }
 
+    getView() {
+        return <Q20 pC={this._data.playerController}/>;
+    }
 };
 
 //adds this controller to the global list of all game data
