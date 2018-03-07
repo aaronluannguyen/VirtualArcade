@@ -52,18 +52,23 @@ export default class GameChooser extends React.Component{
 
         } else if(playerInfo.isWaitingForMatch()){
             
-            return (<div>Waiting for another player...</div>);
+            return (
+                <div>
+                    <h1>Would you like some water while we match you up with an opponent?</h1>
+                    <img id="waiting-room-img" src={require("./waiting-room.jpg")}/>
+                </div>
+            );
         
         } else if(playerInfo.isPlayingGame()){
             let gameInfo = playerInfo.getGame().getGameInfo();
         
-            return (<div>
+            return (<div className="container">
                         <div>{gameInfo.getName(gameInfo.getCurrentPlayerId()) + "'s turn"}</div>
                         <div>{playerInfo.getGame().getView()}</div>
                     </div>
                 );
         }
-        
+
         return (
                 <div id="games-container" className="row">
                     {Object.values(ALL_GAMES).map((game)=><button id="game-button" className="col-12 col-lg-4" onClick={(evt)=>this.handleClick(evt, game[ContClass])}><GameCard key={game.gameTypeId} gameName={game.name} imgSrc={game.imgSrc} description={game.description}/></button>)}
