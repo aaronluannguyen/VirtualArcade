@@ -7,7 +7,7 @@
     flex-flow: wrap row;
     align-items: center;
     justify-content: center;
-    height: 50vh;
+    height: 70vh;
     padding: 5px;
 }
 
@@ -29,5 +29,5 @@
 }
 
 #marker {
-    width: 65%;
+    width: 55%;
 }
