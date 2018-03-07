@@ -66,7 +66,7 @@ export default class Grid{
         if( y_2 > this.dim )
             y_2 = this.dim;
 
-        console.log("direction kernel bounds p_1", x_1, y_1, "p2", x_2, y_2);
+        //console.log("direction kernel bounds p_1", x_1, y_1, "p2", x_2, y_2);
 
         for(let j=y_1; j<y_2; j++){
             for(let i=x_1; i<x_2; i++){
@@ -74,7 +74,7 @@ export default class Grid{
                 //get the neighboring token
                 let neighboringToken = this.grid[j][i];
                 
-                console.log("neighboring token, newtoken", neighboringToken == newToken, neighboringToken, newToken);
+                //console.log("neighboring token, newtoken", neighboringToken == newToken, neighboringToken, newToken);
 
                 //skip any null cells in grid
                 //skip connecting a token to itself
@@ -136,7 +136,7 @@ export default class Grid{
                 
                 //if every grid has a token, there are no more moves, declare a tie
                 no_more_moves = no_more_moves & (this.grid[i][j]!=null);
-                console.log("no_more_moves", no_more_moves, this.grid[i][j]);
+                //console.log("no_more_moves", no_more_moves, this.grid[i][j]);
             }
         }
 

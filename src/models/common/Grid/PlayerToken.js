@@ -38,7 +38,7 @@ export class PlayerToken{
         
         //only connect tokens belonging to the same player
         if(token.playerId != this.playerId){
-            console.log("not connecting tokens from opponent");
+            //console.log("not connecting tokens from opponent");
             return;
         }
 
