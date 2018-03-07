@@ -1,5 +1,7 @@
 import {PlayerToken, DIRECTIONS} from './PlayerToken';
 
+export const TIE_CONDITION = "Tie";
+
 export default class Grid{
     constructor(dim, connectionsToWin){
         
@@ -124,6 +126,22 @@ export default class Grid{
             }//close col (j) loop
         }//close row (i) loop
     
+        //check for tie
+        let no_more_moves = true;
+
+        for(let i=0; i<this.dim; i++){
+            for(let j=0; j<this.dim; j++){
+                
+                //if every grid has a token, there are no more moves, declare a tie
+                no_more_moves = no_more_moves & (this.grid[i][j]!=null);
+                console.log("no_more_moves", no_more_moves, this.grid[i][j]);
+            }
+        }
+
+        if(no_more_moves){
+            return TIE_CONDITION;
+        }
+
         //check for a win
         return this.checkForWin(newToken);
     }
