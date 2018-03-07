@@ -40,6 +40,15 @@
     max-height: 60vh;
 }
 
+#player-turn-card {
+    margin: 5px;
+}
+
+#both-player-cards {
+    justify-content: center;
+    margin: 0px;
+}
+
 #game-container {
   padding: 0px;
   margin: auto;

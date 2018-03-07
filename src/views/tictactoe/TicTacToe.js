@@ -27,7 +27,7 @@ export default class TicTacToe extends React.Component{
 
         return (
             <div>
-                <h1>Welcome to Tic Tac Toe!</h1>
+                <h1>Tic Tac Toe!</h1>
                 <div id="tttBoard" className="container">
                     {rows}
                 </div>

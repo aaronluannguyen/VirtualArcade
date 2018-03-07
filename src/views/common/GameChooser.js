@@ -2,6 +2,7 @@ import React from "react";
 import {ALL_GAMES, ContClass} from "../../models/common/Games"
 import {GameInfo} from "../../models/common/GameInfo"
 import GameCard from "./GameCard";
+import PlayerTurnCard from "./PlayerTurnCard";
 
 export default class GameChooser extends React.Component{
 
@@ -64,6 +65,7 @@ export default class GameChooser extends React.Component{
         
             return (<div className="container">
                         <div>{gameInfo.getName(gameInfo.getCurrentPlayerId()) + "'s turn"}</div>
+                        <PlayerTurnCard currentPlayer={gameInfo.getName(gameInfo.getCurrentPlayerId())} me={playerInfo.getName()} opponent={gameInfo.getOpponentName()} />
                         <div>{playerInfo.getGame().getView()}</div>
                     </div>
                 );
