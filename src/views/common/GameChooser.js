@@ -2,6 +2,7 @@ import React from "react";
 import {ALL_GAMES, ContClass} from "../../models/common/Games"
 import {GameInfo} from "../../models/common/GameInfo"
 import GameCard from "./GameCard";
+import PlayerTurnCard from "./PlayerTurnCard";
 
 export default class GameChooser extends React.Component{
 
@@ -52,22 +53,26 @@ export default class GameChooser extends React.Component{
 
         } else if(playerInfo.isWaitingForMatch()){
             
-            return (<div>Waiting for another player...</div>);
+            return (
+                <div>
+                    <h1>Would you like some water while we match you up with an opponent?</h1>
+                    <img id="waiting-room-img" src={require("./waiting-room.jpg")}/>
+                </div>
+            );
         
         } else if(playerInfo.isPlayingGame()){
             let gameInfo = playerInfo.getGame().getGameInfo();
-        
-            return (<div>
-                        <div className="mb-4">{gameInfo.getName(gameInfo.getCurrentPlayerId()) + "'s turn"}</div>
+
+            return (<div id="contain-cards-game" className="container">
+                        <PlayerTurnCard currentPlayer={gameInfo.getName(gameInfo.getCurrentPlayerId())} me={playerInfo.getName()} opponent={gameInfo.getOpponentName(playerInfo.getPlayerId())} />
                         <div>{playerInfo.getGame().getView()}</div>
                     </div>
                 );
         }
-        
+
         return (
                 <div id="games-container" className="row">
-                    
-                    {Object.values(ALL_GAMES).map((game)=><button id="game-button" className="col-12 col-lg-4" onClick={(evt)=>this.handleClick(evt, game[ContClass])}><GameCard key={game.gameTypeId} gameName={game.name}/></button>)}
+                    {Object.values(ALL_GAMES).map((game)=><button id="game-button" className="col-12 col-lg-4" onClick={(evt)=>this.handleClick(evt, game[ContClass])}><GameCard key={game.gameTypeId} gameName={game.name} imgSrc={game.imgSrc} description={game.description}/></button>)}
                 </div>
                 );
         
