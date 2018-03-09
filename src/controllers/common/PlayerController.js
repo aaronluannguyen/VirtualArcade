@@ -245,7 +245,7 @@ export default class PlayerController{
         */
 
         //the user is "in game", but the game has not been started yet
-        return this.isPlayingGame() && !this.getGame().getGameInfo();
+        return this.isPlayingGame() && this.getGame().getGameInfo()==undefined;
     }
 
 }

@@ -15,10 +15,16 @@ export default class GameController{
         
         this._data = {
             playerController: playerController,
-            gameMatcher: gameInProgress ? undefined : new GameMatcher(gameTypeId, {playerId: playerController.getPlayerId(), displayName: playerController.getName()}, (data)=>this._startGame(data)),
+            gameMatcher: undefined,
             gameInfo: gameInProgress,
             view: undefined,
+            createdAt: Date.now(),
         }
+
+        //moved here since it looks like the instruction queue can call this._startGame() before this._data has completed construction?
+        this._data.gameMatcher = gameInProgress ? undefined : new GameMatcher(gameTypeId, {playerId: playerController.getPlayerId(), displayName: playerController.getName()}, (data)=>this._startGame(data));
+
+        console.log("gamecontroller createdAt:", this._data.createdAt);
     }
 
     /**
@@ -29,7 +35,7 @@ export default class GameController{
     _startGame(data){
 
         if(this._data==undefined){
-            console.error("undefined _data member");
+            console.error("undefined _data member", this._data.createdAt);
             return;
         }
 
@@ -37,7 +43,7 @@ export default class GameController{
         
         
         if(this.startGame){
-            console.log("this controller has it's own start game");
+            console.log("this controller has it's own start game", this._data.createdAt);
             this.startGame(this._data.gameInfo);
         }
 
@@ -45,6 +51,7 @@ export default class GameController{
 
     }
 
+    
     /**
      * @function GameController.getGameInfo
      * @returns {GameInfo} This games GameInfo which provides turns and should be updated with moves through updateInfo({move:{}})
@@ -58,7 +65,7 @@ export default class GameController{
     }
 
     unmount(){
-        //console.log("unmounting gamecontroller", new Error().stack);
+        console.log("unmounting gamecontroller", this._data.createdAt);// new Error().stack);
 
         if(this._data.gameMatcher){
             this._data.gameMatcher.unmount();

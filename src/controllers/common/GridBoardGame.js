@@ -79,7 +79,12 @@ export class GridBoardGame {
             return;
         }
 
-        this._handleGameLogic(data.actions.move.selection.x, data.actions.move.selection.y, data.actions.move.playerId);
+        Object.keys(data.actions).forEach(moveKey => {
+            let move = data.actions[moveKey];
+
+            this._handleGameLogic(move.selection.x, move.selection.y, move.playerId);
+        
+        });
         
         //ui updates are already always triggered by the firebase callback handler, but they occur before this callback (so data is not yet updated)
         this.controllerModelRef.pcontroller.handleUIUpdate();
