@@ -1,6 +1,5 @@
+import {TIE_CONDITION, FORFEIT_CONDITION} from '../GameInfo';
 import {PlayerToken, DIRECTIONS} from './PlayerToken';
-
-export const TIE_CONDITION = "Tie";
 
 export default class Grid{
     constructor(dim, connectionsToWin){

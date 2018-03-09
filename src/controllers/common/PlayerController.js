@@ -2,7 +2,7 @@ import {ALL_GAMES, ContClass} from "../../models/common/Games";
 import {TicTacToeController} from "../tictactoe/TicTacToeController";
 import {Connect4Controller} from "../connect4/Connect4Controller";
 import {Q20Controller} from "../q20/Q20Controller";
-import GameInfo from "../../models/common/GameInfo";
+import GameInfo, { TIE_CONDITION, FORFEIT_CONDITION } from "../../models/common/GameInfo";
 
 import firebase from "firebase/app";
 
@@ -143,8 +143,12 @@ export default class PlayerController{
         this.unlistenAuth();
         //this.users_gamesRef.off("value", this.valueListener);
         //for(let i=0; i<this.data.games.length; i++){
-        this.data.games[this.data.games.length-1].unmount()
+        this.data.games[this.data.games.length-1].unmount();
         //}
+    }
+
+    forfeitGame(){
+        this.data.games[this.data.games.length-1].forfeitGame(this.data.playerId);
     }
 
     /**
@@ -206,6 +210,36 @@ export default class PlayerController{
             if(lastGameInfo)
                 return lastGameInfo.getWinner() == this.getPlayerId();
         }
+    }
+
+    gameResult(){
+        let status = "Try a game!";
+       
+        if(this.data.games.length){
+            let lastGameInfo = this.data.games[this.data.games.length-1].getGameInfo();
+            if(lastGameInfo){
+                let winnerStatus = lastGameInfo.getWinner() || "";
+
+                console.log("this game winner", winnerStatus);
+
+                if(winnerStatus.includes(TIE_CONDITION)){
+                    status = "It was a TIE!";
+                }else if(winnerStatus.includes(FORFEIT_CONDITION)){
+                    if(winnerStatus.includes(this.getPlayerId())){
+                        status = "You forfeited!";
+                    }else{
+                        status = "The other player forfeited!";
+                    }
+                    
+                }else if(winnerStatus != ""){
+                    status = this.wonLastGame() ? "You won the last game!":"Good game! Keep trying!"
+                }else{
+                    status = "Enjoy the game!";
+                }
+            }
+        }
+
+        return status;
     }
 
     /**

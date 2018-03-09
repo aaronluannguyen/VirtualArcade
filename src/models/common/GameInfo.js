@@ -1,5 +1,8 @@
 import firebase from "firebase/app";
 
+export const TIE_CONDITION = "Tie";
+export const FORFEIT_CONDITION = "Forfeit";
+
 export default class GameInfo{
     /**
      * Encapsulates connection to Firebase and provides interfaces for other code
@@ -51,6 +54,13 @@ export default class GameInfo{
 
     unmount(){
         this.data.roomRef.off("value", this._dataValueListener);
+    }
+
+    forfeitGame(playerId){
+        if(this.getWinner() === undefined)
+        {
+            this.updateInfo({winnerPlayerId:FORFEIT_CONDITION+":" + playerId});
+        }
     }
 
     /**
@@ -198,6 +208,11 @@ export default class GameInfo{
 
         if(!allPlayers)
             return;
+
+        allPlayers.push({
+            playerId: "Google", 
+            displayName:"Google Cloud Vision"}
+        );
 
         //let names = [];
 

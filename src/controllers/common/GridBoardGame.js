@@ -1,6 +1,6 @@
 //import PlayerToken from "../../models/common/Grid/PlayerToken";
-import Grid, { TIE_CONDITION } from "../../models/common/Grid/Grid";
-import GameInfo from "../../models/common/GameInfo";
+import Grid from "../../models/common/Grid/Grid";
+import GameInfo, { TIE_CONDITION } from "../../models/common/GameInfo";
 
 export class GridBoardGame {
     

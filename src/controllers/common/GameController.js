@@ -74,6 +74,10 @@ export default class GameController{
         this._data.gameInfo.unmount();
     }
 
+    forfeitGame(playerId){
+        this._data.gameInfo.forfeitGame(playerId);
+    }
+
     handleUIUpdate(){
         this._data.playerController.handleUIUpdate();
     }
