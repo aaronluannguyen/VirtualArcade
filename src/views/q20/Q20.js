@@ -22,7 +22,7 @@ export default class Q20 extends React.Component{
     }
 
     handleResponse(response) {
-        console.log("getting cloud vision response");
+        //console.log("getting cloud vision response");
         return response.json();
     }
 
@@ -66,7 +66,6 @@ export default class Q20 extends React.Component{
         }))
         .catch(err => this.setState({error: err.message}))
         .then(() => this.setState({working: false, playing: true}))
-        .then(() => console.log(this.state))
         .then(() => this.handleAskQuestion());
     }
 

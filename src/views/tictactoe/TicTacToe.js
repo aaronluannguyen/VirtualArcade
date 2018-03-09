@@ -17,11 +17,11 @@ export default class TicTacToe extends React.Component{
     }
 
     componentWillMount(){
-        console.log("tic-tac-toe will mounnt, instance created at ", this.state.createdAt);
+        //console.log("tic-tac-toe will mounnt, instance created at ", this.state.createdAt);
     }
 
     componentWillUnmount(){
-        console.log("unmounting tic-tac-toe view", this.state.createdAt);
+        //console.log("unmounting tic-tac-toe view", this.state.createdAt);
         this.state.pcontroller.unmount();
     }
 
@@ -30,7 +30,7 @@ export default class TicTacToe extends React.Component{
 
         for (let i =0; i < this.state.grid.length; i++) {
             for (let j = 0; j < this.state.grid.length; j++) {
-                rows.push(<Tile xCoordinate={j} yCoordinate={i} grid={this.state.grid} gcontroller={this.state.gcontroller} pcontroller={this.state.pcontroller}/>)
+                rows.push(<Tile key={`key_${this.state.createdAt}_${i}_${j}`} xCoordinate={j} yCoordinate={i} grid={this.state.grid} gcontroller={this.state.gcontroller} pcontroller={this.state.pcontroller}/>)
             }
         }
 

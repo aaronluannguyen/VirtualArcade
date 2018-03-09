@@ -23,27 +23,27 @@ export default class Tile extends React.Component{
 
         // if (this.props.tile) {
         //     this.setState({tileId: this.props.tile.getplayerId()})
-        //     console.log(this.state.tileId)
+        //     //console.log(this.state.tileId)
         // }
 
         
     }
 
     componentWillMount(){
-        //console.log("tile will mount");
+        ////console.log("tile will mount");
 
     }
 
     action() {
         let lastRow = 7;
         for (let i = 7; i >= 0; i--) {
-            console.log(this.props.grid[this.props.col][i])
+            //console.log(this.props.grid[this.props.col][i])
             if (!this.props.grid[this.props.col][i]) {
                 lastRow = i;
                 break;
             }
         }
-        console.log("clicked row " + lastRow + ", col " + this.props.col);
+        //console.log("clicked row " + lastRow + ", col " + this.props.col);
         this.state.gcontroller.gbg.handleClick(lastRow, this.props.col);
         this.state.gcontroller.handleUIUpdate();
     }
@@ -52,7 +52,7 @@ export default class Tile extends React.Component{
         // let styles = emptyStyles;
         // if (this.props.tile) {
         //     // this.setState({tileId: this.props.tile.getplayerId()})
-        //     console.log(this.props.tile.getplayerId());
+        //     //console.log(this.props.tile.getplayerId());
         //     styles = this.props.tile.getplayerId() === this.state.currentplayerId ? baseStyles : otherStyles;
         // }
         

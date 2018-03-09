@@ -24,7 +24,7 @@ export default class GameController{
         //moved here since it looks like the instruction queue can call this._startGame() before this._data has completed construction?
         this._data.gameMatcher = gameInProgress ? undefined : new GameMatcher(gameTypeId, {playerId: playerController.getPlayerId(), displayName: playerController.getName()}, (data)=>this._startGame(data));
 
-        console.log("gamecontroller createdAt:", this._data.createdAt);
+        //console.log("gamecontroller createdAt:", this._data.createdAt);
     }
 
     /**
@@ -43,7 +43,7 @@ export default class GameController{
         
         
         if(this.startGame){
-            console.log("this controller has it's own start game", this._data.createdAt);
+            //console.log("this controller has it's own start game", this._data.createdAt);
             this.startGame(this._data.gameInfo);
         }
 
@@ -65,7 +65,7 @@ export default class GameController{
     }
 
     unmount(){
-        console.log("unmounting gamecontroller", this._data.createdAt);// new Error().stack);
+        //console.log("unmounting gamecontroller", this._data.createdAt);// new Error().stack);
 
         if(this._data.gameMatcher){
             this._data.gameMatcher.unmount();
