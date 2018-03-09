@@ -20,12 +20,16 @@ export default class GameInfo{
             localInfo: undefined,
         }
 
-        console.log("gameinfo, gamesnap", gameSnap);
+        //console.log("gameinfo, gamesnap", gameSnap);
         //console.log("loadcallback", loadCallback);
         
         //begin watching the actual game room
         this.data.roomRef = firebase.database().ref(`/game/${gameSnap.val().gameTypeId}/${gameSnap.val().roomKey}`);
         this.data.roomRef.once("value", (data) => {
+
+            if(!data || !data.val())
+                return;
+
             this._handleDataCallback(data); 
            
             //console.log("loadcallback value", loadCallback);
@@ -40,7 +44,7 @@ export default class GameInfo{
             }
         });
 
-        console.log("roomref", this.data.roomRef)
+        //console.log("roomref", this.data.roomRef)
         
 
     }
@@ -101,7 +105,10 @@ export default class GameInfo{
             state.currentPlayer = nextPlayer;
             this.data.localInfo.currentPlayer = nextPlayer;
             
-            if(state.winnerPlayerId) {
+            //edge seems to add this to state as undefined if it doesnt exist, using hasOwnProperty to check for presence
+            //before checking for value... not the best solution, but it seems to be working
+            if(state.hasOwnProperty("winnerPlayerId") && state.winnerPlayerId != undefined) {
+                console.log("winner in updateinfo", state.winnerPlayerId)
                 this.data.localInfo.winnerPlayerId = state.winnerPlayerId;
             }
 
@@ -211,6 +218,8 @@ export default class GameInfo{
      * @param {closure} callbackFunction Should be an argument-less closure ()=>{}
      */
     addDataCallback(callbackFunction){
+        
+        //console.log("adddatacallback", new Error().stack);  
         
         console.log("adding game info model callback function");
         this.data.callbackFunctions.push(callbackFunction);

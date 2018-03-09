@@ -14,7 +14,7 @@ export default class Row extends React.Component{
     }
 
     componentWillMount(){
-        console.log("Row will mount");
+        //console.log("Row will mount");
 
     }
 
@@ -29,7 +29,7 @@ export default class Row extends React.Component{
         // }
 
         for (let i = 0; i < 8; i++) {
-            rows.push(<Tile grid={this.state.grid} tile={this.props.row[i]} col={this.state.index} row={i} gcontroller={this.state.gcontroller} pcontroller={this.state.pcontroller}/>)
+            rows.push(<Tile key={"row_"+this.state.index+"_tile_"+i} grid={this.state.grid} tile={this.props.row[i]} col={this.state.index} row={i} gcontroller={this.state.gcontroller} pcontroller={this.state.pcontroller}/>)
         }
         return (        
             <div className="mx-1 my-1"> 

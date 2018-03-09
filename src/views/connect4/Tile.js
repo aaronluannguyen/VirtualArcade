@@ -30,7 +30,7 @@ export default class Tile extends React.Component{
     }
 
     componentWillMount(){
-        console.log("tile will mount");
+        //console.log("tile will mount");
 
     }
 

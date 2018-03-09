@@ -16,6 +16,11 @@ export default class TicTacToe extends React.Component{
         }
     }
 
+    componentWillUnmount(){
+        console.log("unmounting tic-tac-toe view");
+        this.state.pcontroller.unmount();
+    }
+
     render(){
         let rows=[];
 

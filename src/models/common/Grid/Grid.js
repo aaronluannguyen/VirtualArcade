@@ -31,9 +31,10 @@ export default class Grid{
          x < 0 || y < 0 ||
         x > this.lastIndex || y > this.lastIndex){
             console.error("bad call to placeToken");
-            return;
+            return false;
         }
 
+        //console.log("placetoken", new Error().stack);
         console.log("placetoken, grid", this.grid, x, y);
 
         //check if token was already placed... don't do extra/excessive work
@@ -140,12 +141,12 @@ export default class Grid{
             }
         }
 
-        if(no_more_moves){
-            return TIE_CONDITION;
-        }
+        let winner = this.checkForWin(newToken);
+
+        console.log("placetoken winner", winner)
 
         //check for a win
-        return this.checkForWin(newToken);
+        return winner ? true : no_more_moves ? TIE_CONDITION : false;
     }
 
     //this is called from placeToken, it shouldnt need to be explicitly called
