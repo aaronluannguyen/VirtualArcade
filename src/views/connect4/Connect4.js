@@ -11,7 +11,10 @@ export default class Connect4 extends React.Component{
             grid: this.props.grid,
             createdAt: Date.now(),
         }
+    
+        console.log(this.state.createdAt);
     }
+    
 
     componentWillMount(){
         console.log("componentwillmount");

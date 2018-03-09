@@ -53,7 +53,7 @@ export default class PlayerController{
 
                         this.showUserInfo(data.name);
                     });
-                }
+                } 
 
                 //grave, backtick
                 this.users_gamesRef = firebase.database().ref(`/users/${user.uid}/game_rooms`);
@@ -142,9 +142,9 @@ export default class PlayerController{
     unmount(){
         this.unlistenAuth();
         //this.users_gamesRef.off("value", this.valueListener);
-        for(let i=0; i<this.data.games.length; i++){
-            this.data.games[i].unmount()
-        }
+        //for(let i=0; i<this.data.games.length; i++){
+        this.data.games[this.data.games.length-1].unmount()
+        //}
     }
 
     /**
@@ -245,7 +245,7 @@ export default class PlayerController{
         */
 
         //the user is "in game", but the game has not been started yet
-        return this.isPlayingGame() && !this.getGame().getGameInfo();
+        return this.isPlayingGame() && this.getGame().getGameInfo()==undefined;
     }
 
 }

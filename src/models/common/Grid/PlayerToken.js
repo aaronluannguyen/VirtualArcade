@@ -30,7 +30,7 @@ export class PlayerToken{
         };
     }
 
-    getplayerId() {
+    getPlayerId() {
         return this.playerId;
     }
 

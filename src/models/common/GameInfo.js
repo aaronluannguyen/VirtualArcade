@@ -98,6 +98,7 @@ export default class GameInfo{
         let gameState = this._getGameState();
         console.log("checking game state exists");
 
+
         if(gameState){
             let nextPlayer = (gameState.currentPlayer+1) % gameState.numPlayers;
             console.log("updating currentPlayer to ", nextPlayer );
@@ -105,6 +106,14 @@ export default class GameInfo{
             state.currentPlayer = nextPlayer;
             this.data.localInfo.currentPlayer = nextPlayer;
             
+            let move = undefined;
+            
+            if(state.actions && state.actions.move)
+            {
+                move = Object.assign(state.actions.move);
+
+                delete state.actions;
+            }
             //edge seems to add this to state as undefined if it doesnt exist, using hasOwnProperty to check for presence
             //before checking for value... not the best solution, but it seems to be working
             if(state.hasOwnProperty("winnerPlayerId") && state.winnerPlayerId != undefined) {
@@ -113,6 +122,10 @@ export default class GameInfo{
             }
 
             this.data.roomRef.update(state);
+
+            if(move){
+                this.data.roomRef.child("actions").push(move);
+            }
 
         } else { 
             console.error("no game state!");
@@ -144,6 +157,17 @@ export default class GameInfo{
             return gameInfo.players[gameInfo.currentPlayer].playerId;
         }
 
+    }
+
+    getPlayerNumber(playerId){
+        let players = this.getPlayers();
+
+        if(this.isInitialized()){
+            for(let i=0; i<players.length; i++){
+                if(players[i].playerId==playerId)
+                    return i;
+            } 
+        }
     }
 
     getPlayers(){

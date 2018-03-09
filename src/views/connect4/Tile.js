@@ -59,7 +59,7 @@ export default class Tile extends React.Component{
         let id = null;
 
         if (this.props.tile) {
-            id = this.props.tile.getplayerId();
+            id = this.props.tile.getPlayerId();
 
 
         }

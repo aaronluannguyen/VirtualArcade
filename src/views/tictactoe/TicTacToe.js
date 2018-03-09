@@ -12,12 +12,16 @@ export default class TicTacToe extends React.Component{
             pcontroller: this.props.pC,
             gcontroller: this.props.pC.getGame(),
             grid: this.props.grid,
-            turn: true
+            createdAt: Date.now(),
         }
     }
 
+    componentWillMount(){
+        console.log("tic-tac-toe will mounnt, instance created at ", this.state.createdAt);
+    }
+
     componentWillUnmount(){
-        console.log("unmounting tic-tac-toe view");
+        console.log("unmounting tic-tac-toe view", this.state.createdAt);
         this.state.pcontroller.unmount();
     }
 
