@@ -17,6 +17,10 @@ export default class Q20 extends React.Component{
         this.props.pC.getGame().getGameInfo().addDataCallback(() => {this.forceUpdate()});
     }
     
+    componentWillUnmount() {
+        this.props.pC.unmount();
+    }
+
     handleResponse(response) {
         console.log("getting cloud vision response");
         return response.json();

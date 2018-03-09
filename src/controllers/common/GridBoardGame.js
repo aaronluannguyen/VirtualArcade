@@ -22,30 +22,16 @@ export class GridBoardGame {
 
     }
 
-    handleClick(x, y){
-
-        //this move also needs to be sent to Firebase which will in turn be sent to the other player
- 
-        this.controllerModelRef.gameInfo.updateInfo({
-            actions:{
-                move:{
-                    playerId: this.controllerModelRef.pcontroller.getPlayerId(),
-                    selection:{
-                        x: x,
-                        y: y,
-                    }
-                }
-            }
-        });
-
+    _handleGameLogic(x, y, playerId){
+        
         let winner = false;
 
-        if((winner = this.controllerModelRef.grid.placeToken(x, y, this.controllerModelRef.pcontroller.getPlayerId())) != false) 
+        if((winner = this.controllerModelRef.grid.placeToken(x, y, playerId)) != false) 
         {
             console.log("winner or tie");
 
             if(winner != TIE_CONDITION){
-                winner = this.controllerModelRef.pcontroller.getPlayerId();
+                winner = playerId;
                 console.log("winner", winner);
             }
             else {
@@ -57,7 +43,33 @@ export class GridBoardGame {
 
     }
 
+    handleClick(x, y){
+
+        //this move also needs to be sent to Firebase which will in turn be sent to the other player
+ 
+        let playerId = this.controllerModelRef.pcontroller.getPlayerId();
+
+        console.log("outgoing move");
+
+        this.controllerModelRef.gameInfo.updateInfo({
+            actions:{
+                move:{
+                    playerId: playerId,
+                    selection:{
+                        x: x,
+                        y: y,
+                    }
+                }
+            }
+        });
+
+        this._handleGameLogic(x,y, playerId);
+       
+    }
+
     handleOtherUserMove(data){
+
+        console.log("incoming move");
 
         console.log("handleusermove", data);
 
@@ -67,24 +79,9 @@ export class GridBoardGame {
             return;
         }
 
-        let winner = false;
-
-        if((winner = this.controllerModelRef.grid.placeToken(data.actions.move.selection.x, data.actions.move.selection.y, data.actions.move.playerId)) != false)
-        {
-            
-            console.log("winner or tie");
-
-            if(winner != TIE_CONDITION){
-                winner = data.actions.move.playerId;
-                console.log("winner", winner);
-            }
-            else {
-                console.log("tie", winner);
-            }
-            
-            this.controllerModelRef.gameInfo.updateInfo({winnerPlayerId: winner})
-        }
+        this._handleGameLogic(data.actions.move.selection.x, data.actions.move.selection.y, data.actions.move.playerId);
         
+        //ui updates are already always triggered by the firebase callback handler, but they occur before this callback (so data is not yet updated)
         this.controllerModelRef.pcontroller.handleUIUpdate();
     }
 

@@ -37,7 +37,7 @@ class App extends Component {
 
   render() {
     
-    console.log("username", this.state.playerController ? this.state.playerController.getName() : "player not init'd");
+    //console.log("username", this.state.playerController ? this.state.playerController.getName() : "player not init'd");
 
     return (
       <div className="App">

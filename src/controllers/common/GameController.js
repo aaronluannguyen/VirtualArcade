@@ -35,12 +35,14 @@ export default class GameController{
 
         this._data.gameInfo = new GameInfo(data);
         
-        this._data.gameInfo.addDataCallback(()=>this._data.playerController.handleUIUpdate());
-
+        
         if(this.startGame){
             console.log("this controller has it's own start game");
             this.startGame(this._data.gameInfo);
         }
+
+        this._data.gameInfo.addDataCallback(()=>this._data.playerController.handleUIUpdate());
+
     }
 
     /**
@@ -56,7 +58,7 @@ export default class GameController{
     }
 
     unmount(){
-        console.log("unmounting gamecontroller", new Error().stack);
+        //console.log("unmounting gamecontroller", new Error().stack);
 
         if(this._data.gameMatcher){
             this._data.gameMatcher.unmount();
