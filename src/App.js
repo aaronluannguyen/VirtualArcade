@@ -17,14 +17,18 @@ class App extends Component {
       playerController: undefined,
     }
 
+
+
   }
 
   componentDidMount() {
     
-    //let pC = ;
+    let pC = new PlayerController([()=>{this.forceUpdate()}]);
     
-    this.setState({playerController: new PlayerController([()=>{this.forceUpdate()}])});
+    this.setState({playerController: pC});
 
+    //this cleans up the lobby at the very least if the user refreshed the page while waiting for another player
+    window.addEventListener("beforeunload", ()=>pC.unmount());
 
   }
 
@@ -34,6 +38,7 @@ class App extends Component {
       this.state.playerController.unmount();
   
   }
+
 
   render() {
     

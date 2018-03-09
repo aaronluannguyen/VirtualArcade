@@ -50,10 +50,14 @@ export default class GameMatcher{
         //add player to the specified game lobby, this should trigger the Firebase Cloud Function if there are enough
         //players, move them to a new room, and add the room under the player's /game_rooms, which will start the game
         //if there is only one player, the lambda will be called with the snapshot when the second player enters the room
-        firebase.database().ref(`/lobby/${gameTypeId}`).push(playerInfo);
+        this._lobbyRef = firebase.database().ref(`/lobby/${gameTypeId}`).push(playerInfo);
+
     }
 
     unmount(){
         this._users_game_rooms_ref.off("child_added", this._valueListener);
+        
+        //if the user was waiting in the lobby, remove them from the lobby
+        this._lobbyRef.remove();
     }
 }

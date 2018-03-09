@@ -53,7 +53,7 @@ export default class PlayerController{
 
                         this.showUserInfo(data.name);
                     });
-                }
+                } 
 
                 //grave, backtick
                 this.users_gamesRef = firebase.database().ref(`/users/${user.uid}/game_rooms`);
