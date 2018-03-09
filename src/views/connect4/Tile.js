@@ -64,6 +64,9 @@ export default class Tile extends React.Component{
 
         }
         
+        let primary_or_other = this.props.gcontroller.getGameInfo().getPlayerNumber(id) == 0;
+
+
         return (
             <div className="col p-1"> 
                 {
@@ -74,9 +77,7 @@ export default class Tile extends React.Component{
                     </button> : 
                     <div>
                         {
-                            id == this.state.currentplayerId ? 
-                            <button className="btn-sm btn-primary" id="button" disabled/> :
-                            <button className="btn-sm btn-other" id="button" disabled/>
+                            <button className={"btn-sm " + (primary_or_other ? " btn-primary " : " btn-other ")} id="button" disabled={id !== this.state.currentplayerId}/>   
                         }
                     </div>
                 }   
