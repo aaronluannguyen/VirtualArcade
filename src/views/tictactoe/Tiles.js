@@ -8,14 +8,14 @@ export default class Tile extends React.Component{
         this.state = {
             x: this.props.xCoordinate,
             y: this.props.yCoordinate,
-            marker: true
+//            marker: true
         }
     }
 
     action() {
-        this.setState({marker: !this.state.marker});
+        //this.setState({marker: !this.state.marker});
         this.props.gcontroller.gbg.handleClick(this.state.x, this.state.y);
-        this.props.pcontroller.handleUIUpdate();
+        //this.props.pcontroller.handleUIUpdate();
     }
 
     render() {
@@ -26,20 +26,17 @@ export default class Tile extends React.Component{
          
         let alt_text = x_or_o ? "X": "O";
 
+        let key = this.state.x+"_"+this.state.y;
+
         return (
             <div id="tttTileContainer">
                 {
                     this.props.grid[this.state.y][this.state.x] !== null ?
-                            <button id="tttTile" className="btn btn-primary" disabled>
+                            <button key={key} id="tttTile" className="btn btn-primary" disabled>
                                 <img id="marker" src={x_or_o ? require(`./x.png`) : require(`./o.png`)} alt={alt_text}/>
                             </button>
                         :
-                        this.props.gcontroller.getGameInfo().getCurrentPlayerId() === this.props.pcontroller.data.playerId ?
-                            <button id="tttTile" className="btn btn-primary" onClick={() => this.action()}>
-
-                            </button>
-                            :
-                            <button id="tttTile" className="btn btn-primary" disabled>
+                            <button key={key} id="tttTile" className="btn btn-primary" onClick={() => this.action()} disabled={this.props.gcontroller.getGameInfo().getCurrentPlayerId() !== this.props.pcontroller.data.playerId}>
 
                             </button>
                 }

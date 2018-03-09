@@ -142,9 +142,9 @@ export default class PlayerController{
     unmount(){
         this.unlistenAuth();
         //this.users_gamesRef.off("value", this.valueListener);
-        for(let i=0; i<this.data.games.length; i++){
-            this.data.games[i].unmount()
-        }
+        //for(let i=0; i<this.data.games.length; i++){
+        this.data.games[this.data.games.length-1].unmount()
+        //}
     }
 
     /**
