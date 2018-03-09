@@ -128,7 +128,7 @@ export default class Q20 extends React.Component{
 
         let img_elements = images.map((img) => {
             return (
-                <div className="col-3">
+                <div className="col-sm-12 col-md-6 col-lg-3 p-2">
                     <img className="img-fluid rounded" onClick={(evt) => this.handleStartGame(evt.target.src)}
                         src={img.url} alt={img.title}/>
                 </div>
