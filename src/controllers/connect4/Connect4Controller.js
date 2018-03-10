@@ -17,9 +17,7 @@ export default class Connect4Controller extends GameController{
         
         super(GAME_TYPE_C4.gameTypeId, playerController, gameInProgress);
 
-        ////console.log(playerController.getGame());
         if(gameInProgress) {
-            //console.log("gameInProgress")
             this.gbg = new GridBoardGame(playerController, gameInProgress, 8, 4);
         } 
         if(this.gbg) {
@@ -29,13 +27,11 @@ export default class Connect4Controller extends GameController{
     }
 
     startGame(data){
-        //console.log("connect4 startgame");
         this.gbg = new GridBoardGame(this._data.playerController, data, 8, 4);
         this.grid = this.gbg.controllerModelRef.grid.getGrid();
     }
 
     getView(){  
-        ////console.log("getview");
         return <Connect4 pC={this._data.playerController} grid={this.grid}/>;
     }
 

@@ -27,25 +27,16 @@ export default class GameChooser extends React.Component{
      * @param {GameController} gameControllerClass 
      */
     handleClick(evt, gameControllerClass){
+
         evt.preventDefault();
         
         this.props.playerInfo.newGame(gameControllerClass);
         
-        //this.props.playerInfo.addUICallback(()=>{this.forceUpdate()});
-    }
-
-
-
-    componentWillUpdate(){
-    //    if(this.props.playerInfo)
-            
-
     }
 
     render(){
 
         let playerInfo = this.props.playerInfo;
-        //console.log("gamechooser instance, ", this);
 
         if(!playerInfo)
         {

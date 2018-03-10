@@ -12,34 +12,23 @@ export default class GameMatcher{
      */
     constructor(gameTypeId, playerInfo, startGame){
         
-        //add listener under player for list of games player is in, this will be called to start the appropriate game
-        //when the player
-
+        //helpful in debugging multiple instances and providing unique identifiers
         this.createdAt = Date.now();
 
-        //console.log("setting up game match", this.createdAt);
-
+        //add listener under player for list of games player is in, this will be called to start the appropriate game
+        //when the player
         this._users_game_rooms_ref = firebase.database().ref(`/users/${playerInfo.playerId}/game_rooms`);
-
+        
+        //listening only for child_added messages
         this._valueListener = this._users_game_rooms_ref.on("child_added", snapshot => {
 
             let value = snapshot.val();
-
-            //console.log("room", value);
-
-            ////console.log(value.winnerPlayerId);
 
             firebase.database().ref(`/game/${value.gameTypeId}/${value.roomKey}`).once("value", (roomSnap)=>{
                 
                 let roomValue = roomSnap.val();
 
                 if(roomValue && roomValue.winnerPlayerId==undefined){
-
-                    //value = value[Object.keys(value)[0]];
-                    //console.log("game room value updated, gamematcher, ", value, gameTypeId, value.gameTypeId);
-                    
-                    //figure out if theres a better way to do this by API or by ref, type of on?
-                    
 
                     if(roomValue.gameTypeId == gameTypeId)
                         startGame(snapshot);

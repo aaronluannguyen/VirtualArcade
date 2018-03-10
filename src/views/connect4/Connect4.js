@@ -12,33 +12,15 @@ export default class Connect4 extends React.Component{
             createdAt: Date.now(),
         }
     
-        //console.log(this.state.createdAt);
     }
     
-
-    componentWillMount(){
-        //console.log("componentwillmount");
-
-    }
     componentWillUnmount(){
         
-        //console.log("connect4 view component will unmount", this.state.createdAt, this.state.pcontroller);
         this.state.pcontroller.unmount();
     }
-
-    // componentWillReceiveProps(nextProps) {
-    //     this.setState({grid: nextProps.grid});
-    //     //console.log(nextProps.grid);
-    // }
     
     render(){
         let rows = [];
-        if (this.state.grid) {
-            //console.log("GRID IS MOUNTED! in C4 createdAt: ", this.state.createdAt);
-            //console.log(this.props.grid)
-        } else {
-            //console.log("GRID IS NOT THERE!", this.state.createdAt)
-        }
         
         for (let i = 0; i < this.state.grid.length; i++) {
             rows.push(<Row key={this.state.createdAt+"_row_"+i} grid={this.state.grid} row={this.state.grid[i]} gcontroller={this.state.gcontroller} index={i} pcontroller={this.state.pcontroller}/>)

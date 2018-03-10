@@ -16,12 +16,7 @@ export default class TicTacToe extends React.Component{
         }
     }
 
-    componentWillMount(){
-        //console.log("tic-tac-toe will mounnt, instance created at ", this.state.createdAt);
-    }
-
     componentWillUnmount(){
-        //console.log("unmounting tic-tac-toe view", this.state.createdAt);
         this.state.pcontroller.unmount();
     }
 

@@ -17,7 +17,7 @@ export default class TicTacToeController extends GameController {
 
         super(GAME_TYPE_TTT.gameTypeId, playerController, gameInProgress);
         this.gameStatus = gameInProgress;
-        // console.log(playerController.getGame());
+        
         if(gameInProgress) {
             this.gbg = new GridBoardGame(playerController, gameInProgress, 3, 3)
         }
@@ -36,7 +36,6 @@ export default class TicTacToeController extends GameController {
     }
 
     getView(){
-        //console.log("getview");
         return (
             <div>
                 <TicTacToe pC={this._data.playerController} grid={this.grid} />

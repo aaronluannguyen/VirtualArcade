@@ -36,6 +36,9 @@ ALL_GAMES[GAME_TYPE_TTT] = {
     num_players: TWO_PLAYER_GAME
 };
 
+//Based on the sample at https://github.com/firebase/functions-samples/blob/master/limit-children/functions/index.js
+//bearing this license
+
 /**
  * Copyright 2016 Google Inc. All Rights Reserved.
  *
@@ -67,26 +70,14 @@ function onLobbyWrite(event, gameTypeId){
 
     return parentRef.once('value').then((snapshot) => {
         
-        /*//console.log("checking if there are enough users in lobby")
-
-        //console.log(snapshot.numChildren());
-        //console.log(snapshot.val());*/
-        
-
         if (snapshot.numChildren() >= USERS_PER_GAME) {
             
-            ////console.log("enough users in lobby");
-
             let childCount = 0;
             const updates = {};
             const users = [];
       
             snapshot.forEach((child) => {
             
-                    ////console.log("iterating ", child)
-                    
-                    ////console.log(child.val());
-
                     if(users.length < USERS_PER_GAME){
                         users.push( child.val() );
             
@@ -107,30 +98,24 @@ function onLobbyWrite(event, gameTypeId){
             }
 
             for(let i=0; i<users.length; i++){
-                ////console.log("adding user ", users[i]);
                 newRoom.players.push(users[i]);
             }
 
-            ////console.log("creating new game room");
             //create new game room by adding the two users
             let newRoomRef = games.push(newRoom);
-            //newRoomRef.push("actions");
             
             //add room under each users current games
             for(let i=0; i<users.length; i++){
                 
-                ////console.log("creating new referenes to room under users")
                 let user_games = admin.database().ref("/users/"+users[i].playerId+"/game_rooms/");
                 user_games.push({roomKey: newRoomRef.key, gameTypeId: gameTypeId});
             
             }
 
-            ////console.log("returning parent ref to update with removed children")
             // Update the parent. This effectively removes the extra children.
             return parentRef.update(updates);
         }
 
-        ////console.log("not enough users in lobby");
         return false;
     });
 
@@ -932,8 +917,6 @@ var animal=[
 //publish an https endpoint that returns a random user name, sends the cors allow any origin header for client browser fetch requests
 exports.randomName = functions.https.onRequest((request, resp)=>{
 
-    //response.send("hello");
-
     let adj = adjective[Math.floor(Math.random()*adjective.length)];
     adj = adj[0].toUpperCase()+adj.slice(1, adj.length);
 
@@ -942,6 +925,7 @@ exports.randomName = functions.https.onRequest((request, resp)=>{
 
     let name = adj + an;
 
+    //allow all cross-origin to allow simpler dev env solution
     resp.set("Content-Type", "text/plain");
     resp.set("Access-Control-Allow-Origin","*");
     resp.send(JSON.stringify({name: name}));

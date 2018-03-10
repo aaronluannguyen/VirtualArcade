@@ -17,8 +17,6 @@ class App extends Component {
       playerController: undefined,
     }
 
-
-
   }
 
   componentDidMount() {
@@ -42,7 +40,8 @@ class App extends Component {
 
   render() {
     
-    //console.log("username", this.state.playerController ? this.state.playerController.getName() : "player not init'd");
+    //show game win/loss results and motivational messages as part of this top level view, this is a less obtrusive
+    //result status message for mobile devices than a modal, and MVP solution for lower priority feature
 
     return (
       <div className="App">

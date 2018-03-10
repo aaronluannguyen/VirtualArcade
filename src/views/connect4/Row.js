@@ -13,20 +13,8 @@ export default class Row extends React.Component{
         }
     }
 
-    componentWillMount(){
-        //console.log("Row will mount");
-
-    }
-
     render() {
         let rows = []
-        // let lastY = 7;
-        // for (let i = 0; i < 8; i++) {
-        //     if (this.props.col[i]){
-        //         lastY = i;
-        //         break;
-        //     }
-        // }
 
         for (let i = 0; i < 8; i++) {
             rows.push(<Tile key={"row_"+this.state.index+"_tile_"+i} grid={this.state.grid} tile={this.props.row[i]} col={this.state.index} row={i} gcontroller={this.state.gcontroller} pcontroller={this.state.pcontroller}/>)

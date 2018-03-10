@@ -22,7 +22,6 @@ export default class Q20 extends React.Component{
     }
 
     handleResponse(response) {
-        //console.log("getting cloud vision response");
         return response.json();
     }
 

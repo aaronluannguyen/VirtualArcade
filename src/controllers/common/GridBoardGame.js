@@ -16,7 +16,6 @@ export class GridBoardGame {
         
         }   
 
-        //console.log("gridboardgame gameInfo", gameInfo)
         //game info actually sends moves between users and firebase
         gameInfo.addDataCallback((data)=>this.handleOtherUserMove(data));
 
@@ -28,14 +27,8 @@ export class GridBoardGame {
 
         if((winner = this.controllerModelRef.grid.placeToken(x, y, playerId)) != false) 
         {
-            //console.log("winner or tie");
-
             if(winner != TIE_CONDITION){
                 winner = playerId;
-                //console.log("winner", winner);
-            }
-            else {
-                //console.log("tie", winner);
             }
 
             this.controllerModelRef.gameInfo.updateInfo({winnerPlayerId: winner})
@@ -45,11 +38,8 @@ export class GridBoardGame {
 
     handleClick(x, y){
 
-        //this move also needs to be sent to Firebase which will in turn be sent to the other player
- 
+        //this move also needs to be sent to Firebase which will in turn be sent to the other player 
         let playerId = this.controllerModelRef.pcontroller.getPlayerId();
-
-        //console.log("outgoing move");
 
         this.controllerModelRef.gameInfo.updateInfo({
             actions:{
@@ -68,10 +58,6 @@ export class GridBoardGame {
     }
 
     handleOtherUserMove(data){
-
-        //console.log("incoming move");
-
-        //console.log("handleusermove", data);
 
         if(!data || !data.actions){
             console.error("no actions to perform");
