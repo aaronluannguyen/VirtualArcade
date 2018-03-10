@@ -1,5 +1,8 @@
 import firebase from "firebase/app";
 
+export const TIE_CONDITION = "Tie";
+export const FORFEIT_CONDITION = "Forfeit";
+
 export default class GameInfo{
     /**
      * Encapsulates connection to Firebase and provides interfaces for other code
@@ -20,8 +23,8 @@ export default class GameInfo{
             localInfo: undefined,
         }
 
-        //console.log("gameinfo, gamesnap", gameSnap);
-        //console.log("loadcallback", loadCallback);
+        ////console.log("gameinfo, gamesnap", gameSnap);
+        ////console.log("loadcallback", loadCallback);
         
         //begin watching the actual game room
         this.data.roomRef = firebase.database().ref(`/game/${gameSnap.val().gameTypeId}/${gameSnap.val().roomKey}`);
@@ -32,7 +35,7 @@ export default class GameInfo{
 
             this._handleDataCallback(data); 
            
-            //console.log("loadcallback value", loadCallback);
+            ////console.log("loadcallback value", loadCallback);
 
             loadCallback();
 
@@ -44,7 +47,7 @@ export default class GameInfo{
             }
         });
 
-        //console.log("roomref", this.data.roomRef)
+        ////console.log("roomref", this.data.roomRef)
         
 
     }
@@ -53,13 +56,20 @@ export default class GameInfo{
         this.data.roomRef.off("value", this._dataValueListener);
     }
 
+    forfeitGame(playerId){
+        if(this.getWinner() === undefined)
+        {
+            this.updateInfo({winnerPlayerId:FORFEIT_CONDITION+":" + playerId});
+        }
+    }
+
     /**
      * Internal abstraction in case firebase layout needs to change
      * @private
      */
     _getGameState(){
 
-        //console.log("gameroomsnap", this.data.gameRoomSnap)
+        ////console.log("gameroomsnap", this.data.gameRoomSnap)
 
         if(this.data.gameRoomSnap && !this.data.staleSnap)
             return this.data.gameRoomSnap.val();
@@ -96,12 +106,12 @@ export default class GameInfo{
         this.data.staleSnap = true;
 
         let gameState = this._getGameState();
-        console.log("checking game state exists");
+        //console.log("checking game state exists");
 
 
         if(gameState){
             let nextPlayer = (gameState.currentPlayer+1) % gameState.numPlayers;
-            console.log("updating currentPlayer to ", nextPlayer );
+            //console.log("updating currentPlayer to ", nextPlayer );
             
             state.currentPlayer = nextPlayer;
             this.data.localInfo.currentPlayer = nextPlayer;
@@ -117,7 +127,7 @@ export default class GameInfo{
             //edge seems to add this to state as undefined if it doesnt exist, using hasOwnProperty to check for presence
             //before checking for value... not the best solution, but it seems to be working
             if(state.hasOwnProperty("winnerPlayerId") && state.winnerPlayerId != undefined) {
-                console.log("winner in updateinfo", state.winnerPlayerId)
+                //console.log("winner in updateinfo", state.winnerPlayerId)
                 this.data.localInfo.winnerPlayerId = state.winnerPlayerId;
             }
 
@@ -199,6 +209,11 @@ export default class GameInfo{
         if(!allPlayers)
             return;
 
+        allPlayers.push({
+            playerId: "Google", 
+            displayName:"Google Cloud Vision"}
+        );
+
         //let names = [];
 
         for(let i=0; i<allPlayers.length; i++){
@@ -221,16 +236,16 @@ export default class GameInfo{
     getWinner(){
         let winner = undefined;
         
-        //console.log("checking for winner");
+        ////console.log("checking for winner");
                 
         if(this.isInitialized()){
 
             winner = this._getGameState().winnerPlayerId;
 
-            //console.log("winner is ", winner);
+            ////console.log("winner is ", winner);
 
         }else{
-            console.log("game info not initialized");
+            //console.log("game info not initialized");
         }
 
         return winner;
@@ -243,9 +258,9 @@ export default class GameInfo{
      */
     addDataCallback(callbackFunction){
         
-        //console.log("adddatacallback", new Error().stack);  
+        ////console.log("adddatacallback", new Error().stack);  
         
-        console.log("adding game info model callback function");
+        //console.log("adding game info model callback function");
         this.data.callbackFunctions.push(callbackFunction);
 
         //also update this specific function with the newest data
@@ -266,7 +281,7 @@ export default class GameInfo{
         this.data.staleSnap = false;
         this.data.gameRoomSnap = data;
         this.data.localInfo = data.val();
-        console.log("callback, gameroomsnap", data.val())
+        //console.log("callback, gameroomsnap", data.val())
         //distribute the messages (per observer pattern)
         this.data.callbackFunctions.forEach((callback)=> callback(data.val()));
         

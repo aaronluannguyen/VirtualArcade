@@ -45,7 +45,7 @@ export default class GameChooser extends React.Component{
     render(){
 
         let playerInfo = this.props.playerInfo;
-        console.log("gamechooser instance, ", this);
+        //console.log("gamechooser instance, ", this);
 
         if(!playerInfo)
         {
@@ -64,6 +64,8 @@ export default class GameChooser extends React.Component{
             let gameInfo = playerInfo.getGame().getGameInfo();
 
             return (<div id="contain-cards-game" className="container">
+                        
+                        <button className="btn btn-primary" onClick={()=>playerInfo.forfeitGame()}>Forfeit Game</button>
                         <PlayerTurnCard currentPlayer={gameInfo.getName(gameInfo.getCurrentPlayerId())} me={playerInfo.getName()} opponent={gameInfo.getOpponentName(playerInfo.getPlayerId())} />
                         <div>{playerInfo.getGame().getView()}</div>
                     </div>

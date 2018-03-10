@@ -1,6 +1,6 @@
 //import PlayerToken from "../../models/common/Grid/PlayerToken";
-import Grid, { TIE_CONDITION } from "../../models/common/Grid/Grid";
-import GameInfo from "../../models/common/GameInfo";
+import Grid from "../../models/common/Grid/Grid";
+import GameInfo, { TIE_CONDITION } from "../../models/common/GameInfo";
 
 export class GridBoardGame {
     
@@ -16,7 +16,7 @@ export class GridBoardGame {
         
         }   
 
-        console.log("gridboardgame gameInfo", gameInfo)
+        //console.log("gridboardgame gameInfo", gameInfo)
         //game info actually sends moves between users and firebase
         gameInfo.addDataCallback((data)=>this.handleOtherUserMove(data));
 
@@ -28,14 +28,14 @@ export class GridBoardGame {
 
         if((winner = this.controllerModelRef.grid.placeToken(x, y, playerId)) != false) 
         {
-            console.log("winner or tie");
+            //console.log("winner or tie");
 
             if(winner != TIE_CONDITION){
                 winner = playerId;
-                console.log("winner", winner);
+                //console.log("winner", winner);
             }
             else {
-                console.log("tie", winner);
+                //console.log("tie", winner);
             }
 
             this.controllerModelRef.gameInfo.updateInfo({winnerPlayerId: winner})
@@ -49,7 +49,7 @@ export class GridBoardGame {
  
         let playerId = this.controllerModelRef.pcontroller.getPlayerId();
 
-        console.log("outgoing move");
+        //console.log("outgoing move");
 
         this.controllerModelRef.gameInfo.updateInfo({
             actions:{
@@ -69,9 +69,9 @@ export class GridBoardGame {
 
     handleOtherUserMove(data){
 
-        console.log("incoming move");
+        //console.log("incoming move");
 
-        console.log("handleusermove", data);
+        //console.log("handleusermove", data);
 
         if(!data || !data.actions){
             console.error("no actions to perform");

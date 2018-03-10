@@ -17,7 +17,7 @@ export default class GameMatcher{
 
         this.createdAt = Date.now();
 
-        console.log("setting up game match", this.createdAt);
+        //console.log("setting up game match", this.createdAt);
 
         this._users_game_rooms_ref = firebase.database().ref(`/users/${playerInfo.playerId}/game_rooms`);
 
@@ -25,9 +25,9 @@ export default class GameMatcher{
 
             let value = snapshot.val();
 
-            console.log("room", value);
+            //console.log("room", value);
 
-            //console.log(value.winnerPlayerId);
+            ////console.log(value.winnerPlayerId);
 
             firebase.database().ref(`/game/${value.gameTypeId}/${value.roomKey}`).once("value", (roomSnap)=>{
                 
@@ -36,7 +36,7 @@ export default class GameMatcher{
                 if(roomValue && roomValue.winnerPlayerId==undefined){
 
                     //value = value[Object.keys(value)[0]];
-                    console.log("game room value updated, gamematcher, ", value, gameTypeId, value.gameTypeId);
+                    //console.log("game room value updated, gamematcher, ", value, gameTypeId, value.gameTypeId);
                     
                     //figure out if theres a better way to do this by API or by ref, type of on?
                     

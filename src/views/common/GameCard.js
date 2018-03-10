@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class TicTacToe extends React.Component{
+export default class GameCard extends React.Component{
     render(){
         return (
             <div className="card" id="game-card">
