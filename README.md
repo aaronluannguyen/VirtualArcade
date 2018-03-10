@@ -17,3 +17,5 @@ individual game of our web application. The remaining team member will be respon
 developing the infrastructure of the web application like the navigation between game modes, 
 user authentication, and the leaderboard display. We then plan on collaboratively styling
 our application to achieve a cohesive design for our web application.
+
+[https://ken-info343-final.firebaseapp.com/](https://ken-info343-final.firebaseapp.com/)
